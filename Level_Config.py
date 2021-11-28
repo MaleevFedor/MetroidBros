@@ -9,7 +9,7 @@ guns = []
 
 
 class Level:
-    def __init__(self, screen):
+    def __init__(self, screen, image):
         self.clock = pygame.time.Clock()
         self.speed = 0
         self.gravity = 0.0
@@ -17,11 +17,12 @@ class Level:
         self.running = True
         self.level_map = []
         self.screen = screen
-        self.image_path = ''
+        self.bg = pygame.image.load(image)
+        screen.blit(self.bg, (0, 0))
 
     def setup_level(self):
         self.tiles = pygame.sprite.Group()
-        self.player = pygame.sprite.GroupSingle()
+        self.player_sprite = pygame.sprite.GroupSingle()
 
         for row_index, row in enumerate(self.level_map):
             for col_index, col in enumerate(row):
@@ -32,14 +33,19 @@ class Level:
                     self.tiles.add(tile)
                 elif col == 'P':
                     y -= tile_size
-                    self.player.add(Player((x, y), self.gravity, self.speed, self.jump_force))
-                    self.horizontal()
+                    self.player = Player((x, y), self.gravity, self.speed, self.jump_force)
+                    self.player_sprite.add(self.player)
 
     def quit(self):
         self.running = False
 
+    def update(self):
+        self.player.update()
+        self.horizontal()
+        self.vertical()
+
     def horizontal(self):
-        player = self.player.sprite
+        player = self.player
         player.rect.x += player.direction.x * player.speed
 
         for sprite in self.tiles.sprites():
@@ -50,7 +56,7 @@ class Level:
                     player.rect.right = sprite.rect.left
 
     def vertical(self):
-        player = self.player.sprite
+        player = self.player
         player.i_hate_gravity()
 
         for sprite in self.tiles.sprites():
@@ -63,15 +69,10 @@ class Level:
                     player.rect.top = sprite.rect.bottom
 
     def render(self, screen):
-        bg = pygame.image.load(self.image_path)
-        screen.blit(bg, (0, 0))
-        self.player.update()
-        self.player.draw(screen)
-        self.horizontal()
-        self.vertical()
-        self.player.sprite.i_hate_gravity()
+        screen.blit(self.bg, (0, 0))
+        self.player_sprite.draw(screen)
+        self.player.i_hate_gravity()
         self.tiles.draw(screen)
-        self.clock.tick()
 
         font = pygame.font.Font(None, 25)
         text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
@@ -81,13 +82,11 @@ class Level:
 
 class FirstLevel(Level):
     def __init__(self, screen):
-        Level.__init__(self, screen)
+        Level.__init__(self, screen, 'BackGrounds/NeonTokyoBackground.jpg')
         self.speed = 2
         self.gravity = 0.1
         self.jump_force = -3.5
         self.screen = screen
         self.level_map = first_level
         self.setup_level()
-        self.image_path = 'BackGrounds/NeonTokyoBackground.jpg'
-        bg = pygame.image.load(self.image_path)
-        screen.blit(bg, (0, 0))
+
