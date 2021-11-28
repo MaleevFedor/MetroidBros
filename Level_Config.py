@@ -23,13 +23,15 @@ class Level:
     def setup_level(self):
         self.tiles = pygame.sprite.Group()
         self.player_sprite = pygame.sprite.GroupSingle()
+        self.tiles.add(Tile((-1, 0), 1, 720))
+        self.tiles.add(Tile((1281, 0), 1, 720))
 
         for row_index, row in enumerate(self.level_map):
             for col_index, col in enumerate(row):
                 x = col_index * tile_size
                 y = row_index * tile_size
                 if col == 'X':
-                    tile = Tile((x, y), tile_size)
+                    tile = Tile((x, y), tile_size, tile_size)
                     self.tiles.add(tile)
                 elif col == 'P':
                     y -= tile_size
@@ -59,7 +61,7 @@ class FirstLevel(Level):
         Level.__init__(self, screen, 'BackGrounds/NeonTokyoBackground.jpg')
         self.speed = 2
         self.gravity = 0.1
-        self.jump_force = -4.5
+        self.jump_force = -4.7
         self.screen = screen
         self.level_map = first_level
         self.setup_level()

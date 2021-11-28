@@ -38,6 +38,9 @@ class Player(pygame.sprite.Sprite):
         if self.extra_jumps > 0:
             self.direction.y += self.jump_force
             self.extra_jumps -= 1
+            pygame.mixer.music.load('Music/jump.wav')
+            pygame.mixer.music.play()
+
 
     def update(self, tiles):
         self.get_input()
