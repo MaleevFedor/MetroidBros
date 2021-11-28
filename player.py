@@ -42,6 +42,13 @@ class Player(pygame.sprite.Sprite):
     def update(self, tiles):
         self.get_input()
         self.rect.x += self.direction.x
+        for tile in tiles:
+            if self.rect.colliderect(tile.rect):
+                if self.direction.x > 0:
+                    self.rect.right = tile.rect.left
+                elif self.direction.x < 0:
+                    self.rect.left = tile.rect.right
+
         self.i_hate_gravity()
         self.rect.y += self.direction.y
         for tile in tiles:
@@ -49,8 +56,6 @@ class Player(pygame.sprite.Sprite):
                 if self.direction.y > 0:
                     self.rect.bottom = tile.rect.top
                     self.extra_jumps = 2
-
-                    self.direction.y = 0
                 elif self.direction.y < 0:
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
