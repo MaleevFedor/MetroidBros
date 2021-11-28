@@ -33,14 +33,28 @@ class Player(pygame.sprite.Sprite):
 
     def i_hate_gravity(self):
         self.direction.y += self.gravity
-        self.rect.y += self.direction.y
 
     def jump(self):
         if self.extra_jumps > 0:
             self.direction.y += self.jump_force
             self.extra_jumps -= 1
 
-    def update(self):
+    def update(self, tiles):
         self.get_input()
         self.rect.x += self.direction.x
+        for tile in tiles:
+            if self.rect.colliderect(self.rect):
+                if self.direction.x < 0:
+                    self.rect.left = tile.rect.right + 1
+                elif self.direction.x > 0:
+                    self.rect.right = tile.rect.left - 1
         self.i_hate_gravity()
+        self.rect.y += self.direction.y
+        for tile in tiles:
+            if self.rect.colliderect(tile.rect):
+                if self.direction.y > 0:
+                    self.extra_jumps = 2
+                    self.rect.bottom = tile.rect.top
+                    self.direction.y = 0
+                elif self.direction.y < 0:
+                    self.rect.top = tile.rect.bottom

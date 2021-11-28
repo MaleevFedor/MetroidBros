@@ -40,33 +40,7 @@ class Level:
         self.running = False
 
     def update(self):
-        self.player.update()
-        self.horizontal()
-        self.vertical()
-
-    def horizontal(self):
-        player = self.player
-        player.rect.x += player.direction.x * player.speed
-
-        for sprite in self.tiles.sprites():
-            if sprite.rect.colliderect(player.rect):
-                if player.direction.x < 0:
-                    player.rect.left = sprite.rect.right
-                elif player.direction.x > 0:
-                    player.rect.right = sprite.rect.left
-
-    def vertical(self):
-        player = self.player
-        player.i_hate_gravity()
-
-        for sprite in self.tiles.sprites():
-            if sprite.rect.colliderect(player.rect):
-                if player.direction.y > 0:
-                    player.extra_jumps = 2
-                    player.rect.bottom = sprite.rect.top
-                    player.direction.y = 0
-                elif player.direction.y < 0:
-                    player.rect.top = sprite.rect.bottom
+        self.player.update(self.tiles)
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
