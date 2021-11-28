@@ -18,4 +18,3 @@ if __name__ == '__main__':
         game.render(screen)
         pygame.display.flip()
         game.clock.tick(240)
-
