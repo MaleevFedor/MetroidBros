@@ -41,6 +41,7 @@ class Level:
 
     def update(self):
         self.player.update(self.tiles)
+        #nice cock
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
