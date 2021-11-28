@@ -14,8 +14,8 @@ first_level = [
     '                         XXX    ',
     '                                ',
     '                                ',
-    '                           XXXX ',
-    '                                ',
+    '            X              XXXX ',
+    '            X                   ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
 tile_size = 40
