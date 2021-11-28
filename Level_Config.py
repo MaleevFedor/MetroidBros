@@ -23,7 +23,6 @@ class Level:
     def setup_level(self):
         self.tiles = pygame.sprite.Group()
         self.player_sprite = pygame.sprite.GroupSingle()
-
         for row_index, row in enumerate(self.level_map):
             for col_index, col in enumerate(row):
                 x = col_index * tile_size
@@ -58,7 +57,6 @@ class Level:
     def vertical(self):
         player = self.player
         player.i_hate_gravity()
-
         for sprite in self.tiles.sprites():
             if sprite.rect.colliderect(player.rect):
                 if player.direction.y > 0:
