@@ -53,8 +53,10 @@ class Player(pygame.sprite.Sprite):
         for tile in tiles:
             if self.rect.colliderect(tile.rect):
                 if self.direction.y > 0:
-                    self.extra_jumps = 2
                     self.rect.bottom = tile.rect.top
+                    self.extra_jumps = 2
+
                     self.direction.y = 0
                 elif self.direction.y < 0:
                     self.rect.top = tile.rect.bottom
+                self.direction.y = 0

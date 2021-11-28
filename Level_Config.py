@@ -41,7 +41,6 @@ class Level:
 
     def update(self):
         self.player.update(self.tiles)
-        #nice cock
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
@@ -60,7 +59,7 @@ class FirstLevel(Level):
         Level.__init__(self, screen, 'BackGrounds/NeonTokyoBackground.jpg')
         self.speed = 2
         self.gravity = 0.1
-        self.jump_force = -3.5
+        self.jump_force = -6.5
         self.screen = screen
         self.level_map = first_level
         self.setup_level()
