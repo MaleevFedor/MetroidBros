@@ -3,7 +3,7 @@ from Level_Maps import *
 import pygame
 from Tiles import Tile
 from player import Player
-
+from Shooting import Bullet, bullets
 
 guns = []
 
@@ -44,8 +44,12 @@ class Level:
     def update(self):
         self.player.update(self.tiles)
 
+
+
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
+        for bullet in bullets:
+            bullet.update(screen)
         self.player_sprite.draw(screen)
         self.player.i_hate_gravity()
         self.tiles.draw(screen)
