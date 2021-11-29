@@ -1,6 +1,8 @@
 import pygame
 from Shooting import Bullet, bullets
 import random
+
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, gravity, speed, jump_force):
         #отхождение от туториала, сделал переменные гравитации и скорости в классе Level
@@ -10,7 +12,8 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((40, 80))
         self.image.fill('green')
         self.rect = self.image.get_rect(topleft=pos)
-
+        self.x = 0
+        self.y = 0
         #movement
         self.speed = speed
         self.gravity = gravity
@@ -35,8 +38,6 @@ class Player(pygame.sprite.Sprite):
     def i_hate_gravity(self):
         self.direction.y += self.gravity
 
-
-
     def jump(self):
         if self.extra_jumps > 0:
             self.direction.y += self.jump_force
@@ -44,12 +45,9 @@ class Player(pygame.sprite.Sprite):
             pygame.mixer.music.load('Music/jump.wav')
             pygame.mixer.music.play()
 
-
     def update(self, tiles):
         self.get_input()
         self.rect.x += self.direction.x
-
-
         for tile in tiles:
             if self.rect.colliderect(tile.rect):
                 if self.direction.x > 0:
