@@ -1,5 +1,4 @@
 import pygame
-from Shooting import Bullet, bullets
 import random
 
 
