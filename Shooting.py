@@ -16,7 +16,7 @@ class Bullet(pygame.sprite.Sprite):
         self.mouse_x = mouse_x
         self.mouse_y = mouse_y
         self.lifetime = 400
-        self.speed = 3
+        self.speed = 30
         self.x_vel = math.cos(self.angle) * self.speed
         self.y_vel = math.sin(self.angle) * self.speed
         print(self.angle)

@@ -7,8 +7,9 @@ class Player(pygame.sprite.Sprite):
         #отхождение от туториала, сделал переменные гравитации и скорости в классе Level
         #чтобы можно было менять скорость игроков и гравитацию на разных уровнях
         super().__init__()
+        self.can_jump = True
         self.speed = 1
-        self.image = pygame.Surface((40, 80))
+        self.image = pygame.Surface((40, 70))
         self.image.fill('green')
         self.rect = self.image.get_rect(topleft=pos)
         self.x = 0
@@ -38,13 +39,14 @@ class Player(pygame.sprite.Sprite):
         self.direction.y += self.gravity
 
     def jump(self):
-        if self.extra_jumps > 0:
+        if self.extra_jumps > 0 and self.can_jump:
+            if self.direction.y > 0:
+                self.direction.y = 0
             self.direction.y += self.jump_force
             self.extra_jumps -= 1
             pygame.mixer.music.load('Music/jump.wav')
             pygame.mixer.music.play()
-
-
+            self.can_jump = False
 
     def update(self, tiles):
         self.get_input()

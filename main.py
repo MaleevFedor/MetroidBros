@@ -15,6 +15,9 @@ if __name__ == '__main__':
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     game.player.jump()
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    game.player.can_jump = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -24,4 +27,4 @@ if __name__ == '__main__':
         game.update()
         game.render(screen)
         pygame.display.flip()
-        game.clock.tick(240)
+        game.clock.tick(60)
