@@ -44,6 +44,8 @@ class Player(pygame.sprite.Sprite):
             pygame.mixer.music.load('Music/jump.wav')
             pygame.mixer.music.play()
 
+
+
     def update(self, tiles):
         self.get_input()
         self.rect.x += self.direction.x

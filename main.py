@@ -1,8 +1,6 @@
 import pygame
 from Level_Config import FirstLevel
-from Shooting import Bullet, bullets
-import random
-
+from Shooting import Bullet
 
 if __name__ == '__main__':
     pygame.init()
@@ -10,6 +8,7 @@ if __name__ == '__main__':
     game = FirstLevel(screen)
     pygame.display.set_caption('Metroid Bros')
     while game.running:
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game.quit()
@@ -17,9 +16,10 @@ if __name__ == '__main__':
                 if event.key == pygame.K_SPACE:
                     game.player.jump()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_x, mouse_y = pygame.mouse.get_pos()
                 if event.button == 1:
-                    bullets.append(Bullet(game.player.rect.x + 20, game.player.rect.y + 40, mouse_x, mouse_y))
+                    mouse_x, mouse_y = pygame.mouse.get_pos()
+                    bullet_sprites = Bullet(game.player.rect.centerx, game.player.rect.centery, mouse_x, mouse_y)
+                    game.bullet_sprites.add(bullet_sprites)
 
         game.update()
         game.render(screen)

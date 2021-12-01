@@ -3,21 +3,27 @@ import pygame
 bullets = []
 
 
-class Bullet:
+
+class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y, mouse_x, mouse_y):
-        self.x = x
-        self.y = y
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((10, 10))
+        self.image.fill((255, 0, 0))
+        self.rect = self.image.get_rect()
+        self.rect.centery = y
+        self.rect.centerx = x
+        self.angle = math.atan2(mouse_y - y, mouse_x - x)
         self.mouse_x = mouse_x
         self.mouse_y = mouse_y
-        self.lifetime = 15
-        self.speed = 20
-        self.angle = math.atan2(mouse_y - y, mouse_x - x)
+        self.lifetime = 400
+        self.speed = 3
         self.x_vel = math.cos(self.angle) * self.speed
         self.y_vel = math.sin(self.angle) * self.speed
-        self.radius = 5
+        print(self.angle)
 
     def update(self, screen):
-        self.x += self.x_vel
-        self.y += self.y_vel
-        pygame.draw.circle(screen, (255, 255, 255), (self.x, self.y), self.radius)
+        self.rect.x += self.x_vel
+        self.rect.y += self.y_vel
         self.lifetime -= 1
+
+    #ToDo коллайдеры на пули

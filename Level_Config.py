@@ -3,7 +3,6 @@ from Level_Maps import *
 import pygame
 from Tiles import Tile
 from player import Player
-from Shooting import Bullet, bullets
 
 guns = []
 
@@ -22,6 +21,7 @@ class Level:
 
     def setup_level(self):
         self.tiles = pygame.sprite.Group()
+        self.bullet_sprites = pygame.sprite.Group()
         self.player_sprite = pygame.sprite.GroupSingle()
         self.tiles.add(Tile((-1, 0), 1, 720))
         self.tiles.add(Tile((1281, 0), 1, 720))
@@ -46,11 +46,16 @@ class Level:
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
-        for bullet in bullets:
+        for bullet in self.bullet_sprites:
+            if bullet.lifetime <= 0:
+                bullet.kill()
+            hits = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
             bullet.update(screen)
+
         self.player_sprite.draw(screen)
         self.player.i_hate_gravity()
         self.tiles.draw(screen)
+        self.bullet_sprites.draw(screen)
 
         font = pygame.font.Font(None, 25)
         text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
