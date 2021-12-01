@@ -3,10 +3,12 @@ import random
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, gravity, speed, jump_force):
+    def __init__(self, pos, gravity, speed, jump_force, screen):
         #отхождение от туториала, сделал переменные гравитации и скорости в классе Level
         #чтобы можно было менять скорость игроков и гравитацию на разных уровнях
         super().__init__()
+        self.screen = screen
+        self.health = 20
         self.can_jump = True
         self.speed = 1
         self.image = pygame.Surface((40, 70))
@@ -68,3 +70,7 @@ class Player(pygame.sprite.Sprite):
                 elif self.direction.y < 0:
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
+
+    def get_damage(self, damage):
+        self.health -= damage
+        print(self.health)

@@ -10,6 +10,7 @@ guns = []
 class Level:
     def __init__(self, screen, image):
         self.clock = pygame.time.Clock()
+        self.screen = screen
         self.speed = 0
         self.gravity = 0.0
         self.jump_force = 0
@@ -35,7 +36,7 @@ class Level:
                     self.tiles.add(tile)
                 elif col == 'P':
                     y -= tile_size
-                    self.player = Player((x, y), self.gravity, self.speed, self.jump_force)
+                    self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen)
                     self.player_sprite.add(self.player)
 
     def quit(self):

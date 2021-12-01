@@ -17,7 +17,9 @@ if __name__ == '__main__':
                     game.player.jump()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
-                    game.player.can_jump = True
+                    player = game.player
+                    player.can_jump = True
+                    player.get_damage(1)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     mouse_x, mouse_y = pygame.mouse.get_pos()

@@ -1,7 +1,7 @@
 import math
 import pygame
-bullets = []
 
+bullets = []
 
 
 class Bullet(pygame.sprite.Sprite):
