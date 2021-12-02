@@ -23,7 +23,7 @@ if __name__ == '__main__':
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     mouse_x, mouse_y = pygame.mouse.get_pos()
-                    bullet_sprites = Bullet(game.player.rect.centerx, game.player.rect.centery, mouse_x, mouse_y)
+                    bullet_sprites = Bullet(game.player.rect.centerx, game.player.rect.centery, mouse_x, mouse_y, game.gun)
                     game.bullet_sprites.add(bullet_sprites)
 
         game.update()

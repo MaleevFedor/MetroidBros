@@ -1,10 +1,13 @@
 from Level_Maps import *
-
+import random
 import pygame
 from Tiles import Tile
 from player import Player
 
-guns = []
+guns = {'pistol': (200, 10),
+        'shotgun': (200, 30),
+        'rpg': (200, 20),
+        'assault_r': (200, 40)}
 
 
 class Level:
@@ -18,6 +21,8 @@ class Level:
         self.level_map = []
         self.screen = screen
         self.bg = pygame.image.load(image)
+        self.gun = guns[random.choice(list(guns.keys()))]
+
         screen.blit(self.bg, (0, 0))
 
     def setup_level(self):
