@@ -19,7 +19,7 @@ class Bullet(pygame.sprite.Sprite):
         self.mouse_y = mouse_y
         self.x_vel = math.cos(self.angle) * self.speed
         self.y_vel = math.sin(self.angle) * self.speed
-        print(gun)
+
 
     def update(self, screen):
         self.rect.x += self.x_vel
