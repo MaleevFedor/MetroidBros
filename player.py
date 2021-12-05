@@ -1,5 +1,5 @@
 import pygame
-import random
+import math
 
 
 class Player(pygame.sprite.Sprite):
@@ -14,6 +14,13 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((40, 70))
         self.image.fill('green')
         self.rect = self.image.get_rect(topleft=pos)
+        self.player_weapon = pygame.Surface((50, 5), pygame.SRCALPHA)
+        self.player_weapon.fill('blue')
+
+
+
+
+
         self.x = 0
         self.y = 0
         #movement
@@ -23,10 +30,18 @@ class Player(pygame.sprite.Sprite):
         self.extra_jumps = 2
         self.direction = pygame.math.Vector2(0.0, 0.0)
 
+    def weapon_handling(self):
+        offset = pygame.math.Vector2(20, 0)
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        rel_x, rel_y = mouse_x - self.rect.x, mouse_y - self.rect.y
+        angle = (180 / math.pi) * math.atan2(rel_y, rel_x)
+        rotated_image = pygame.transform.rotozoom(self.player_weapon, -angle, 1)  # Rotate the image.
+        rotated_offset = offset.rotate(angle)
+        rect = rotated_image.get_rect(center=self.rect.center + rotated_offset)
+        self.screen.blit(rotated_image, rect)
+
     def get_input(self):
-
         keys = pygame.key.get_pressed()
-
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.direction.x = self.speed
         elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
@@ -71,6 +86,4 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
 
-    def get_damage(self, damage):
-        self.health -= damage
-        print(self.health)
+

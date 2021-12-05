@@ -15,8 +15,6 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.centerx = x
         self.lifetime, self.speed = gun
         self.angle = math.atan2(mouse_y - y, mouse_x - x)
-        self.mouse_x = mouse_x
-        self.mouse_y = mouse_y
         self.x_vel = math.cos(self.angle) * self.speed
         self.y_vel = math.sin(self.angle) * self.speed
 
@@ -26,4 +24,3 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.y += self.y_vel
         self.lifetime -= 1
 
-    #ToDo коллайдеры на пули

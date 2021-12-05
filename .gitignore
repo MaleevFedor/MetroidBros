@@ -1,4 +1,3 @@
 /.idea/
 /.venv/
-/.gitignore/
-/__paycache__/
+/__pycache__/

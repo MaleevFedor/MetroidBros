@@ -57,8 +57,8 @@ class Level:
                 bullet.kill()
             hits = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
             bullet.update(screen)
-
         self.player_sprite.draw(screen)
+        self.player.weapon_handling()
         self.player.i_hate_gravity()
         self.tiles.draw(screen)
         self.bullet_sprites.draw(screen)
