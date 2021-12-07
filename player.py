@@ -16,14 +16,9 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=pos)
         self.player_weapon = pygame.Surface((50, 5), pygame.SRCALPHA)
         self.player_weapon.fill('blue')
-
-
-
-
-
-        self.x = 0
-        self.y = 0
-        #movement
+        self.x = pos[0]
+        self.y = pos[1]
+        self.y += 30
         self.speed = speed
         self.gravity = gravity
         self.jump_force = jump_force

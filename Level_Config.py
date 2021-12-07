@@ -29,6 +29,7 @@ class Level:
         self.tiles = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
         self.player_sprite = pygame.sprite.GroupSingle()
+        self.player2_sprite = pygame.sprite.GroupSingle()
         self.tiles.add(Tile((-1, 0), 1, 720))
         self.tiles.add(Tile((1281, 0), 1, 720))
 
@@ -39,10 +40,16 @@ class Level:
                 if col == 'X':
                     tile = Tile((x, y), tile_size, tile_size)
                     self.tiles.add(tile)
-                elif col == 'P':
+                elif col == '1':
+                    print(x, y)
                     y -= tile_size
                     self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen)
                     self.player_sprite.add(self.player)
+                elif col == '2':
+                    y -= tile_size
+                    print(x, y)
+                    self.player2 = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen)
+                    self.player2_sprite.add(self.player)
 
     def quit(self):
         self.running = False
@@ -57,15 +64,18 @@ class Level:
                 bullet.kill()
             hits = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
             bullet.update(screen)
-        self.player_sprite.draw(screen)
-        self.player.weapon_handling()
-        self.player.i_hate_gravity()
         self.tiles.draw(screen)
         self.bullet_sprites.draw(screen)
         font = pygame.font.Font(None, 25)
         text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
         screen.blit(text, (0, 0))
+        self.player_sprite.draw(screen)
+        self.player.weapon_handling()
+        self.player.i_hate_gravity()
+        self.player2_sprite.draw(screen)
+        self.player2.weapon_handling()
+        self.player2.i_hate_gravity()
 
 
 class FirstLevel(Level):
