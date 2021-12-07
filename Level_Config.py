@@ -49,7 +49,7 @@ class Level:
                     y -= tile_size
                     print(x, y)
                     self.player2 = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen)
-                    self.player2_sprite.add(self.player)
+                    self.player2_sprite.add(self.player2)
 
     def quit(self):
         self.running = False
