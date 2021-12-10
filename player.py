@@ -82,3 +82,13 @@ class Player(pygame.sprite.Sprite):
                 self.direction.y = 0
 
 
+class Player2(pygame.sprite.Sprite):
+    def __init__(self, pos):
+        super().__init__()
+        self.x = pos[0]
+        self.y = pos[1]
+        self.image = pygame.Surface((40, 70))
+        self.image.fill('red')
+        self.rect = self.image.get_rect(topleft=pos)
+        self.player_weapon = pygame.Surface((50, 5), pygame.SRCALPHA)
+
