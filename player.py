@@ -3,19 +3,21 @@ import math
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, gravity, speed, jump_force, screen):
+    def __init__(self, pos, gravity, speed, jump_force, screen, weapon):
         #отхождение от туториала, сделал переменные гравитации и скорости в классе Level
         #чтобы можно было менять скорость игроков и гравитацию на разных уровнях
         super().__init__()
         self.screen = screen
-        self.health = 20
         self.can_jump = True
         self.speed = 1
         self.image = pygame.Surface((40, 70))
         self.image.fill('green')
         self.rect = self.image.get_rect(topleft=pos)
-        self.player_weapon = pygame.Surface((50, 5), pygame.SRCALPHA)
-        self.player_weapon.fill('blue')
+        self.player_weapon = pygame.image.load(weapon)
+        self.current_health = 200
+        self.maximum_health = 1000
+        self.health_bar_length = 40
+        self.health_ratio = self.maximum_health / self.health_bar_length
         self.x = pos[0]
         self.y = pos[1]
         self.y += 30
@@ -26,7 +28,7 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2(0.0, 0.0)
 
     def weapon_handling(self):
-        offset = pygame.math.Vector2(20, 0)
+        offset = pygame.math.Vector2(0, 0)
         mouse_x, mouse_y = pygame.mouse.get_pos()
         rel_x, rel_y = mouse_x - self.rect.x, mouse_y - self.rect.y
         angle = (180 / math.pi) * math.atan2(rel_y, rel_x)
@@ -34,6 +36,25 @@ class Player(pygame.sprite.Sprite):
         rotated_offset = offset.rotate(angle)
         rect = rotated_image.get_rect(center=self.rect.center + rotated_offset)
         self.screen.blit(rotated_image, rect)
+
+    def get_damage(self, amount):
+        if self.current_health > 0:
+            self.current_health -= amount
+        if self.current_health <= 0:
+            self.current_health = 0
+
+    def get_health(self, amount):
+        if self.current_health < self.maximum_health:
+            self.current_health += amount
+        if self.current_health > self.maximum_health:
+            self.current_health = self.maximum_health
+
+    def basic_health(self):
+        pygame.draw.rect(self.screen, (255, 0, 0), (self.rect.x, self.rect.y - 10, self.current_health / self.health_ratio, 5))
+
+
+
+
 
     def get_input(self):
         keys = pygame.key.get_pressed()
@@ -81,14 +102,4 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
 
-
-class Player2(pygame.sprite.Sprite):
-    def __init__(self, pos):
-        super().__init__()
-        self.x = pos[0]
-        self.y = pos[1]
-        self.image = pygame.Surface((40, 70))
-        self.image.fill('red')
-        self.rect = self.image.get_rect(topleft=pos)
-        self.player_weapon = pygame.Surface((50, 5), pygame.SRCALPHA)
 
