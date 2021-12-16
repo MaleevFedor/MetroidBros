@@ -6,7 +6,7 @@ from random import uniform
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y, mouse_x, mouse_y, gun):
         pygame.sprite.Sprite.__init__(self)
-        self.lifetime, self.speed, self.bullet_count, self.spread, self.path, self.size = gun
+        self.lifetime, self.speed, self.bullet_count, self.spread, self.path, self.size, self.delay = gun
         self.image = pygame.Surface((self.size, self.size))
         self.image.fill((0, 255, 0))
         self.rect = self.image.get_rect()

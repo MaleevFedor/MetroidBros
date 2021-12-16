@@ -4,9 +4,9 @@ import pygame
 from Tiles import Tile
 from player import Player
 
-guns = {'pistol': (200, 10, 1, 0.05, 'Weapons/Usp-s.png', 10),
-        'shotgun': (60, 10, 6, 0.2, 'Weapons/Pump Shotgun.png', 4),
-        'AWP': (250, 30, 1, 0, 'Weapons/Awp.png', 6)
+guns = {'pistol': (200, 10, 1, 0.05, 'Weapons/Usp-s.png', 10, 1),
+        'shotgun': (60, 10, 6, 0.2, 'Weapons/Pump Shotgun.png', 4, 1500),
+        'AWP': (250, 30, 1, 0, 'Weapons/Awp.png', 6, 2500)
                               }
 
 
@@ -21,7 +21,7 @@ class Level:
         self.level_map = []
         self.screen = screen
         self.bg = pygame.image.load(image)
-        self.gun = guns['AWP']
+        self.gun = guns['shotgun']
         print(self.gun)
 
         screen.blit(self.bg, (0, 0))
