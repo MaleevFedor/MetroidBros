@@ -8,6 +8,7 @@ if __name__ == '__main__':
     game = FirstLevel(screen)
     pygame.display.set_caption('Metroid Bros')
     while game.running:
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game.quit()
@@ -26,7 +27,8 @@ if __name__ == '__main__':
                 if event.button == 1:
                     mouse_x, mouse_y = pygame.mouse.get_pos()
                     for i in range(game.gun[2]):
-                        bullet_sprites = Bullet(game.player.rect.centerx, game.player.rect.centery, mouse_x, mouse_y, game.gun)
+                        bullet_sprites = Bullet(game.player.rect.centerx, game.player.rect.centery, mouse_x, mouse_y,
+                                                game.gun)
                         game.bullet_sprites.add(bullet_sprites)
 
         game.update()

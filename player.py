@@ -4,10 +4,9 @@ import math
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, gravity, speed, jump_force, screen, weapon):
-        #отхождение от туториала, сделал переменные гравитации и скорости в классе Level
-        #чтобы можно было менять скорость игроков и гравитацию на разных уровнях
         super().__init__()
         self.screen = screen
+        self.health = 20
         self.can_jump = True
         self.speed = 1
         self.image = pygame.Surface((40, 70))
@@ -50,11 +49,7 @@ class Player(pygame.sprite.Sprite):
             self.current_health = self.maximum_health
 
     def basic_health(self):
-        pygame.draw.rect(self.screen, (255, 0, 0), (self.rect.x, self.rect.y - 10, self.current_health / self.health_ratio, 5))
-
-
-
-
+        pass
 
     def get_input(self):
         keys = pygame.key.get_pressed()
@@ -102,4 +97,14 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
 
+
+class Player2(pygame.sprite.Sprite):
+    def __init__(self, pos):
+        super().__init__()
+        self.x = pos[0]
+        self.y = pos[1]
+        self.image = pygame.Surface((40, 70))
+        self.image.fill('red')
+        self.rect = self.image.get_rect(topleft=pos)
+        self.player_weapon = pygame.Surface((50, 5), pygame.SRCALPHA)
 
