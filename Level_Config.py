@@ -24,7 +24,6 @@ class Level:
         self.screen = screen
         self.bg = pygame.image.load(image)
         self.gun = guns['AWP']
-        print(self.gun)
         screen.blit(self.bg, (0, 0))
 
     def setup_level(self):
