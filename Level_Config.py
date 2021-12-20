@@ -24,6 +24,7 @@ class Level:
         self.screen = screen
         self.bg = pygame.image.load(image)
         self.gun = guns['AWP']
+        self.MANUAL_CURSOR = pygame.image.load('Crosshairs/Green.png').convert_alpha()
         screen.blit(self.bg, (0, 0))
 
     def setup_level(self):
@@ -84,6 +85,10 @@ class Level:
         self.player.weapon_handling()
         self.player.i_hate_gravity()
         self.player2_sprite.draw(screen)
+        x, y = pygame.mouse.get_pos()
+        x += 15
+        y += 15
+        screen.blit(self.MANUAL_CURSOR, (x, y))
 
     def read_pos(self, str):
         str = str.split(",")

@@ -7,8 +7,8 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((1280, 720))
     game = FirstLevel(screen)
     pygame.display.set_caption('Metroid Bros')
+    pygame.mouse.set_visible(False)
     while game.running:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game.quit()
