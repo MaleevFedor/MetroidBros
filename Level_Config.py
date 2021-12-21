@@ -5,9 +5,10 @@ from Tiles import Tile
 from network import Network
 from player import Player, Player2
 
-guns = {'pistol': (200, 10, 1, 0.05, 'GunsAssets/Usp-s.png', 10, 1000),
-        'shotgun': (60, 10, 6, 0.2, 'GunsAssets/Pump Shotgun.png', 4, 1000),
-        'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6, 1000)}
+guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 400),
+        'pistol': (200, 10, 1, 0.5, 'GunsAssets/Pistol.png', 10, 200),
+        'shotgun': (60, 10, 6, 0.2, 'GunsAssets/Pump Shotgun.png', 4, 800),
+        'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6, 1250)}
 
 
 class Level:
@@ -23,7 +24,7 @@ class Level:
         self.level_map = []
         self.screen = screen
         self.bg = pygame.image.load(image)
-        self.gun = guns['AWP']
+        self.gun = guns['usp']
         self.MANUAL_CURSOR = pygame.image.load('Crosshairs/Green.png').convert_alpha()
         screen.blit(self.bg, (0, 0))
 
@@ -48,12 +49,12 @@ class Level:
                         self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen, self.gun[4])
                         self.player_sprite.add(self.player)
                     else:
-                        self.player2 = Player2((x, y))
+                        self.player2 = Player2((x, y - 30))
                         self.player2_sprite.add(self.player2)
 
                 elif col == '2':
                     if self.i_am_player == 0:
-                        self.player2 = Player2((x, y))
+                        self.player2 = Player2((x, y - 30))
                         self.player2_sprite.add(self.player2)
                     else:
                         y -= tile_size
@@ -86,8 +87,7 @@ class Level:
         self.player.i_hate_gravity()
         self.player2_sprite.draw(screen)
         x, y = pygame.mouse.get_pos()
-        x += 15
-        y += 15
+
         screen.blit(self.MANUAL_CURSOR, (x, y))
 
     def read_pos(self, str):
