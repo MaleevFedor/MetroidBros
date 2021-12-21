@@ -1,7 +1,9 @@
 import math
 import pygame
+
 bullets = []
 from random import uniform
+
 
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y, mouse_x, mouse_y, gun):
@@ -21,7 +23,5 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.x += self.x_vel
         self.rect.y += self.y_vel
         self.lifetime -= 1
-
-
 
 
