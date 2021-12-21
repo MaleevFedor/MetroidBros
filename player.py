@@ -49,7 +49,8 @@ class Player(pygame.sprite.Sprite):
             self.current_health = self.maximum_health
 
     def basic_health(self):
-        pass
+        pygame.draw.rect(self.screen, (255, 0, 0),
+                         (self.rect.x, self.rect.y - 10, self.current_health / self.health_ratio, 5))
 
     def get_input(self):
         keys = pygame.key.get_pressed()

@@ -5,9 +5,9 @@ from Tiles import Tile
 from network import Network
 from player import Player, Player2
 
-guns = {'pistol': (200, 10, 1, 0.05, 'GunsAssets/Usp-s.png', 10),
-        'shotgun': (60, 10, 6, 0.2, 'GunsAssets/Pump Shotgun.png', 4),
-        'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6)}
+guns = {'pistol': (200, 10, 1, 0.05, 'GunsAssets/Usp-s.png', 10, 1000),
+        'shotgun': (60, 10, 6, 0.2, 'GunsAssets/Pump Shotgun.png', 4, 1000),
+        'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6, 1000)}
 
 
 class Level:
