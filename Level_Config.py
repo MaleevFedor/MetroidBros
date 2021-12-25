@@ -1,5 +1,5 @@
 from Level_Maps import *
-import random
+from random import choice
 import pygame
 from Tiles import Tile
 from network import Network
@@ -87,7 +87,8 @@ class Level:
         self.player.i_hate_gravity()
         self.player2_sprite.draw(screen)
         x, y = pygame.mouse.get_pos()
-
+        x -= 15
+        y -= 15
         screen.blit(self.MANUAL_CURSOR, (x, y))
 
     def read_pos(self, str):
