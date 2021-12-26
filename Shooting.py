@@ -1,8 +1,7 @@
 import math
 import pygame
-
-bullets = []
 from random import uniform
+bullets = []
 
 
 class Bullet(pygame.sprite.Sprite):
@@ -15,13 +14,14 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.centery = y
         self.rect.centerx = x
         self.angle = math.atan2(mouse_y - y, mouse_x - x)
-
         self.x_vel = math.cos(self.angle + uniform(-self.spread, self.spread)) * self.speed
         self.y_vel = math.sin(self.angle + uniform(-self.spread, self.spread)) * self.speed
+
 
     def update(self, screen):
         self.rect.x += self.x_vel
         self.rect.y += self.y_vel
+
         self.lifetime -= 1
 
 

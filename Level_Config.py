@@ -1,8 +1,8 @@
 from Level_Maps import *
-from random import choice
+
 import pygame
 from Tiles import Tile
-from network import Network
+from network import Network, FakeNetwork
 from player import Player, Player2
 
 guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 400),
@@ -13,8 +13,8 @@ guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 400),
 
 class Level:
     def __init__(self, screen, image):
-        self.net = Network()
-        self.i_am_player = self.net.pos[0]
+        self.net = FakeNetwork()
+        self.i_am_player = self.net.player_id
         self.clock = pygame.time.Clock()
         self.screen = screen
         self.speed = 0
@@ -24,7 +24,7 @@ class Level:
         self.level_map = []
         self.screen = screen
         self.bg = pygame.image.load(image)
-        self.gun = guns['usp']
+        self.gun = guns['shotgun']
         self.MANUAL_CURSOR = pygame.image.load('Crosshairs/Green.png').convert_alpha()
         screen.blit(self.bg, (0, 0))
 
@@ -66,6 +66,7 @@ class Level:
 
     def update(self):
         self.player.update(self.tiles)
+        self.player2.rect.topleft = self.net.exchange_player_info(self.player)
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
@@ -81,7 +82,7 @@ class Level:
         text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
         screen.blit(text, (0, 0))
-        self.player2.x, self.player2.y = self.read_pos(self.net.send(self.make_pos((self.player2.x, self.player2.y))))
+        self.player2.rect.x, self.player2.y = self.net.player_positions
         self.player_sprite.draw(screen)
         self.player.weapon_handling()
         self.player.i_hate_gravity()
@@ -107,5 +108,6 @@ class FirstLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = first_level
+        self.net.send_initial_positions((100, 100))
         self.setup_level()
 
