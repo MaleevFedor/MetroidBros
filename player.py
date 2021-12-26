@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
         self.health = 20
         self.can_jump = True
         self.speed = 1
-        self.image = pygame.Surface((40, 70))
+        self.image = pygame.Surface((57, 65))
         self.image.fill('green')
         self.rect = self.image.get_rect(topleft=pos)
         self.player_weapon = pygame.image.load(weapon)
