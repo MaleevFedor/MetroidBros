@@ -5,10 +5,11 @@ from Tiles import Tile
 from network import Network, FakeNetwork
 from player import Player, Player2
 
-guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 400),
-        'pistol': (200, 10, 1, 0.5, 'GunsAssets/Pistol.png', 10, 200),
-        'shotgun': (60, 10, 6, 0.2, 'GunsAssets/Pump Shotgun.png', 4, 800),
-        'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6, 1250)}
+guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 400, False),
+        'pistol': (200, 10, 1, 0.5, 'GunsAssets/Pistol.png', 10, 200, False),
+        'shotgun': (60, 10, 12, 0.2, 'GunsAssets/Pump Shotgun.png', 4, 800, False),
+        'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6, 1250, True),
+        'ak': (200, 10, 1, 0.03, 'GunsAssets/Ak 47.png', 10, 400, True)}
 
 
 class Level:
@@ -24,7 +25,7 @@ class Level:
         self.level_map = []
         self.screen = screen
         self.bg = pygame.image.load(image)
-        self.gun = guns['shotgun']
+        self.gun = guns['ak']
         self.MANUAL_CURSOR = pygame.image.load('Crosshairs/Green.png').convert_alpha()
         screen.blit(self.bg, (0, 0))
 

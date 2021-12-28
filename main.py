@@ -2,8 +2,10 @@ import pygame
 from Level_Config import FirstLevel
 from Shooting import Bullet
 
+
 if __name__ == '__main__':
     pygame.init()
+    holding = False
     screen = pygame.display.set_mode((1280, 720))
     game = FirstLevel(screen)
     pygame.display.set_caption('Metroid Bros')
@@ -30,11 +32,19 @@ if __name__ == '__main__':
                     mouse_x, mouse_y = pygame.mouse.get_pos()
                     if now - last_shot > game.gun[6]:
                         for i in range(game.gun[2]):
-                            bullet_sprites = Bullet(game.player.rect.centerx, game.player.rect.centery, mouse_x,
-                                                    mouse_y,
-                                                    game.gun)
+                            bullet_sprites = Bullet(game.player.rect.centerx, game.player.rect.centery, mouse_x, mouse_y, game.gun)
                             game.bullet_sprites.add(bullet_sprites)
                             last_shot = now
+        if pygame.mouse.get_pressed()[0]:
+            if game.gun[7]:
+                mouse_x, mouse_y = pygame.mouse.get_pos()
+                if now - last_shot > game.gun[6]:
+                    for i in range(game.gun[2]):
+                        bullet_sprites = Bullet(game.player.rect.centerx, game.player.rect.centery, mouse_x, mouse_y,
+                                                game.gun)
+                        game.bullet_sprites.add(bullet_sprites)
+                        last_shot = now
+
 
         game.update()
         game.render(screen)
