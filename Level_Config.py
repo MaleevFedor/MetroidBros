@@ -72,6 +72,7 @@ class Level:
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
+        hits_player = pygame.sprite.groupcollide(self.bullet_sprites, self.player2_sprite, False, True)
         for bullet in self.bullet_sprites:
             if bullet.lifetime <= 0:
                 bullet.kill()
