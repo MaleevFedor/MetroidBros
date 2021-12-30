@@ -8,7 +8,7 @@ from player import Player, Player2
 guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 400, False),
         'pistol': (200, 10, 1, 0.5, 'GunsAssets/Pistol.png', 10, 200, False),
         'shotgun': (60, 10, 12, 0.2, 'GunsAssets/Pump Shotgun.png', 4, 800, False),
-        'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6, 1250, True),
+        'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6, 1250, False),
         'ak': (200, 10, 1, 0.03, 'GunsAssets/Ak 47.png', 10, 400, True)}
 
 
@@ -67,6 +67,7 @@ class Level:
 
     def update(self):
         self.player.update(self.tiles)
+        self.net.player_positions[0] += 1
         self.player2.rect.topleft = self.net.exchange_player_info(self.player)
 
     def render(self, screen):
@@ -83,7 +84,7 @@ class Level:
         text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
         screen.blit(text, (0, 0))
-        self.player2.rect.x, self.player2.y = self.net.player_positions
+
         self.player_sprite.draw(screen)
         self.player.weapon_handling()
         self.player.i_hate_gravity()
@@ -109,6 +110,6 @@ class FirstLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = first_level
-        self.net.send_initial_positions((100, 100))
+        self.net.send_initial_positions([500, 100])
         self.setup_level()
 

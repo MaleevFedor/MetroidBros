@@ -10,7 +10,7 @@ class FakeNetwork:
             self.player_positions = initial_positions
 
         def exchange_player_info(self, player):
-            return (self.player_positions)
+            return self.player_positions
 
 
 class Network:
