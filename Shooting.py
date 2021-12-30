@@ -24,3 +24,10 @@ class Bullet(pygame.sprite.Sprite):
         self.lifetime -= 1
 
 
+guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 450, False),
+        'pistol': (200, 10, 1, 0.5, 'GunsAssets/Pistol.png', 10, 200, False),
+        'shotgun': (60, 10, 12, 0.2, 'GunsAssets/Pump Shotgun.png', 4, 800, False),
+        'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6, 1250, False),
+        'ak': (200, 17, 1, 0.30, 'GunsAssets/Ak 47.png', 9, 300, True),
+        'p90': (200, 15, 1, 0.23, 'GunsAssets/P90.png', 8, 150, True),
+        'mac10': (200, 18, 1, 0.35, 'GunsAssets/mac10.png', 8, 200, True)}
