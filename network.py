@@ -2,15 +2,15 @@ import socket
 
 
 class FakeNetwork:
-        def __init__(self):
-            self.player_id = 0
-            self.player_positions = []
+    def __init__(self):
+        self.player_id = 0
+        self.player_positions = []
 
-        def send_initial_positions(self, initial_positions):
-            self.player_positions = initial_positions
+    def send_initial_positions(self, initial_positions):
+        self.player_positions = initial_positions
 
-        def exchange_player_info(self, player):
-            return self.player_positions
+    def exchange_player_info(self, player):
+        return self.player_positions
 
 
 class Network:

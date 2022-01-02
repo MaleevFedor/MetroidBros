@@ -1,3 +1,5 @@
+from random import choice
+
 from Level_Maps import *
 
 import pygame
@@ -20,7 +22,7 @@ class Level:
         self.level_map = []
         self.screen = screen
         self.bg = pygame.image.load(image)
-        self.gun = guns['mac10']
+        self.gun = guns[choice(['usp', 'pistol', 'shotgun', 'AWP', 'ak', 'p90', 'mac10'])]
         self.MANUAL_CURSOR = pygame.image.load('Crosshairs/Green.png').convert_alpha()
         screen.blit(self.bg, (0, 0))
 
@@ -76,15 +78,14 @@ class Level:
         self.tiles.draw(screen)
         self.bullet_sprites.draw(screen)
         self.player.basic_health()
-        font = pygame.font.Font(None, 25)
-        text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
-        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
-        screen.blit(text, (0, 0))
-
         self.player_sprite.draw(screen)
         self.player.weapon_handling()
         self.player.i_hate_gravity()
         self.player2_sprite.draw(screen)
+        font = pygame.font.Font(None, 25)
+        text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
+        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
+        screen.blit(text, (0, 0))
         x, y = pygame.mouse.get_pos()
         x -= 15
         y -= 15
