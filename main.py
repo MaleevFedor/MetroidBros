@@ -5,6 +5,13 @@ import pygame
 from Level_Config import FirstLevel
 from Shooting import Bullet
 
+def shoot():
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+    for i in range(game.gun[2]):
+        bullet_sprites = Bullet(player1.rect.centerx, player1.rect.centery, mouse_x, mouse_y, game.gun)
+        game.bullet_sprites.add(bullet_sprites)
+
+
 
 if __name__ == '__main__':
     pygame.init()
@@ -69,22 +76,16 @@ if __name__ == '__main__':
                     player1.can_jump = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    mouse_x, mouse_y = pygame.mouse.get_pos()
                     if now - last_shot > game.gun[6]:
-                        for i in range(game.gun[2]):
-                            bullet_sprites = Bullet(player1.rect.centerx, player1.rect.centery, mouse_x, mouse_y, game.gun)
-                            game.bullet_sprites.add(bullet_sprites)
-                            last_shot = now
+                        shoot()
+                        last_shot = now
         if pygame.mouse.get_pressed()[0]:
             if game.gun[7]:
-                mouse_x, mouse_y = pygame.mouse.get_pos()
                 if now - last_shot > game.gun[6]:
-                    for i in range(game.gun[2]):
-                        bullet_sprites = Bullet(player1.rect.centerx, player1.rect.centery, mouse_x, mouse_y,
-                                                game.gun)
-                        game.bullet_sprites.add(bullet_sprites)
-                        last_shot = now
+                    shoot()
+                    last_shot = now
         game.update()
         game.render(screen)
         pygame.display.flip()
         game.clock.tick(60)
+
