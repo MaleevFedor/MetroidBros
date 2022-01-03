@@ -25,6 +25,8 @@ class Player(pygame.sprite.Sprite):
         self.jump_force = jump_force
         self.extra_jumps = 2
         self.direction = pygame.math.Vector2(0.0, 0.0)
+        self.right = False
+        self.left = False
 
     def weapon_handling(self):
         offset = pygame.math.Vector2(0, 0)
@@ -52,18 +54,6 @@ class Player(pygame.sprite.Sprite):
         pygame.draw.rect(self.screen, (255, 0, 0),
                          (self.rect.x, self.rect.y - 10, self.current_health / self.health_ratio, 5))
 
-    def get_input(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            self.direction.x = self.speed
-        elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            self.direction.x = -self.speed
-        else:
-            self.direction.x = 0
-
-        if keys[pygame.K_SPACE]:
-            self.jump()
-
     def i_hate_gravity(self):
         self.direction.y += self.gravity
 
@@ -78,7 +68,12 @@ class Player(pygame.sprite.Sprite):
             self.can_jump = False
 
     def update(self, tiles):
-        self.get_input()
+        if self.right:
+            self.direction.x = self.speed
+        elif self.left:
+            self.direction.x = -self.speed
+        else:
+            self.direction.x = 0
         self.rect.x += self.direction.x
         for tile in tiles:
             if self.rect.colliderect(tile.rect):
