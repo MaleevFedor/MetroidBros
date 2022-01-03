@@ -64,9 +64,17 @@ if __name__ == '__main__':
                     player1.get_damage(200)
                 elif event.key == pygame.K_2:
                     player1.get_health(200)
+                if event.key == pygame.K_a:
+                    player1.left = True
+                if event.key == pygame.K_d:
+                    player1.right = True
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     player1.can_jump = True
+                if event.key == pygame.K_a:
+                    player1.left = False
+                if event.key == pygame.K_d:
+                    player1.right = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     mouse_x, mouse_y = pygame.mouse.get_pos()
