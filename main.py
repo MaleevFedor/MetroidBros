@@ -14,6 +14,7 @@ def shoot():
 
 
 if __name__ == '__main__':
+    mouse_x, mouse_y = 0, 0
     pygame.init()
     holding = False
     screen = pygame.display.set_mode((1280, 720))
@@ -45,13 +46,19 @@ if __name__ == '__main__':
             if event.type == pygame.JOYBUTTONDOWN:
                 if event.button == button_keys['x'] or event.button == button_keys['R1']:
                     player1.jump()
+                if event.button == button_keys['left_arrow']:
+                    player1.left = True
+                if event.button == button_keys['right_arrow']:
+                    player1.right = True
             if event.type == pygame.JOYBUTTONUP:
                 if event.button == button_keys['x'] or event.button == button_keys['R1']:
                     player1.can_jump = True
+                if event.button == button_keys['left_arrow']:
+                    player1.left = False
+                if event.button == button_keys['right_arrow']:
+                    player1.right = False
             if event.type == pygame.JOYAXISMOTION:
                 analog_keys[event.axis] = event.value
-                # print(analog_keys)
-                # Horizontal Analog
                 if abs(analog_keys[0]) > .4:
                     if analog_keys[0] < -.7:
                         player1.left = True
@@ -96,4 +103,3 @@ if __name__ == '__main__':
         game.render(screen)
         pygame.display.flip()
         game.clock.tick(60)
-
