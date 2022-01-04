@@ -40,7 +40,8 @@ if __name__ == '__main__':
         now = pygame.time.get_ticks()
         for event in pygame.event.get():
             if event.type == pygame.JOYBUTTONDOWN:
-                print(event.joy)
+                if len(joysticks) == 1:
+                    event.joy += 1
                 if event.button == button_keys['x'] or event.button == button_keys['R1']:
                     if event.joy == 0:
                         player1.jump()
@@ -57,6 +58,8 @@ if __name__ == '__main__':
                     if event.joy == 1:
                         player2.right = True
             if event.type == pygame.JOYBUTTONUP:
+                if len(joysticks) == 1:
+                    event.joy += 1
                 if event.button == button_keys['x'] or event.button == button_keys['R1']:
                     if event.joy == 0:
                         player1.can_jump = True
@@ -73,6 +76,8 @@ if __name__ == '__main__':
                     if event.joy == 1:
                         player2.right = False
             if event.type == pygame.JOYAXISMOTION:
+                if len(joysticks) == 1:
+                    event.joy += 1
                 if event.joy == 0:
                     analog_keys[event.axis] = event.value
                     if abs(analog_keys[0]) > .4:
