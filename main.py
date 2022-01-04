@@ -19,6 +19,8 @@ if __name__ == '__main__':
     holding = False
     screen = pygame.display.set_mode((1280, 720))
     game = FirstLevel(screen)
+    player1 = game.player
+    player2 = game.player2
     pygame.display.set_caption('Metroid Bros')
     pygame.mouse.set_visible(False)
     last_shot = -game.gun[6]
@@ -28,46 +30,71 @@ if __name__ == '__main__':
         joysticks.append(pygame.joystick.Joystick(i))
     for joystick in joysticks:
         joystick.init()
-    try:
-        gamepad1 = joysticks[0]
-        gamepad2 = joysticks[1]
-    except:
-        pass
     print(f'Всего геймпадов: {len(joysticks)}')
 
     with open(os.path.join("dualshock4_buttons.json"), 'r+') as file:
         button_keys = json.load(file)
     analog_keys = {0: 0, 1: 0, 2: 0, 3: 0, 4: -1, 5: -1}
     # настройка геймпада
-    player1 = game.player
     while game.running:
         now = pygame.time.get_ticks()
         for event in pygame.event.get():
             if event.type == pygame.JOYBUTTONDOWN:
+                print(event.joy)
                 if event.button == button_keys['x'] or event.button == button_keys['R1']:
-                    player1.jump()
+                    if event.joy == 0:
+                        player1.jump()
+                    if event.joy == 1:
+                        player2.jump()
                 if event.button == button_keys['left_arrow']:
-                    player1.left = True
+                    if event.joy == 0:
+                        player1.left = True
+                    if event.joy == 1:
+                        player2.left = True
                 if event.button == button_keys['right_arrow']:
-                    player1.right = True
+                    if event.joy == 0:
+                        player1.right = True
+                    if event.joy == 1:
+                        player2.right = True
             if event.type == pygame.JOYBUTTONUP:
                 if event.button == button_keys['x'] or event.button == button_keys['R1']:
-                    player1.can_jump = True
+                    if event.joy == 0:
+                        player1.can_jump = True
+                    if event.joy == 1:
+                        player2.can_jump = True
                 if event.button == button_keys['left_arrow']:
-                    player1.left = False
-                if event.button == button_keys['right_arrow']:
-                    player1.right = False
-            if event.type == pygame.JOYAXISMOTION:
-                analog_keys[event.axis] = event.value
-                if abs(analog_keys[0]) > .4:
-                    if analog_keys[0] < -.7:
-                        player1.left = True
-                    else:
+                    if event.joy == 0:
                         player1.left = False
-                    if analog_keys[0] > .7:
-                        player1.right = True
-                    else:
+                    if event.joy == 1:
+                        player2.left = False
+                if event.button == button_keys['right_arrow']:
+                    if event.joy == 0:
                         player1.right = False
+                    if event.joy == 1:
+                        player2.right = False
+            if event.type == pygame.JOYAXISMOTION:
+                if event.joy == 0:
+                    analog_keys[event.axis] = event.value
+                    if abs(analog_keys[0]) > .4:
+                        if analog_keys[0] < -.7:
+                            player1.left = True
+                        else:
+                            player1.left = False
+                        if analog_keys[0] > .7:
+                            player1.right = True
+                        else:
+                            player1.right = False
+                if event.joy == 1:
+                    analog_keys[event.axis] = event.value
+                    if abs(analog_keys[0]) > .4:
+                        if analog_keys[0] < -.7:
+                            player2.left = True
+                        else:
+                            player2.left = False
+                        if analog_keys[0] > .7:
+                            player2.right = True
+                        else:
+                            player2.right = False
 
             if event.type == pygame.QUIT:
                 game.quit()
@@ -103,3 +130,4 @@ if __name__ == '__main__':
         game.render(screen)
         pygame.display.flip()
         game.clock.tick(60)
+ 

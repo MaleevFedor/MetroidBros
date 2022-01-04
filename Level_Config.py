@@ -4,15 +4,12 @@ from Level_Maps import *
 
 import pygame
 from Tiles import Tile
-from network import Network, FakeNetwork
-from player import Player, Player2
+from player import Player
 from Shooting import guns
 
 
 class Level:
     def __init__(self, screen, image):
-        self.net = FakeNetwork()
-        self.i_am_player = self.net.player_id
         self.clock = pygame.time.Clock()
         self.screen = screen
         self.speed = 0
@@ -42,30 +39,20 @@ class Level:
                     tile = Tile((x, y), tile_size, tile_size)
                     self.tiles.add(tile)
                 elif col == '1':
-                    if self.i_am_player == 0:
-                        y -= tile_size
-                        self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen, self.gun[4])
-                        self.player_sprite.add(self.player)
-                    else:
-                        self.player2 = Player2((x, y - 30))
-                        self.player2_sprite.add(self.player2)
-
+                    y -= tile_size
+                    self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen, self.gun[4])
+                    self.player_sprite.add(self.player)
                 elif col == '2':
-                    if self.i_am_player == 0:
-                        self.player2 = Player2((x, y - 30))
-                        self.player2_sprite.add(self.player2)
-                    else:
-                        y -= tile_size
-                        self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen, self.gun[4])
-                        self.player_sprite.add(self.player)
+                    y -= tile_size - 10
+                    self.player2 = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen, self.gun[4])
+                    self.player2_sprite.add(self.player2)
 
     def quit(self):
         self.running = False
 
     def update(self):
         self.player.update(self.tiles)
-        self.net.player_positions[0] += 1
-        self.player2.rect.topleft = self.net.exchange_player_info(self.player)
+        self.player2.update(self.tiles)
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
@@ -81,7 +68,10 @@ class Level:
         self.player_sprite.draw(screen)
         self.player.weapon_handling()
         self.player.i_hate_gravity()
+        self.player2.basic_health()
         self.player2_sprite.draw(screen)
+        self.player2.weapon_handling()
+        self.player2.i_hate_gravity()
         font = pygame.font.Font(None, 25)
         text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
@@ -90,13 +80,6 @@ class Level:
         x -= 15
         y -= 15
         screen.blit(self.MANUAL_CURSOR, (x, y))
-
-    def read_pos(self, str):
-        str = str.split(",")
-        return int(str[0]), int(str[1])
-
-    def make_pos(self, tup):
-        return str(tup[0]) + "," + str(tup[1])
 
 
 class FirstLevel(Level):
@@ -107,6 +90,5 @@ class FirstLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = first_level
-        self.net.send_initial_positions([500, 100])
         self.setup_level()
 
