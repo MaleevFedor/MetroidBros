@@ -28,6 +28,13 @@ class Player(pygame.sprite.Sprite):
         self.right = False
         self.left = False
 
+        self.sprites = []
+        self.sprites.append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle1.png'))
+        self.sprites.append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle2.png'))
+        self.sprites.append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle3.png'))
+        self.sprites.append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle4.png'))
+        self.current_sprite = 0
+
     def weapon_handling(self):
         offset = pygame.math.Vector2(0, 0)
         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -57,6 +64,12 @@ class Player(pygame.sprite.Sprite):
     def i_hate_gravity(self):
         self.direction.y += self.gravity
 
+    def animation(self):
+        self.current_sprite += 0.15
+        if self.current_sprite >= len(self.sprites):
+            self.current_sprite = 0
+        self.image = self.sprites[int(self.current_sprite)]
+
     def jump(self):
         if self.extra_jumps > 0 and self.can_jump:
             if self.direction.y > 0:
@@ -68,6 +81,7 @@ class Player(pygame.sprite.Sprite):
             self.can_jump = False
 
     def update(self, tiles):
+        self.animation()
         if self.right:
             self.direction.x = self.speed
         elif self.left:
