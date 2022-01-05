@@ -42,7 +42,7 @@ class Level:
                 elif col == '1':
                     y -= tile_size
                     self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen,
-                                         self.gun[4], 'blue', True)
+                                         self.gun[4], 'green', True)
                     self.player_sprite.add(self.player)
                     self.cursor1 = pygame.image.load(f'Crosshairs/{self.player.color}.png').convert_alpha()
                 elif col == '2':
