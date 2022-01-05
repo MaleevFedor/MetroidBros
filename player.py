@@ -43,6 +43,8 @@ class Player(pygame.sprite.Sprite):
         rotated_image = pygame.transform.rotozoom(self.player_weapon, -angle, 1)  # Rotate the image.
         rotated_offset = offset.rotate(angle)
         rect = rotated_image.get_rect(center=self.rect.center + rotated_offset)
+        rect[0] += 7
+        rect[1] += 10
         self.screen.blit(rotated_image, rect)
 
     def get_damage(self, amount):
@@ -65,7 +67,7 @@ class Player(pygame.sprite.Sprite):
         self.direction.y += self.gravity
 
     def animation(self):
-        self.current_sprite += 0.15
+        self.current_sprite += 0.10
         if self.current_sprite >= len(self.sprites):
             self.current_sprite = 0
         self.image = self.sprites[int(self.current_sprite)]
