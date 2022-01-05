@@ -1,5 +1,26 @@
 import pygame
 import math
+animations = {'idle': [],
+              'run': [],
+              'jump': [],
+              'fall': []}
+animations['idle'].append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle1.png'))
+animations['idle'].append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle2.png'))
+animations['idle'].append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle3.png'))
+animations['idle'].append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle4.png'))
+
+animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run1.png'))
+animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run2.png'))
+animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run3.png'))
+animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run4.png'))
+animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run5.png'))
+animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run6.png'))
+animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run7.png'))
+animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run8.png'))
+animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run9.png'))
+animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run10.png'))
+
+animations['jump'].append(pygame.image.load('DinosaursAssets/YellowDino/Hurt/Hurt1.png'))
 
 
 class Player(pygame.sprite.Sprite):
@@ -29,10 +50,7 @@ class Player(pygame.sprite.Sprite):
         self.left = False
 
         self.sprites = []
-        self.sprites.append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle1.png'))
-        self.sprites.append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle2.png'))
-        self.sprites.append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle3.png'))
-        self.sprites.append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle4.png'))
+        self.current_state = 'idle'
         self.current_sprite = 0
 
     def weapon_handling(self):
@@ -40,7 +58,7 @@ class Player(pygame.sprite.Sprite):
         mouse_x, mouse_y = pygame.mouse.get_pos()
         rel_x, rel_y = mouse_x - self.rect.x, mouse_y - self.rect.y
         angle = (180 / math.pi) * math.atan2(rel_y, rel_x)
-        rotated_image = pygame.transform.rotozoom(self.player_weapon, -angle, 1)  # Rotate the image.
+        rotated_image = pygame.transform.rotozoom(self.player_weapon, -angle, 1)
         rotated_offset = offset.rotate(angle)
         rect = rotated_image.get_rect(center=self.rect.center + rotated_offset)
         rect[0] += 7
@@ -66,11 +84,20 @@ class Player(pygame.sprite.Sprite):
     def i_hate_gravity(self):
         self.direction.y += self.gravity
 
+    def get_state(self):
+        if self.right or self.left and self.can_jump:
+            self.current_state = 'run'
+        elif not self.can_jump:
+            self.current_state = 'jump'
+        else:
+            self.current_state = 'idle'
+
     def animation(self):
+        current_animation = animations[self.current_state]
         self.current_sprite += 0.10
-        if self.current_sprite >= len(self.sprites):
+        if self.current_sprite >= len(current_animation):
             self.current_sprite = 0
-        self.image = self.sprites[int(self.current_sprite)]
+        self.image = current_animation[int(self.current_sprite)]
 
     def jump(self):
         if self.extra_jumps > 0 and self.can_jump:
@@ -83,6 +110,7 @@ class Player(pygame.sprite.Sprite):
             self.can_jump = False
 
     def update(self, tiles):
+        self.get_state()
         self.animation()
         if self.right:
             self.direction.x = self.speed
