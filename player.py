@@ -4,23 +4,20 @@ animations = {'idle': [],
               'run': [],
               'jump': [],
               'fall': []}
-animations['idle'].append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle1.png'))
-animations['idle'].append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle2.png'))
-animations['idle'].append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle3.png'))
-animations['idle'].append(pygame.image.load('DinosaursAssets/YellowDino/Idle/Idle4.png'))
+animations['idle'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Idle/Idle1.png'))
+animations['idle'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Idle/Idle2.png'))
+animations['idle'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Idle/Idle3.png'))
+animations['idle'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Idle/Idle4.png'))
 
-animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run1.png'))
-animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run2.png'))
-animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run3.png'))
-animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run4.png'))
-animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run5.png'))
-animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run6.png'))
-animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run7.png'))
-animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run8.png'))
-animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run9.png'))
-animations['run'].append(pygame.image.load('DinosaursAssets/YellowDino/Run/Run10.png'))
+animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run1.png'))
+animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run2.png'))
+animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run3.png'))
+animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run4.png'))
+animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run5.png'))
+animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run6.png'))
+animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run7.png'))
 
-animations['jump'].append(pygame.image.load('DinosaursAssets/YellowDino/Hurt/Hurt1.png'))
+animations['jump'].append(pygame.image.load('DinosaursAssets/YellowDino/jump.png'))
 
 
 class Player(pygame.sprite.Sprite):
@@ -31,7 +28,8 @@ class Player(pygame.sprite.Sprite):
         self.can_jump = True
         self.speed = 1
         self.image = pygame.Surface((56, 70))
-        self.image.fill('green')
+        self.color = 'yellow'
+        self.image.fill(self.color)
         self.rect = self.image.get_rect(topleft=pos)
         self.player_weapon = pygame.image.load(weapon)
         self.current_health = 200
@@ -85,10 +83,10 @@ class Player(pygame.sprite.Sprite):
         self.direction.y += self.gravity
 
     def get_state(self):
-        if self.right or self.left and self.can_jump:
-            self.current_state = 'run'
-        elif not self.can_jump:
+        if self.extra_jumps != 2:
             self.current_state = 'jump'
+        elif self.right or self.left:
+            self.current_state = 'run'
         else:
             self.current_state = 'idle'
 

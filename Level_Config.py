@@ -20,7 +20,8 @@ class Level:
         self.screen = screen
         self.bg = pygame.image.load(image)
         self.gun = guns[choice(['usp', 'pistol', 'shotgun', 'AWP', 'ak', 'p90', 'mac10'])]
-        self.MANUAL_CURSOR = pygame.image.load('Crosshairs/Green.png').convert_alpha()
+        self.cursor1 = None
+        self.cursor2 = None
         screen.blit(self.bg, (0, 0))
 
     def setup_level(self):
@@ -42,10 +43,12 @@ class Level:
                     y -= tile_size
                     self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen, self.gun[4])
                     self.player_sprite.add(self.player)
+                    self.cursor1 = pygame.image.load(f'Crosshairs/{self.player.color}.png').convert_alpha()
                 elif col == '2':
                     y -= tile_size - 10
                     self.player2 = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen, self.gun[4])
                     self.player2_sprite.add(self.player2)
+                    self.cursor2 = pygame.image.load(f'Crosshairs/{self.player2.color}.png').convert_alpha()
 
     def quit(self):
         self.running = False
@@ -79,7 +82,7 @@ class Level:
         x, y = pygame.mouse.get_pos()
         x -= 15
         y -= 15
-        screen.blit(self.MANUAL_CURSOR, (x, y))
+        screen.blit(self.cursor1, (x, y))
 
 
 class FirstLevel(Level):

@@ -24,12 +24,15 @@ if __name__ == '__main__':
     pygame.display.set_caption('Metroid Bros')
     pygame.mouse.set_visible(False)
     last_shot = -game.gun[6]
+    one_gamepad = False
 
     joysticks = []
     for i in range(pygame.joystick.get_count()):
         joysticks.append(pygame.joystick.Joystick(i))
     for joystick in joysticks:
         joystick.init()
+    if len(joysticks) == 1:
+        one_gamepad = True
     print(f'Всего геймпадов: {len(joysticks)}')
 
     with open(os.path.join("dualshock4_buttons.json"), 'r+') as file:
@@ -40,9 +43,12 @@ if __name__ == '__main__':
         now = pygame.time.get_ticks()
         for event in pygame.event.get():
             if event.type == pygame.JOYBUTTONDOWN:
-                if len(joysticks) == 1:
+                if one_gamepad:
                     event.joy += 1
-                if event.button == button_keys['x'] or event.button == button_keys['R1']:
+                if event.button == button_keys['R1']:
+                    shoot()
+                    last_shot = now
+                if event.button == button_keys['x']:
                     if event.joy == 0:
                         player1.jump()
                     if event.joy == 1:
@@ -58,7 +64,7 @@ if __name__ == '__main__':
                     if event.joy == 1:
                         player2.right = True
             if event.type == pygame.JOYBUTTONUP:
-                if len(joysticks) == 1:
+                if one_gamepad:
                     event.joy += 1
                 if event.button == button_keys['x'] or event.button == button_keys['R1']:
                     if event.joy == 0:
@@ -76,7 +82,7 @@ if __name__ == '__main__':
                     if event.joy == 1:
                         player2.right = False
             if event.type == pygame.JOYAXISMOTION:
-                if len(joysticks) == 1:
+                if one_gamepad:
                     event.joy += 1
                 if event.joy == 0:
                     analog_keys[event.axis] = event.value
@@ -100,6 +106,11 @@ if __name__ == '__main__':
                             player2.right = True
                         else:
                             player2.right = False
+                    if analog_keys[5] > 0:  # Right Trigger
+                        pass
+                        #shoot()
+                        #last_shot = now
+                    #ToDo fixe r2
 
             if event.type == pygame.QUIT:
                 game.quit()
