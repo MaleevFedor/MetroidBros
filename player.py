@@ -3,11 +3,12 @@ import math
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color):
+    def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color, facing_right):
         super().__init__()
         self.screen = screen
         self.health = 20
         self.can_jump = True
+        self.facing_right = facing_right
         self.speed = 1
         self.image = pygame.Surface((56, 70))
         self.color = color
@@ -28,9 +29,9 @@ class Player(pygame.sprite.Sprite):
         self.right = False
         self.left = False
         self.animations = {'idle': [],
-                      'run': [],
-                      'jump': [],
-                      'fall': []}
+                           'run': [],
+                           'jump': [],
+                           'fall': []}
         self.animations['idle'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Idle/Idle1.png'))
         self.animations['idle'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Idle/Idle2.png'))
         self.animations['idle'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Idle/Idle3.png'))
@@ -131,3 +132,4 @@ class Player(pygame.sprite.Sprite):
                 elif self.direction.y < 0:
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
+
