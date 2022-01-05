@@ -9,7 +9,6 @@ animations['idle'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Idle/Id
 animations['idle'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Idle/Idle3.png'))
 animations['idle'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Idle/Idle4.png'))
 
-animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run1.png'))
 animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run2.png'))
 animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run3.png'))
 animations['run'].append(pygame.image.load(f'DinosaursAssets/YellowDino/Run/Run4.png'))
@@ -29,7 +28,6 @@ class Player(pygame.sprite.Sprite):
         self.speed = 1
         self.image = pygame.Surface((56, 70))
         self.color = 'yellow'
-        self.image.fill(self.color)
         self.rect = self.image.get_rect(topleft=pos)
         self.player_weapon = pygame.image.load(weapon)
         self.current_health = 200
