@@ -6,10 +6,10 @@ from Level_Config import FirstLevel
 from Shooting import Bullet
 
 
-def shoot():
+def shoot(player):
     mouse_x, mouse_y = pygame.mouse.get_pos()
     for i in range(game.gun[2]):
-        bullet_sprites = Bullet(player1.rect.centerx, player1.rect.centery, mouse_x, mouse_y, game.gun)
+        bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
         game.bullet_sprites.add(bullet_sprites)
 
 
@@ -134,12 +134,12 @@ if __name__ == '__main__':
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     if now - last_shot > game.gun[6]:
-                        shoot()
+                        shoot(player1)
                         last_shot = now
         if pygame.mouse.get_pressed()[0]:
             if game.gun[7]:
                 if now - last_shot > game.gun[6]:
-                    shoot()
+                    shoot(player1)
                     last_shot = now
         game.update()
         game.render(screen)

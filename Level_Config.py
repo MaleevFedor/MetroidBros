@@ -22,6 +22,7 @@ class Level:
         self.gun = guns[choice(['usp', 'pistol', 'shotgun', 'AWP', 'ak', 'p90', 'mac10'])]
         self.cursor1 = None
         self.cursor2 = None
+        self.players_dict = {}
         screen.blit(self.bg, (0, 0))
 
     def setup_level(self):
@@ -43,18 +44,20 @@ class Level:
                 elif col == '1':
                     y -= tile_size
                     self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen,
-                                         self.gun[4], 'green', True)
+                                         self.gun[4], 'green', True, 1)
                     self.player_sprite.add(self.player)
                     self.cursor1 = pygame.image.load(f'Crosshairs/{self.player.color}.png').convert_alpha()
                 elif col == '2':
                     y -= tile_size - 10
                     self.player2 = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen,
-                                          self.gun[4], 'yellow', False)
+                                          self.gun[4], 'yellow', False, 0)
                     self.player2_sprite.add(self.player2)
                     self.cursor2 = pygame.image.load(f'Crosshairs/{self.player2.color}.png').convert_alpha()
                 elif col == 'S':
                     saw = Saw((x, y), tile_size, tile_size)
                     self.saws.add(saw)
+        self.players_dict = {0: [self.player_sprite, self.player],
+                             1: [self.player2_sprite, self.player2]}
 
     def quit(self):
         self.running = False
@@ -65,12 +68,17 @@ class Level:
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
-        hits_player = pygame.sprite.groupcollide(self.bullet_sprites, self.player2_sprite, False, True)
+        tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
         for bullet in self.bullet_sprites:
             if bullet.lifetime <= 0:
                 bullet.kill()
-            hits = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
+            bullets_player = pygame.sprite.groupcollide(self.bullet_sprites, self.players_dict[bullet.id][0], True, False)
+            for i in bullets_player:
+                self.players_dict[bullet.id][1].get_damage(200)
             bullet.update(screen)
+
+
+
         self.tiles.draw(screen)
         self.saws.draw(screen)
         self.bullet_sprites.draw(screen)

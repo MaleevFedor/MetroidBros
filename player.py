@@ -3,7 +3,7 @@ import math
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color, facing_right):
+    def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color, facing_right, id):
         super().__init__()
         self.screen = screen
         self.health = 20
@@ -14,13 +14,14 @@ class Player(pygame.sprite.Sprite):
         self.color = color
         self.rect = self.image.get_rect(topleft=pos)
         self.player_weapon = pygame.image.load(weapon)
-        self.current_health = 200
+        self.current_health = 1000
         self.maximum_health = 1000
         self.health_bar_length = 40
         self.health_ratio = self.maximum_health / self.health_bar_length
         self.x = pos[0]
         self.y = pos[1]
         self.y += 30
+        self.id = id
         self.speed = speed
         self.gravity = gravity
         self.jump_force = jump_force
@@ -65,7 +66,8 @@ class Player(pygame.sprite.Sprite):
         if self.current_health > 0:
             self.current_health -= amount
         if self.current_health <= 0:
-            self.current_health = 0
+            self.kill()
+
 
     def get_health(self, amount):
         if self.current_health < self.maximum_health:

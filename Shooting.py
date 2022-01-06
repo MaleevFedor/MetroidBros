@@ -12,12 +12,13 @@ guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 450, False),
 
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, x, y, mouse_x, mouse_y, gun):
+    def __init__(self, x, y, mouse_x, mouse_y, id,  gun):
         pygame.sprite.Sprite.__init__(self)
         self.lifetime, self.speed, self.bullet_count, self.spread, self.path, self.size, self.recoil, self.automatic = gun
         self.image = pygame.Surface((self.size, self.size))
         self.image.fill((0, 255, 0))
         self.rect = self.image.get_rect()
+        self.id = id
         self.rect.centery = y
         self.rect.centerx = x
         self.angle = atan2(mouse_y - y, mouse_x - x)
