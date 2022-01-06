@@ -76,9 +76,6 @@ class Level:
             for i in bullets_player:
                 self.players_dict[bullet.id][1].get_damage(200)
             bullet.update(screen)
-
-
-
         self.tiles.draw(screen)
         self.saws.draw(screen)
         self.bullet_sprites.draw(screen)
@@ -94,10 +91,14 @@ class Level:
         text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
         screen.blit(text, (0, 0))
-        x, y = pygame.mouse.get_pos()
+        x, y = self.player.scope
         x -= 15
         y -= 15
         screen.blit(self.cursor1, (x, y))
+        x, y = self.player2.scope
+        x -= 15
+        y -= 15
+        screen.blit(self.cursor2, (x, y))
 
 
 class FirstLevel(Level):

@@ -29,6 +29,7 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2(0.0, 0.0)
         self.right = False
         self.left = False
+        self.scope = (self.rect[0], self.rect[1])
         self.animations = {'idle': [],
                            'run': [],
                            'jump': [],

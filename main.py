@@ -7,7 +7,7 @@ from Shooting import Bullet
 
 
 def shoot(player):
-    mouse_x, mouse_y = pygame.mouse.get_pos()
+    mouse_x, mouse_y = player.scope
     for i in range(game.gun[2]):
         bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
         game.bullet_sprites.add(bullet_sprites)
@@ -21,6 +21,7 @@ if __name__ == '__main__':
     game = FirstLevel(screen)
     player1 = game.player
     player2 = game.player2
+    players = (player1, player2)
     pygame.display.set_caption('Metroid Bros')
     pygame.mouse.set_visible(False)
     last_shot = -game.gun[6]
@@ -41,76 +42,46 @@ if __name__ == '__main__':
     # настройка геймпада
     while game.running:
         now = pygame.time.get_ticks()
+        if one_gamepad or len(joysticks) == 0:
+            player1.scope = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.JOYBUTTONDOWN:
                 if one_gamepad:
                     event.joy += 1
-                if event.button == button_keys['R1']:
-                    shoot()
-                    last_shot = now
-                if event.button == button_keys['x']:
-                    if event.joy == 0:
-                        player1.jump()
-                    if event.joy == 1:
-                        player2.jump()
+                if event.button == button_keys['x'] or event.button == button_keys['L1']:
+                    players[event.joy].jump()
                 if event.button == button_keys['left_arrow']:
-                    if event.joy == 0:
-                        player1.left = True
-                    if event.joy == 1:
-                        player2.left = True
+                    players[event.joy].left = True
                 if event.button == button_keys['right_arrow']:
-                    if event.joy == 0:
-                        player1.right = True
-                    if event.joy == 1:
-                        player2.right = True
+                    players[event.joy].right = True
             if event.type == pygame.JOYBUTTONUP:
                 if one_gamepad:
                     event.joy += 1
-                if event.button == button_keys['x'] or event.button == button_keys['R1']:
-                    if event.joy == 0:
-                        player1.can_jump = True
-                    if event.joy == 1:
-                        player2.can_jump = True
+                if event.button == button_keys['x'] or event.button == button_keys['L1']:
+                    players[event.joy].can_jump = True
                 if event.button == button_keys['left_arrow']:
-                    if event.joy == 0:
-                        player1.left = False
-                    if event.joy == 1:
-                        player2.left = False
+                    players[event.joy].left = False
                 if event.button == button_keys['right_arrow']:
-                    if event.joy == 0:
-                        player1.right = False
-                    if event.joy == 1:
-                        player2.right = False
+                    players[event.joy].right = False
             if event.type == pygame.JOYAXISMOTION:
                 if one_gamepad:
                     event.joy += 1
-                if event.joy == 0:
-                    analog_keys[event.axis] = event.value
-                    if abs(analog_keys[0]) > .4:
-                        if analog_keys[0] < -.7:
-                            player1.left = True
-                        else:
-                            player1.left = False
-                        if analog_keys[0] > .7:
-                            player1.right = True
-                        else:
-                            player1.right = False
-                if event.joy == 1:
-                    analog_keys[event.axis] = event.value
-                    if abs(analog_keys[0]) > .4:
-                        if analog_keys[0] < -.7:
-                            player2.left = True
-                        else:
-                            player2.left = False
-                        if analog_keys[0] > .7:
-                            player2.right = True
-                        else:
-                            player2.right = False
-                    if analog_keys[5] > 0:  # Right Trigger
-                        pass
-                        #shoot()
-                        #last_shot = now
-                    #ToDo fixe r2
+                cur_player = players[event.joy]
+                analog_keys[event.axis] = event.value
+                if abs(analog_keys[0]) > .4:
+                    if analog_keys[0] < -.7:
+                        cur_player.left = True
+                    else:
+                        cur_player.left = False
+                    if analog_keys[0] > .7:
+                        cur_player.right = True
+                    else:
+                        cur_player.right = False
+                if analog_keys[5] > 0:  # Right Trigger
+                    pass
+                    # shoot()
+                    # last_shot = now
+                # ToDo fixe r2
 
             if event.type == pygame.QUIT:
                 game.quit()
