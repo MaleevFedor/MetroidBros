@@ -117,6 +117,7 @@ if __name__ == '__main__':
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     player1.jump()
+                    player1.can_jump = False
                 elif event.key == pygame.K_1:
                     player1.get_damage(200)
                 elif event.key == pygame.K_2:
@@ -126,8 +127,6 @@ if __name__ == '__main__':
                 if event.key == pygame.K_d:
                     player1.right = True
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_SPACE:
-                    player1.can_jump = True
                 if event.key == pygame.K_a:
                     player1.left = False
                 if event.key == pygame.K_d:

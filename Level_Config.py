@@ -60,8 +60,8 @@ class Level:
         self.running = False
 
     def update(self):
-        self.player.update(self.tiles)
-        self.player2.update(self.tiles)
+        self.player.update(self.tiles, self.saws)
+        self.player2.update(self.tiles, self.saws)
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))

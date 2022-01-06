@@ -96,7 +96,7 @@ class Player(pygame.sprite.Sprite):
         self.image = current_animation[int(self.current_sprite)]
 
     def jump(self):
-        if self.extra_jumps > 0 and self.can_jump:
+        if self.extra_jumps > 0:
             if self.direction.y > 0:
                 self.direction.y = 0
             self.direction.y += self.jump_force
@@ -105,7 +105,7 @@ class Player(pygame.sprite.Sprite):
             pygame.mixer.music.play()
             self.can_jump = False
 
-    def update(self, tiles):
+    def update(self, tiles, saws):
         self.get_state()
         self.animation()
         if self.right:
@@ -133,3 +133,6 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
 
+        for saw in saws:
+            if self.rect.colliderect(saw.rect):
+                print('you colided saw')
