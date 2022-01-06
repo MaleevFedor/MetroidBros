@@ -14,8 +14,8 @@ class Player(pygame.sprite.Sprite):
         self.color = color
         self.rect = self.image.get_rect(topleft=pos)
         self.player_weapon = pygame.image.load(weapon)
-        self.current_health = 1000
-        self.maximum_health = 1000
+        self.current_health = 200
+        self.maximum_health = self.current_health
         self.health_bar_length = 40
         self.health_ratio = self.maximum_health / self.health_bar_length
         self.x = pos[0]
@@ -27,6 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.jump_force = jump_force
         self.extra_jumps = 2
         self.direction = pygame.math.Vector2(0.0, 0.0)
+        self.killed = False
         self.right = False
         self.left = False
         self.scope = (self.rect[0], self.rect[1])
@@ -52,8 +53,10 @@ class Player(pygame.sprite.Sprite):
         self.current_sprite = 0
 
     def weapon_handling(self):
+        if self.killed:
+            return None
         offset = pygame.math.Vector2(0, 0)
-        mouse_x, mouse_y = pygame.mouse.get_pos()
+        mouse_x, mouse_y = self.scope[0], self.scope[1]
         rel_x, rel_y = mouse_x - self.rect.x, mouse_y - self.rect.y
         angle = (180 / math.pi) * math.atan2(rel_y, rel_x)
         rotated_image = pygame.transform.rotozoom(self.player_weapon, -angle, 1)
@@ -67,8 +70,10 @@ class Player(pygame.sprite.Sprite):
         if self.current_health > 0:
             self.current_health -= amount
         if self.current_health <= 0:
+            self.current_health = 0
             self.kill()
-
+            self.killed = True
+        print(amount, self.current_health)
 
     def get_health(self, amount):
         if self.current_health < self.maximum_health:

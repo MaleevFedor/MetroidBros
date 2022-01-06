@@ -74,7 +74,7 @@ class Level:
                 bullet.kill()
             bullets_player = pygame.sprite.groupcollide(self.bullet_sprites, self.players_dict[bullet.id][0], True, False)
             for i in bullets_player:
-                self.players_dict[bullet.id][1].get_damage(200)
+                self.players_dict[bullet.id][1].get_damage(bullet.damage)
             bullet.update(screen)
         self.tiles.draw(screen)
         self.saws.draw(screen)
