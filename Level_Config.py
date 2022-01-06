@@ -3,7 +3,7 @@ from random import choice
 from Level_Maps import *
 
 import pygame
-from Tiles import Tile
+from Tiles import Tile, Saw
 from player import Player
 from Shooting import guns
 
@@ -26,6 +26,7 @@ class Level:
 
     def setup_level(self):
         self.tiles = pygame.sprite.Group()
+        self.saws = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
         self.player_sprite = pygame.sprite.GroupSingle()
         self.player2_sprite = pygame.sprite.GroupSingle()
@@ -51,6 +52,9 @@ class Level:
                                           self.gun[4], 'yellow', False)
                     self.player2_sprite.add(self.player2)
                     self.cursor2 = pygame.image.load(f'Crosshairs/{self.player2.color}.png').convert_alpha()
+                elif col == 'S':
+                    saw = Saw((x, y), tile_size, tile_size)
+                    self.saws.add(saw)
 
     def quit(self):
         self.running = False
@@ -68,6 +72,7 @@ class Level:
             hits = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
             bullet.update(screen)
         self.tiles.draw(screen)
+        self.saws.draw(screen)
         self.bullet_sprites.draw(screen)
         self.player.basic_health()
         self.player_sprite.draw(screen)

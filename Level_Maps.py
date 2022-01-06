@@ -14,7 +14,7 @@ first_level = [
     '   X               X       XXX  ',
     '                                ',
     '                                ',
-    '            X              XXXX ',
+    '            X    S         XXXX ',
     '      1     X                   ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
