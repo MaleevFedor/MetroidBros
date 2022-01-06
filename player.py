@@ -73,7 +73,6 @@ class Player(pygame.sprite.Sprite):
             self.current_health = 0
             self.kill()
             self.killed = True
-        print(amount, self.current_health)
 
     def get_health(self, amount):
         if self.current_health < self.maximum_health:
