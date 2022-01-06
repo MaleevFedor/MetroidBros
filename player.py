@@ -3,7 +3,7 @@ import math
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color, facing_right):
+    def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color, facing_right, id):
         super().__init__()
         self.screen = screen
         self.health = 20
@@ -28,6 +28,8 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2(0.0, 0.0)
         self.right = False
         self.left = False
+        self.id = id
+        self.bullet_sprites = pygame.sprite.Group()
         self.animations = {'idle': [],
                            'run': [],
                            'jump': [],
@@ -105,9 +107,17 @@ class Player(pygame.sprite.Sprite):
             pygame.mixer.music.play()
             self.can_jump = False
 
-    def update(self, tiles, saws):
+    def update(self, tiles, saws, screen, enemy_sprite):
         self.get_state()
         self.animation()
+        hits_player = pygame.sprite.groupcollide(self.bullet_sprites, enemy_sprite, False, True)
+        for bullet in self.bullet_sprites:
+            if bullet.lifetime <= 0:
+                bullet.kill()
+            hits = pygame.sprite.groupcollide(tiles, self.bullet_sprites, False, True)
+            bullet.update(screen)
+
+
         if self.right:
             self.direction.x = self.speed
         elif self.left:
