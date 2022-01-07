@@ -6,7 +6,7 @@ import pygame
 from Tiles import Tile, Saw
 from player import Player
 from Shooting import guns
-
+from particle import Particle, create_particles
 
 class Level:
     def __init__(self, screen, image):
@@ -32,6 +32,7 @@ class Level:
         self.bullet_sprites = pygame.sprite.Group()
         self.player_sprite = pygame.sprite.GroupSingle()
         self.player2_sprite = pygame.sprite.GroupSingle()
+        self.particle_sprites = pygame.sprite.Group()
         self.tiles.add(Tile((-1, 0), 1, 720))
         self.tiles.add(Tile((1281, 0), 1, 720))
 
@@ -70,19 +71,25 @@ class Level:
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
-        tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
         for bullet in self.bullet_sprites:
             if bullet.lifetime <= 0:
                 bullet.kill()
             bullets_player = pygame.sprite.groupcollide(self.bullet_sprites, self.players_dict[bullet.id][0], True, False)
             for i in bullets_player:
                 self.players_dict[bullet.id][1].get_damage(bullet.damage)
+            tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
+            for hit in tiles_bullets:
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites)
             bullet.update(screen)
+        for particle in self.particle_sprites:
+            particle.update()
+
         self.tiles.draw(screen)
         self.saws.draw(screen)
         self.bullet_sprites.draw(screen)
         self.player.basic_health()
         self.player_sprite.draw(screen)
+        self.particle_sprites.draw(screen)
         self.player.weapon_handling()
         self.player.i_hate_gravity()
         self.player2.basic_health()

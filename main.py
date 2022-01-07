@@ -6,7 +6,7 @@ import pygame
 from Level_Config import TokyoLevel, ForestLevel, IndustrialLevel, ApocalypsisLevel, PlainLevel
 from Shooting import Bullet
 from game_window import GameWindow
-
+from particle import Particle, create_particles
 
 def shoot(player):
     mouse_x, mouse_y = player.scope
@@ -89,7 +89,7 @@ if __name__ == '__main__':
         if one_gamepad or len(joysticks) == 0:
             player1.scope = pygame.mouse.get_pos()
         for event in pygame.event.get():
-            print(game_window.active_level.playable)
+
             if game_window.active_level.playable:
                 if event.type == pygame.JOYBUTTONDOWN:
                     if one_gamepad:
@@ -151,6 +151,8 @@ if __name__ == '__main__':
                         if now - last_shot > game.gun[6]:
                             shoot(player1)
                             last_shot = now
+
+
             if event.type == pygame.QUIT:
                 game.quit()
 
