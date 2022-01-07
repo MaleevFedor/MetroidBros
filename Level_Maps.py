@@ -1,4 +1,4 @@
-first_level = [
+Tokyo_level = [
     '                                ',
     '                                ',
     '                                ',
@@ -16,6 +16,86 @@ first_level = [
     '                                ',
     '            X    S         XXXX ',
     '      1     X                   ',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
+
+Forest_level = [
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '               XX               ',
+    '               XX               ',
+    '               XX               ',
+    '     1X        XX        X2     ',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
+
+Industrial_level = [
+    '                                ',
+    '                                ',
+    '                                ',
+    '          XXXXXXXXXX            ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '  XXX                           ',
+    '                           XXX  ',
+    '              XXX               ',
+    '                                ',
+    '    XXX                   XXX   ',
+    '                                ',
+    '                                ',
+    '      XXS S S S S S S S XX      ',
+    '1     XX                XX    2 ',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
+
+Apocalypsis = [
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    'XXXXX                      XXXXX',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '      X                 X       ',
+    '1     XX      XXX      XX    2 ',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
+
+Plain = [
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    '                                ',
+    ' 1           XXXX           2   ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
 tile_size = 40

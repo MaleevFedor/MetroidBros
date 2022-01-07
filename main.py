@@ -1,8 +1,8 @@
 import json
 import os
-
+from random import choice
 import pygame
-from Level_Config import FirstLevel
+from Level_Config import TokyoLevel, ForestLevel, IndustrialLevel, ApocalypsisLevel, PlainLevel
 from Shooting import Bullet
 
 
@@ -18,7 +18,12 @@ if __name__ == '__main__':
     pygame.init()
     holding = False
     screen = pygame.display.set_mode((1280, 720))
-    game = FirstLevel(screen)
+    levels = {'Forest': ForestLevel(screen),
+              'Tokyo': TokyoLevel(screen),
+              'Industrial': IndustrialLevel(screen),
+              'Apocalypsis': ApocalypsisLevel(screen),
+              'Plain': PlainLevel(screen)}
+    game = levels[choice(['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain'])]
     player1 = game.player
     player2 = game.player2
     players = (player1, player2)

@@ -101,13 +101,56 @@ class Level:
         screen.blit(self.cursor2, (x, y))
 
 
-class FirstLevel(Level):
+class TokyoLevel(Level):
     def __init__(self, screen):
         Level.__init__(self, screen, 'BackGrounds/NeonTokyoBackground.jpg')
         self.speed = 4
         self.gravity = 0.3
         self.jump_force = -13
         self.screen = screen
-        self.level_map = first_level
+        self.level_map = Tokyo_level
         self.setup_level()
 
+
+class ForestLevel(Level):
+    def __init__(self, screen):
+        Level.__init__(self, screen, 'BackGrounds/Forest.png')
+        self.speed = 4
+        self.gravity = 0.3
+        self.jump_force = -13
+        self.screen = screen
+        self.level_map = Forest_level
+        self.setup_level()
+
+
+class IndustrialLevel(Level):
+    def __init__(self, screen):
+        Level.__init__(self, screen, 'BackGrounds/Industrial.png')
+        self.speed = 4
+        self.gravity = 0.3
+        self.jump_force = -13
+        self.screen = screen
+        self.level_map = Industrial_level
+        self.setup_level()
+
+
+class ApocalypsisLevel(Level):
+    def __init__(self, screen):
+        Level.__init__(self, screen, 'BackGrounds/Apocalypsis.jpg')
+        self.speed = 4
+        self.gravity = 0.3
+        self.jump_force = -13
+        self.screen = screen
+        self.level_map = Apocalypsis
+        self.setup_level()
+
+
+class PlainLevel(Level):
+    def __init__(self, screen):
+        Level.__init__(self, screen, 'BackGrounds/Plain.png')
+        self.speed = 4
+        self.gravity = 0.3
+        self.jump_force = -13
+        self.screen = screen
+        self.level_map = Plain
+        self.setup_level()
