@@ -30,7 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.killed = False
         self.right = False
         self.left = False
-        self.scope = (self.rect[0], self.rect[1])
+        self.scope = [self.rect[0], self.rect[1]]
         self.animations = {'idle': [],
                            'run': [],
                            'jump': [],

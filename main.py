@@ -39,9 +39,29 @@ if __name__ == '__main__':
     with open(os.path.join("dualshock4_buttons.json"), 'r+') as file:
         button_keys = json.load(file)
     analog_keys = {0: 0, 1: 0, 2: 0, 3: 0, 4: -1, 5: -1}
+    dead_zone = 0.2  # inner radius
+    edge_zone = 0.9  # outer radius
     # настройка геймпада
     while game.running:
         now = pygame.time.get_ticks()
+        for joystick in joysticks:
+            right_x = joystick.get_axis(2)
+            right_y = joystick.get_axis(3) * 1
+            if (-dead_zone < right_x < dead_zone) and (-dead_zone < right_y < dead_zone):
+                pass
+            else:
+                if one_gamepad:
+                    players[1].scope[0] += round(right_x * 10)
+                    players[1].scope[1] += round(right_y * 10)
+                else:
+                    if joystick == joysticks[0]:
+                        players[0].scope[0] += round(right_x * 10)
+                        players[0].scope[1] += round(right_y * 10)
+                    elif joystick == joysticks[1]:
+                        players[1].scope[0] += round(right_x * 10)
+                        players[1].scope[1] += round(right_y * 10)
+
+
         if one_gamepad or len(joysticks) == 0:
             player1.scope = pygame.mouse.get_pos()
         for event in pygame.event.get():
