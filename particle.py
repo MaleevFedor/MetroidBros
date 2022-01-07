@@ -4,7 +4,7 @@ import random
 
 class Particle(pygame.sprite.Sprite):
     # сгенерируем частицы разного размера
-    fire = [pygame.image.load('Saw/Saw1.png')]
+    fire = [pygame.image.load('Particle.png')]
     for scale in (2, 3, 4):
         fire.append(pygame.transform.scale(fire[0], (scale, scale)))
 
