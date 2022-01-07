@@ -154,7 +154,7 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 game.quit()
 
-        if pygame.mouse.get_pressed()[0]:
+        if pygame.mouse.get_pressed()[0] and game_window.active_level.playable:
             if game.gun[7]:
                 if now - last_shot > game.gun[6]:
                     shoot(player1)
