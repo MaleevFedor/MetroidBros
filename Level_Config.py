@@ -20,6 +20,7 @@ class Level:
         self.screen = screen
         self.bg = pygame.image.load(image)
         self.gun = guns[choice(['usp', 'pistol', 'shotgun', 'AWP', 'ak', 'p90', 'mac10'])]
+        self.playable = True
         self.cursor1 = None
         self.cursor2 = None
         self.players_dict = {}
@@ -63,6 +64,7 @@ class Level:
         self.running = False
 
     def update(self):
+
         self.player.update(self.tiles, self.saws)
         self.player2.update(self.tiles, self.saws)
 

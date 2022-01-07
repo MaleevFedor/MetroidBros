@@ -97,6 +97,7 @@ class Player(pygame.sprite.Sprite):
 
     def animation(self):
         current_animation = self.animations[self.current_state]
+
         self.current_sprite += 0.10
         if self.current_sprite >= len(current_animation):
             self.current_sprite = 0
