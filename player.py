@@ -102,7 +102,7 @@ class Player(pygame.sprite.Sprite):
         if self.current_sprite >= len(current_animation):
             self.current_sprite = 0
         image = current_animation[int(self.current_sprite)]
-        if self.right or self.direction.x == 0:
+        if self.facing_right:
             self.image = image
         else:
             self.image = pygame.transform.flip(image, True, False)
@@ -122,8 +122,10 @@ class Player(pygame.sprite.Sprite):
         self.animation()
         if self.right:
             self.direction.x = self.speed
+            self.facing_right = True
         elif self.left:
             self.direction.x = -self.speed
+            self.facing_right = False
         else:
             self.direction.x = 0
         self.rect.x += self.direction.x
@@ -148,6 +150,4 @@ class Player(pygame.sprite.Sprite):
         for saw in saws:
             if self.rect.colliderect(saw.rect):
                 self.direction.y = -self.direction.y
-
-
                 print('you collided saw')
