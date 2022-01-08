@@ -9,15 +9,15 @@ from game_window import GameWindow
 
 
 def shoot(player):
-    mouse_x, mouse_y = player.scope
-    for i in range(game.gun[2]):
-        bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
-        game.bullet_sprites.add(bullet_sprites)
+    if not player.killed:
+        mouse_x, mouse_y = player.scope
+        for i in range(game.gun[2]):
+            bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
+            game.bullet_sprites.add(bullet_sprites)
 
 
 def pause():
     paused = True
-
     while paused:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -36,6 +36,8 @@ def load_level():
     return GameWindow(levels[choiced])
 
 
+r21 = False
+r22 = False
 if __name__ == '__main__':
     mouse_x, mouse_y = 0, 0
     pygame.init()
@@ -96,19 +98,43 @@ if __name__ == '__main__':
                         if now - last_shot > game.gun[6]:
                             shoot(player2)
                             last_shot = now
+                    else:
+                        if not r22:
+                            if now - last_shot > game.gun[6]:
+                                shoot(player2)
+                                last_shot = now
+                        r22 = True
                 else:
                     if joystick == joysticks[0]:
                         if game.gun[7]:
                             if now - last_shot > game.gun[6]:
                                 shoot(player1)
                                 last_shot = now
+                        else:
+                            if not r21:
+                                if now - last_shot > game.gun[6]:
+                                    shoot(player1)
+                                    last_shot = now
+                            r21 = True
                     elif joystick == joysticks[1]:
                         if game.gun[7]:
                             if now - last_shot > game.gun[6]:
                                 shoot(player2)
                                 last_shot = now
-
-
+                        else:
+                            if not r22:
+                                if now - last_shot > game.gun[6]:
+                                    shoot(player2)
+                                    last_shot = now
+                            r22 = True
+            if joystick.get_axis(5) < 0:
+                if one_gamepad:
+                    r22 = False
+                else:
+                    if joystick == joysticks[0]:
+                        r21 = False
+                    elif joystick == joysticks[1]:
+                        r22 = False
         if one_gamepad or len(joysticks) == 0:
             player1.scope = pygame.mouse.get_pos()
         for event in pygame.event.get():
