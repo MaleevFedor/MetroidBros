@@ -105,7 +105,7 @@ class Level:
         font = pygame.font.Font('Fonts/m3x6.ttf', 35)
         text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
-        screen.blit(text, (2, -5))
+        screen.blit(text, (2, -7))
         font = pygame.font.Font('Fonts/orange kid.ttf', 25)
         players_hp = (round(self.player.current_health / 50), round(self.player2.current_health / 50))
         health_bar = pygame.image.load(f'HealthBars/{players_hp[0]}.png')

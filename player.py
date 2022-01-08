@@ -165,7 +165,7 @@ class Player(pygame.sprite.Sprite):
                 self.jump()
                 create_particles((self.rect.x, self.rect.y), particles, const.blood_particle_path)
                 self.extra_jumps = 0
-                self.get_damage(10)
+                self.get_damage(20)
         for tile in saws:
             if self.rect.colliderect(tile.rect):
                 if self.direction.x > 0:
@@ -174,4 +174,4 @@ class Player(pygame.sprite.Sprite):
                     self.rect.left = tile.rect.right
                 self.jump()
                 self.extra_jumps = 0
-                self.get_damage(10)
+                self.get_damage(20)
