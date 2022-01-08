@@ -13,7 +13,6 @@ class Particle(pygame.sprite.Sprite):
         self.velocity = [dx, dy]
         self.rect.x, self.rect.y = pos
         self.gravity = 0.3
-        print(1)
 
     def update(self):
         self.velocity[1] += self.gravity

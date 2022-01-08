@@ -102,10 +102,21 @@ class Level:
         self.player2_sprite.draw(screen)
         self.player2.weapon_handling()
         self.player2.i_hate_gravity()
-        font = pygame.font.Font(None, 25)
+        font = pygame.font.Font('Fonts/m3x6.ttf', 35)
         text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
-        screen.blit(text, (0, 0))
+        screen.blit(text, (2, -5))
+        font = pygame.font.Font('Fonts/orange kid.ttf', 25)
+        players_hp = (round(self.player.current_health / 50), round(self.player2.current_health / 50))
+        health_bar = pygame.image.load(f'HealthBars/{players_hp[0]}.png')
+        screen.blit(health_bar, (0, 30))
+        text = font.render(str(self.player.current_health), True, (105, 105, 105))
+        screen.blit(text, (150, 36))
+        health_bar = pygame.image.load(f'HealthBars/{players_hp[1]}.png')
+        health_bar = pygame.transform.flip(health_bar, True, False)
+        screen.blit(health_bar, (1080, 30))
+        text = font.render(str(self.player2.current_health), True, (105, 105, 105))
+        screen.blit(text, (1100, 36))
         x, y = self.player.scope
         x -= 15
         y -= 15

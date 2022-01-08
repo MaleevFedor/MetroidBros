@@ -20,7 +20,7 @@ class Saw(pygame.sprite.Sprite):
         self.current_sprite = 0
 
     def animate(self):
-        self.current_sprite += 0.10
+        self.current_sprite += 1
         if self.current_sprite >= len(const.saw_sprite_list):
             self.current_sprite = 0
         self.image = const.saw_sprite_list[int(self.current_sprite)]
