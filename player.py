@@ -151,7 +151,21 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
 
-        for saw in saws:
-            if self.rect.colliderect(saw.rect):
-                self.direction.y = -self.direction.y
-                print('you collided saw')
+        for tile in saws:
+            if self.rect.colliderect(tile.rect):
+                if self.direction.y > 0:
+                    self.rect.bottom = tile.rect.top
+                    self.extra_jumps = 2
+                elif self.direction.y < 0:
+                    self.rect.top = tile.rect.bottom
+                self.direction.y = 0
+                self.jump()
+                self.get_damage(10)
+        for tile in saws:
+            if self.rect.colliderect(tile.rect):
+                if self.direction.x > 0:
+                    self.rect.right = tile.rect.left
+                elif self.direction.x < 0:
+                    self.rect.left = tile.rect.right
+                self.jump()
+                self.get_damage(10)

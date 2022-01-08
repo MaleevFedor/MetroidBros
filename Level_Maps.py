@@ -14,7 +14,7 @@ Tokyo_level = [
     '   X               X       XXX  ',
     '                                ',
     '                                ',
-    '            X    S         XXXX ',
+    '            X              XXXX ',
     '      1     X                   ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
