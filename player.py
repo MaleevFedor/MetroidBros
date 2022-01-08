@@ -85,10 +85,6 @@ class Player(pygame.sprite.Sprite):
         if self.current_health > self.maximum_health:
             self.current_health = self.maximum_health
 
-    def basic_health(self):
-        pygame.draw.rect(self.screen, (255, 0, 0),
-                         (self.rect.x, self.rect.y - 10, self.current_health / self.health_ratio, 5))
-
     def i_hate_gravity(self):
         self.direction.y += self.gravity
 
