@@ -58,7 +58,7 @@ if __name__ == '__main__':
     players = (player1, player2)
     pygame.display.set_caption('Metroid Bros')
     pygame.mouse.set_visible(False)
-    last_shot = -game.gun[6]
+
     one_gamepad = False
 
     joysticks = []
@@ -83,6 +83,7 @@ def set_difficulty(value, difficulty):
     pass
 
 def start_the_game():
+    last_shot = -game.gun[6]
     while game.running:
         now = pygame.time.get_ticks()
         for joystick in joysticks:
