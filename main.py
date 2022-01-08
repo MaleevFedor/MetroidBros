@@ -76,6 +76,13 @@ if __name__ == '__main__':
     dead_zone = 0.2  # inner radius
     edge_zone = 0.9  # outer radius
     # настройка геймпада
+
+
+def set_difficulty(value, difficulty):
+    # Do the job here !
+    pass
+
+def start_the_game():
     while game.running:
         now = pygame.time.get_ticks()
         for joystick in joysticks:
@@ -195,16 +202,8 @@ if __name__ == '__main__':
         pygame.display.flip()
         game.clock.tick(60)
 
-def set_difficulty(value, difficulty):
-    # Do the job here !
-    pass
-
-def start_the_game():
-    # Do the job here !
-    pass
-
 menu = pygame_menu.Menu('Welcome', 400, 300,
-                       theme=pygame_menu.themes.THEME_BLUE)
+                       theme=pygame_menu.themes.THEME_SOLARIZED)
 
 menu.add.text_input('Name :', default='John Doe')
 menu.add.selector('Difficulty :', [('Hard', 1), ('Easy', 2)], onchange=set_difficulty)
