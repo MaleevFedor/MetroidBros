@@ -90,6 +90,25 @@ if __name__ == '__main__':
                         players[1].scope[0] += round(right_x * 10)
                         players[1].scope[1] += round(right_y * 10)
 
+            if joystick.get_axis(5) > 0:
+                if one_gamepad:
+                    if game.gun[7]:
+                        if now - last_shot > game.gun[6]:
+                            shoot(player2)
+                            last_shot = now
+                else:
+                    if joystick == joysticks[0]:
+                        if game.gun[7]:
+                            if now - last_shot > game.gun[6]:
+                                shoot(player1)
+                                last_shot = now
+                    elif joystick == joysticks[1]:
+                        if game.gun[7]:
+                            if now - last_shot > game.gun[6]:
+                                shoot(player2)
+                                last_shot = now
+
+
         if one_gamepad or len(joysticks) == 0:
             player1.scope = pygame.mouse.get_pos()
         for event in pygame.event.get():
