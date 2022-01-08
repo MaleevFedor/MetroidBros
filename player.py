@@ -162,6 +162,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
                 self.jump()
+                self.extra_jumps = 0
                 self.get_damage(10)
         for tile in saws:
             if self.rect.colliderect(tile.rect):
@@ -170,4 +171,5 @@ class Player(pygame.sprite.Sprite):
                 elif self.direction.x < 0:
                     self.rect.left = tile.rect.right
                 self.jump()
+                self.extra_jumps = 0
                 self.get_damage(10)
