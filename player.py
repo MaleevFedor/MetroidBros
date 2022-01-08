@@ -1,6 +1,7 @@
 import pygame
 import math
-
+from particle import Particle, create_particles
+import const
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color, facing_right, id):
@@ -121,7 +122,7 @@ class Player(pygame.sprite.Sprite):
             pygame.mixer.music.play()
             self.can_jump = False
 
-    def update(self, tiles, saws):
+    def update(self, tiles, saws, particles):
         if self.killed:
             return None
         self.get_state()
@@ -162,6 +163,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
                 self.jump()
+                create_particles((self.rect.x, self.rect.y), particles, const.blood_particle_path)
                 self.extra_jumps = 0
                 self.get_damage(10)
         for tile in saws:
