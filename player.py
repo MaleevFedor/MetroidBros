@@ -122,6 +122,8 @@ class Player(pygame.sprite.Sprite):
             self.can_jump = False
 
     def update(self, tiles, saws):
+        if self.killed:
+            return None
         self.get_state()
         self.animation()
         if self.right:

@@ -6,7 +6,7 @@ import pygame
 from Level_Config import TokyoLevel, ForestLevel, IndustrialLevel, ApocalypsisLevel, PlainLevel
 from Shooting import Bullet
 from game_window import GameWindow
-from particle import Particle, create_particles
+
 
 def shoot(player):
     mouse_x, mouse_y = player.scope
@@ -16,7 +16,6 @@ def shoot(player):
 
 
 def pause():
-
     paused = True
 
     while paused:
@@ -30,6 +29,11 @@ def pause():
         pygame.display.flip()
 
 
+def load_level():
+    level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
+    choiced = choice(level_list)
+    level_list.remove(choiced)
+    return GameWindow(levels[choiced])
 
 
 if __name__ == '__main__':
@@ -42,7 +46,7 @@ if __name__ == '__main__':
               'Industrial': IndustrialLevel(screen),
               'Apocalypsis': ApocalypsisLevel(screen),
               'Plain': PlainLevel(screen)}
-    game_window = GameWindow(ForestLevel(screen))
+    game_window = load_level()
     game = game_window.active_level
     player1 = game.player
     player2 = game.player2
@@ -89,7 +93,6 @@ if __name__ == '__main__':
         if one_gamepad or len(joysticks) == 0:
             player1.scope = pygame.mouse.get_pos()
         for event in pygame.event.get():
-
             if game_window.active_level.playable:
                 if event.type == pygame.JOYBUTTONDOWN:
                     if one_gamepad:
@@ -109,30 +112,8 @@ if __name__ == '__main__':
                         players[event.joy].left = False
                     if event.button == button_keys['right_arrow']:
                         players[event.joy].right = False
-                if event.type == pygame.JOYAXISMOTION:
-                    if one_gamepad:
-                        event.joy += 1
-                    cur_player = players[event.joy]
-                    analog_keys[event.axis] = event.value
-                    if abs(analog_keys[0]) > .4:
-                        if analog_keys[0] < -.7:
-                            cur_player.left = True
-                        else:
-                            cur_player.left = False
-                        if analog_keys[0] > .7:
-                            cur_player.right = True
-                        else:
-                            cur_player.right = False
-                    if analog_keys[5] > 0:  # Right Trigger
-                        pass
-                        # shoot()
-                        # last_shot = now
-                    # ToDo fixe r2
-
-
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        print(1)
                         player1.jump()
                         player1.can_jump = False
                     if event.key == pygame.K_ESCAPE:
@@ -151,12 +132,10 @@ if __name__ == '__main__':
                         if now - last_shot > game.gun[6]:
                             shoot(player1)
                             last_shot = now
-
-
             if event.type == pygame.QUIT:
                 game.quit()
 
-        if pygame.mouse.get_pressed()[0] and game_window.active_level.playable:
+        if pygame.mouse.get_pressed()[0]:
             if game.gun[7]:
                 if now - last_shot > game.gun[6]:
                     shoot(player1)
