@@ -17,7 +17,7 @@ class Bullet(pygame.sprite.Sprite):
         self.lifetime, self.speed, self.bullet_count, self.spread, self.path, self.size, self.recoil, self.automatic,\
         self.damage = gun
         self.image = pygame.Surface((self.size, self.size))
-        self.image = pygame.transform.scale(pygame.image.load('GunsAssets/Bullet.png'), (self.size, self.size))
+        self.image = pygame.transform.scale(pygame.image.load('GunsAssets/Bullet2.png'), (self.size, self.size))
         self.rect = self.image.get_rect()
         self.id = id
         self.rect.centery = y
