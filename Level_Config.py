@@ -24,6 +24,7 @@ class Level:
         self.cursor1 = None
         self.cursor2 = None
         self.players_dict = {}
+        self.playable = True
         screen.blit(self.bg, (0, 0))
 
     def setup_level(self):

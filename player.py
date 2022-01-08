@@ -35,7 +35,8 @@ class Player(pygame.sprite.Sprite):
         self.animations = {'idle': [],
                            'run': [],
                            'jump': [],
-                           'fall': []}
+                           'fall': [],
+                           'hurt': []}
         self.animations['idle'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Idle/Idle1.png'))
         self.animations['idle'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Idle/Idle2.png'))
         self.animations['idle'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Idle/Idle3.png'))
@@ -49,6 +50,10 @@ class Player(pygame.sprite.Sprite):
         self.animations['run'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Run/Run6.png'))
 
         self.animations['jump'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/jump.png'))
+
+        self.animations['hurt'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Hurt/Hurt1.png'))
+        self.animations['hurt'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Hurt/Hurt2.png'))
+        self.animations['hurt'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Hurt/Hurt3.png'))
         self.sprites = []
         self.current_state = 'idle'
         self.current_sprite = 0
@@ -164,14 +169,5 @@ class Player(pygame.sprite.Sprite):
                 self.direction.y = 0
                 self.jump()
                 create_particles((self.rect.x, self.rect.y), particles, const.blood_particle_path)
-                self.extra_jumps = 0
-                self.get_damage(10)
-        for tile in saws:
-            if self.rect.colliderect(tile.rect):
-                if self.direction.x > 0:
-                    self.rect.right = tile.rect.left
-                elif self.direction.x < 0:
-                    self.rect.left = tile.rect.right
-                self.jump()
                 self.extra_jumps = 0
                 self.get_damage(10)

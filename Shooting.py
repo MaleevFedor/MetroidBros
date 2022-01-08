@@ -3,7 +3,7 @@ import pygame
 from random import uniform
 bullets = []
 guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 450, False, 47),
-        'pistol': (200, 10, 1, 0.1, 'GunsAssets/Pistol.png', 10, 200, False,20),
+        'pistol': (200, 10, 1, 0.1, 'GunsAssets/Pistol.png', 10, 200, False, 20),
         'shotgun': (60, 10, 12, 0.2, 'GunsAssets/Pump Shotgun.png', 4, 800, False, 15),
         'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6, 1250, False, 200),
         'ak': (200, 17, 1, 0.30, 'GunsAssets/Ak 47.png', 9, 300, True, 50),
@@ -17,7 +17,7 @@ class Bullet(pygame.sprite.Sprite):
         self.lifetime, self.speed, self.bullet_count, self.spread, self.path, self.size, self.recoil, self.automatic,\
         self.damage = gun
         self.image = pygame.Surface((self.size, self.size))
-        self.image.fill((0, 255, 0))
+        self.image = pygame.transform.scale(pygame.image.load('GunsAssets/Bullet.png'), (self.size, self.size))
         self.rect = self.image.get_rect()
         self.id = id
         self.rect.centery = y
