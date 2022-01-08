@@ -57,9 +57,13 @@ class Player(pygame.sprite.Sprite):
             return None
         offset = pygame.math.Vector2(0, 0)
         mouse_x, mouse_y = self.scope[0], self.scope[1]
-        rel_x, rel_y = mouse_x - self.rect.x, mouse_y - self.rect.y
+        rel_x, rel_y = mouse_x - self.rect.x - 7, mouse_y - self.rect.y - 10
         angle = (180 / math.pi) * math.atan2(rel_y, rel_x)
-        rotated_image = pygame.transform.rotozoom(self.player_weapon, -angle, 1)
+        if not -90 < angle < 90:
+            rotated_image = pygame.transform.rotozoom(self.player_weapon, angle, 1)
+            rotated_image = pygame.transform.flip(rotated_image, False, True)
+        else:
+            rotated_image = pygame.transform.rotozoom(self.player_weapon, -angle, 1)
         rotated_offset = offset.rotate(angle)
         rect = rotated_image.get_rect(center=self.rect.center + rotated_offset)
         rect[0] += 7
