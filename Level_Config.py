@@ -85,7 +85,8 @@ class Level:
             bullet.update(screen)
         for particle in self.particle_sprites:
             particle.update()
-
+        for i in self.saws:
+            i.animate()
         self.tiles.draw(screen)
         self.saws.draw(screen)
         self.bullet_sprites.draw(screen)
