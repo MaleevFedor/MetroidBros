@@ -35,4 +35,8 @@ class Options:
 
     def render(self, screen):
         screen.fill(self.bg_color)
+        font = pygame.font.Font(None, 25)
+        text = font.render(f"OPTIONS", True, (100, 255, 100))
+        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
+        screen.blit(text, (0, 0))
 

@@ -1,7 +1,7 @@
 from random import choice
 
 from Level_Maps import *
-
+import const
 import pygame
 from Tiles import Tile, Saw
 from player import Player
@@ -70,16 +70,18 @@ class Level:
         self.player2.update(self.tiles, self.saws)
 
     def render(self, screen):
+
         screen.blit(self.bg, (0, 0))
         for bullet in self.bullet_sprites:
             if bullet.lifetime <= 0:
                 bullet.kill()
             bullets_player = pygame.sprite.groupcollide(self.bullet_sprites, self.players_dict[bullet.id][0], True, False)
-            for i in bullets_player:
+            for hit in bullets_player:
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
                 self.players_dict[bullet.id][1].get_damage(bullet.damage)
             tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
             for hit in tiles_bullets:
-                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites)
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
             bullet.update(screen)
         for particle in self.particle_sprites:
             particle.update()
