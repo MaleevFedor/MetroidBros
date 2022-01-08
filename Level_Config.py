@@ -158,6 +158,9 @@ class IndustrialLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = Industrial_level
+        pygame.mixer.music.load('Music/industrial.mp3')
+        pygame.mixer.music.play(50)
+        print('adsasf')
         self.setup_level()
 
 

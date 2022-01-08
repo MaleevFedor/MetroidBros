@@ -118,8 +118,7 @@ class Player(pygame.sprite.Sprite):
                 self.direction.y = 0
             self.direction.y += self.jump_force
             self.extra_jumps -= 1
-            pygame.mixer.music.load('Music/jump.wav')
-            pygame.mixer.music.play()
+            pygame.mixer.Sound.play(pygame.mixer.Sound('Music/jump.wav'))
             self.can_jump = False
 
     def update(self, tiles, saws, particles):

@@ -32,25 +32,27 @@ def pause():
 
 
 def load_level():
-    level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
     choiced = choice(level_list)
-    level_list.remove(choiced)
-    return GameWindow(levels[choiced])
+    if choiced == 'Forest':
+        return GameWindow(ForestLevel(screen))
+    elif choiced == 'Tokyo':
+        return GameWindow(TokyoLevel(screen))
+    elif choiced == 'Industrial':
+        return GameWindow(IndustrialLevel(screen))
+    elif choiced == 'Apocalypsis':
+        return GameWindow(ApocalypsisLevel(screen))
+    elif choiced == 'Plain':
+        return GameWindow(PlainLevel(screen))
 
 
-
-r21 = False
-r22 = False
 if __name__ == '__main__':
+    r21 = False
+    r22 = False
+    level_list = ['Industrial']
     mouse_x, mouse_y = 0, 0
     pygame.init()
     holding = False
     screen = pygame.display.set_mode((1280, 720))
-    levels = {'Forest': ForestLevel(screen),
-              'Tokyo': TokyoLevel(screen),
-              'Industrial': IndustrialLevel(screen),
-              'Apocalypsis': ApocalypsisLevel(screen),
-              'Plain': PlainLevel(screen)}
     game_window = load_level()
     game = game_window.active_level
     player1 = game.player
@@ -81,6 +83,7 @@ if __name__ == '__main__':
 def set_difficulty(value, difficulty):
     # Do the job here !
     pass
+
 
 def start_the_game():
     last_shot = -game.gun[6]
@@ -190,9 +193,6 @@ def start_the_game():
                             last_shot = now
             if event.type == pygame.QUIT:
                 game.quit()
-
-
-
         if pygame.mouse.get_pressed()[0] and game_window.active_level.playable:
             if game.gun[7]:
                 if now - last_shot > game.gun[6]:
@@ -203,8 +203,9 @@ def start_the_game():
         pygame.display.flip()
         game.clock.tick(60)
 
-menu = pygame_menu.Menu('Welcome', 400, 300,
-                       theme=pygame_menu.themes.THEME_SOLARIZED)
+
+menu = pygame_menu.Menu('Welcome', 1280, 720,
+                        theme=pygame_menu.themes.THEME_SOLARIZED)
 
 menu.add.text_input('Name :', default='John Doe')
 menu.add.selector('Difficulty :', [('Hard', 1), ('Easy', 2)], onchange=set_difficulty)
