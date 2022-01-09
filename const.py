@@ -12,6 +12,7 @@ saw_sprite_list.append(pygame.image.load('Saw/Saw5.png'))
 saw_sprite_list.append(pygame.image.load('Saw/Saw6.png'))
 saw_sprite_list.append(pygame.image.load('Saw/Saw7.png'))
 saw_sprite_list.append(pygame.image.load('Saw/Saw8.png'))
+level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
 button_keys = {
     "x": 0,
     "circle": 1,

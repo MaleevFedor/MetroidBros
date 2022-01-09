@@ -1,3 +1,4 @@
+import os
 from random import choice
 import const
 from const import button_keys
@@ -78,7 +79,7 @@ if __name__ == '__main__':
 
 def set_difficulty(value, difficulty):
 
-    game_window.active_level = load_level()
+  pass
 
 
 def start_the_game():
@@ -202,11 +203,12 @@ def start_the_game():
 
 mytheme = pygame_menu.themes.THEME_ORANGE.copy()
 myimage = pygame_menu.baseimage.BaseImage(
-    image_path='BackGrounds/NeonTokyoBackground.jpg',
+
+    image_path=f'BackGrounds/{choice(os.listdir("BackGrounds/"))}',
     drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY
 )
 mytheme.background_color = myimage
-menu = pygame_menu.Menu('Welcome', screen.get_width(), screen.get_height(),
+menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
                        theme=mytheme)
 
 selected_level = menu.add.selector('Level:', [('Forest', 1), ('Tokyo', 2), ('Industrial', 3), ('Apocalypsis', 4), ('Plain', 5)], onchange=set_difficulty)
