@@ -1,4 +1,5 @@
 import os
+import sys
 from random import choice
 import const
 from const import button_keys
@@ -78,7 +79,6 @@ if __name__ == '__main__':
 
 
 def set_difficulty(value, difficulty):
-
   pass
 
 
@@ -149,48 +149,47 @@ def start_the_game():
         if one_gamepad or len(joysticks) == 0:
             player1.scope = pygame.mouse.get_pos()
         for event in pygame.event.get():
-            if game_window.active_level.playable:
-                if event.type == pygame.JOYBUTTONDOWN:
-                    if one_gamepad:
-                        event.joy += 1
-                    if event.button == button_keys['x'] or event.button == button_keys['L1']:
-                        players[event.joy].jump()
-                    if event.button == button_keys['left_arrow']:
-                        players[event.joy].left = True
-                    if event.button == button_keys['right_arrow']:
-                        players[event.joy].right = True
-                if event.type == pygame.JOYBUTTONUP:
-                    if one_gamepad:
-                        event.joy += 1
-                    if event.button == button_keys['x'] or event.button == button_keys['L1']:
-                        players[event.joy].can_jump = True
-                    if event.button == button_keys['left_arrow']:
-                        players[event.joy].left = False
-                    if event.button == button_keys['right_arrow']:
-                        players[event.joy].right = False
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        player1.jump()
-                        player1.can_jump = False
-                    if event.key == pygame.K_ESCAPE:
-                        game_window.process_custom_event(const.OPTIONS_LOAD)
-                    if event.key == pygame.K_a:
-                        player1.left = True
-                    if event.key == pygame.K_d:
-                        player1.right = True
-                if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_a:
-                        player1.left = False
-                    if event.key == pygame.K_d:
-                        player1.right = False
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        if now - last_shot > game.gun[6]:
-                            shoot(player1)
-                            last_shot = now
+            if event.type == pygame.JOYBUTTONDOWN:
+                if one_gamepad:
+                    event.joy += 1
+                if event.button == button_keys['x'] or event.button == button_keys['L1']:
+                    players[event.joy].jump()
+                if event.button == button_keys['left_arrow']:
+                    players[event.joy].left = True
+                if event.button == button_keys['right_arrow']:
+                    players[event.joy].right = True
+            if event.type == pygame.JOYBUTTONUP:
+                if one_gamepad:
+                    event.joy += 1
+                if event.button == button_keys['x'] or event.button == button_keys['L1']:
+                    players[event.joy].can_jump = True
+                if event.button == button_keys['left_arrow']:
+                    players[event.joy].left = False
+                if event.button == button_keys['right_arrow']:
+                    players[event.joy].right = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    player1.jump()
+                    player1.can_jump = False
+                if event.key == pygame.K_ESCAPE:
+                    game_window.process_custom_event(const.OPTIONS_LOAD)
+                if event.key == pygame.K_a:
+                    player1.left = True
+                if event.key == pygame.K_d:
+                    player1.right = True
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_a:
+                    player1.left = False
+                if event.key == pygame.K_d:
+                    player1.right = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    if now - last_shot > game.gun[6]:
+                        shoot(player1)
+                        last_shot = now
             if event.type == pygame.QUIT:
-                game.quit()
-        if pygame.mouse.get_pressed()[0] and game_window.active_level.playable:
+                sys.exit()
+        if pygame.mouse.get_pressed()[0]:
             if game.gun[7]:
                 if now - last_shot > game.gun[6]:
                     shoot(player1)
