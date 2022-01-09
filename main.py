@@ -1,8 +1,6 @@
-import json
-import os
 from random import choice
 import const
-import pygame
+from const import button_keys
 from Level_Config import TokyoLevel, ForestLevel, IndustrialLevel, ApocalypsisLevel, PlainLevel
 from Shooting import Bullet
 from game_window import GameWindow
@@ -53,11 +51,6 @@ if __name__ == '__main__':
     pygame.init()
     holding = False
     screen = pygame.display.set_mode((1280, 720))
-    levels_dict = {'Forest': ForestLevel(screen),
-              'Tokyo': TokyoLevel(screen),
-              'Industrial': IndustrialLevel(screen),
-              'Apocalypsis': ApocalypsisLevel(screen),
-              'Plain': PlainLevel(screen)}
     game_window = load_level()
     game = game_window.active_level
     player1 = game.player
@@ -77,8 +70,6 @@ if __name__ == '__main__':
         one_gamepad = True
     print(f'Всего геймпадов: {len(joysticks)}')
 
-    with open(os.path.join("dualshock4_buttons.json"), 'r+') as file:
-        button_keys = json.load(file)
     analog_keys = {0: 0, 1: 0, 2: 0, 3: 0, 4: -1, 5: -1}
     dead_zone = 0.2  # inner radius
     edge_zone = 0.9  # outer radius
@@ -87,7 +78,7 @@ if __name__ == '__main__':
 
 def set_difficulty(value, difficulty):
 
-    game_window.active_level = levels_dict[value[0][0]]
+    game_window.active_level = load_level()
 
 
 def start_the_game():
