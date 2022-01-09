@@ -42,18 +42,6 @@ def load_level():
     elif choiced == 'Plain':
         return GameWindow(PlainLevel(screen))
 
-def set_level(level):
-    if level == 'Forest':
-        return ForestLevel(screen)
-    elif level == 'Tokyo':
-        return TokyoLevel(screen)
-    elif level == 'Industrial':
-        return IndustrialLevel(screen)
-    elif level == 'Apocalypsis':
-        return ApocalypsisLevel(screen)
-    elif level == 'Plain':
-        return PlainLevel(screen)
-
 
 if __name__ == '__main__':
     r21 = False
@@ -89,7 +77,8 @@ if __name__ == '__main__':
 
 
 def set_difficulty(value, difficulty):
-    game_window.active_level = set_level(value[0][0])
+
+    game_window.active_level = load_level()
 
 
 def start_the_game():
