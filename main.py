@@ -48,11 +48,16 @@ def load_level():
 if __name__ == '__main__':
     r21 = False
     r22 = False
-    level_list = ['Industrial']
+    level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
     mouse_x, mouse_y = 0, 0
     pygame.init()
     holding = False
     screen = pygame.display.set_mode((1280, 720))
+    levels_dict = {'Forest': ForestLevel(screen),
+              'Tokyo': TokyoLevel(screen),
+              'Industrial': IndustrialLevel(screen),
+              'Apocalypsis': ApocalypsisLevel(screen),
+              'Plain': PlainLevel(screen)}
     game_window = load_level()
     game = game_window.active_level
     player1 = game.player
@@ -81,8 +86,8 @@ if __name__ == '__main__':
 
 
 def set_difficulty(value, difficulty):
-    # Do the job here !
-    pass
+
+    game_window.active_level = levels_dict[value[0][0]]
 
 
 def start_the_game():
@@ -204,12 +209,18 @@ def start_the_game():
         game.clock.tick(60)
 
 
-menu = pygame_menu.Menu('Welcome', 1280, 720,
-                        theme=pygame_menu.themes.THEME_SOLARIZED)
+mytheme = pygame_menu.themes.THEME_ORANGE.copy()
+myimage = pygame_menu.baseimage.BaseImage(
+    image_path='BackGrounds/NeonTokyoBackground.jpg',
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY
+)
+mytheme.background_color = myimage
+menu = pygame_menu.Menu('Welcome', screen.get_width(), screen.get_height(),
+                       theme=mytheme)
 
-menu.add.text_input('Name :', default='John Doe')
-menu.add.selector('Difficulty :', [('Hard', 1), ('Easy', 2)], onchange=set_difficulty)
+selected_level = menu.add.selector('Level:', [('Forest', 1), ('Tokyo', 2), ('Industrial', 3), ('Apocalypsis', 4), ('Plain', 5)], onchange=set_difficulty)
+
 menu.add.button('Play', start_the_game)
 menu.add.button('Quit', pygame_menu.events.EXIT)
 menu.mainloop(screen)
-print('1232')
+
