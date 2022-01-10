@@ -32,3 +32,6 @@ button_keys = {
     "touchpad": 15
 
 }
+
+color1 = 'Yellow'
+color2 = 'Yellow'

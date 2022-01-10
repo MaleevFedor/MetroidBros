@@ -47,13 +47,13 @@ class Level:
                 elif col == '1':
                     y -= tile_size
                     self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen,
-                                         self.gun[4], 'green', True, 1)
+                                         self.gun[4], const.color1, True, 1)
                     self.player_sprite.add(self.player)
                     self.cursor1 = pygame.image.load(f'Crosshairs/{self.player.color}.png').convert_alpha()
                 elif col == '2':
                     y -= tile_size - 10
                     self.player2 = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen,
-                                          self.gun[4], 'yellow', False, 0)
+                                          self.gun[4], const.color2, False, 0)
                     self.player2_sprite.add(self.player2)
                     self.cursor2 = pygame.image.load(f'Crosshairs/{self.player2.color}.png').convert_alpha()
                 elif col == 'S':

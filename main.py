@@ -9,8 +9,29 @@ from game_window import GameWindow
 import pygame
 import pygame_menu
 
+pygame.init()
+screen = pygame.display.set_mode((1280, 720))
+level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
 
-def shoot(player):
+def load_level():
+    choiced = choice(level_list)
+    if choiced == 'Forest':
+        return GameWindow(ForestLevel(screen))
+    elif choiced == 'Tokyo':
+        return GameWindow(TokyoLevel(screen))
+    elif choiced == 'Industrial':
+        return GameWindow(IndustrialLevel(screen))
+    elif choiced == 'Apocalypsis':
+        return GameWindow(ApocalypsisLevel(screen))
+    elif choiced == 'Plain':
+        return GameWindow(PlainLevel(screen))
+
+
+
+
+
+# настройка геймпада
+def shoot(player, game):
     if not player.killed:
         mouse_x, mouse_y = player.scope
         for i in range(game.gun[2]):
@@ -31,28 +52,23 @@ def pause():
         pygame.display.flip()
 
 
-def load_level():
-    choiced = choice(level_list)
-    if choiced == 'Forest':
-        return GameWindow(ForestLevel(screen))
-    elif choiced == 'Tokyo':
-        return GameWindow(TokyoLevel(screen))
-    elif choiced == 'Industrial':
-        return GameWindow(IndustrialLevel(screen))
-    elif choiced == 'Apocalypsis':
-        return GameWindow(ApocalypsisLevel(screen))
-    elif choiced == 'Plain':
-        return GameWindow(PlainLevel(screen))
 
 
-if __name__ == '__main__':
+
+
+def set_color(value, blank):
+   const.color1 = value[0][0]
+
+def set_color_2(value, blank):
+    const.color2 = value[0][0]
+
+def start_the_game():
     r21 = False
     r22 = False
-    level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
     mouse_x, mouse_y = 0, 0
-    pygame.init()
+
     holding = False
-    screen = pygame.display.set_mode((1280, 720))
+
     game_window = load_level()
     game = game_window.active_level
     player1 = game.player
@@ -75,14 +91,6 @@ if __name__ == '__main__':
     analog_keys = {0: 0, 1: 0, 2: 0, 3: 0, 4: -1, 5: -1}
     dead_zone = 0.2  # inner radius
     edge_zone = 0.9  # outer radius
-    # настройка геймпада
-
-
-def set_difficulty(value, difficulty):
-  pass
-
-
-def start_the_game():
     last_shot = -game.gun[6]
     while game.running:
         now = pygame.time.get_ticks()
@@ -107,35 +115,35 @@ def start_the_game():
                 if one_gamepad:
                     if game.gun[7]:
                         if now - last_shot > game.gun[6]:
-                            shoot(player2)
+                            shoot(player2, game)
                             last_shot = now
                     else:
                         if not r22:
                             if now - last_shot > game.gun[6]:
-                                shoot(player2)
+                                shoot(player2, game)
                                 last_shot = now
                         r22 = True
                 else:
                     if joystick == joysticks[0]:
                         if game.gun[7]:
                             if now - last_shot > game.gun[6]:
-                                shoot(player1)
+                                shoot(player1, game)
                                 last_shot = now
                         else:
                             if not r21:
                                 if now - last_shot > game.gun[6]:
-                                    shoot(player1)
+                                    shoot(player1, game)
                                     last_shot = now
                             r21 = True
                     elif joystick == joysticks[1]:
                         if game.gun[7]:
                             if now - last_shot > game.gun[6]:
-                                shoot(player2)
+                                shoot(player2, game)
                                 last_shot = now
                         else:
                             if not r22:
                                 if now - last_shot > game.gun[6]:
-                                    shoot(player2)
+                                    shoot(player2, game)
                                     last_shot = now
                             r22 = True
             if joystick.get_axis(5) < 0:
@@ -185,14 +193,14 @@ def start_the_game():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     if now - last_shot > game.gun[6]:
-                        shoot(player1)
+                        shoot(player1, game)
                         last_shot = now
             if event.type == pygame.QUIT:
                 sys.exit()
         if pygame.mouse.get_pressed()[0]:
             if game.gun[7]:
                 if now - last_shot > game.gun[6]:
-                    shoot(player1)
+                    shoot(player1, game)
                     last_shot = now
         game_window.active_level.update()
         game_window.active_level.render(screen)
@@ -210,7 +218,8 @@ mytheme.background_color = myimage
 menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
                        theme=mytheme)
 
-selected_level = menu.add.selector('Level:', [('Forest', 1), ('Tokyo', 2), ('Industrial', 3), ('Apocalypsis', 4), ('Plain', 5)], onchange=set_difficulty)
+selected_level = menu.add.selector('Color1:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)], onchange=set_color)
+selected_level = menu.add.selector('Color2:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)], onchange=set_color_2)
 
 menu.add.button('Play', start_the_game)
 menu.add.button('Quit', pygame_menu.events.EXIT)
