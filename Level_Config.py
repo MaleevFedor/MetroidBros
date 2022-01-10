@@ -20,7 +20,7 @@ class Level:
         self.level_map = []
         self.screen = screen
         self.bg = pygame.image.load(image)
-        self.gun = guns[choice(['usp', 'pistol', 'shotgun', 'AWP', 'ak', 'p90', 'mac10'])]
+        self.gun = guns[choice(['usp', 'pistol', 'shotgun', 'AWP', 'ak', 'p90', 'mac10', 'deagle', 'm4'])]
         self.playable = True
         self.cursor1 = None
         self.cursor2 = None
