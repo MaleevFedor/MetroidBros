@@ -7,7 +7,7 @@ from Tiles import Tile, Saw
 from player import Player
 from Shooting import guns
 from particle import Particle, create_particles
-print(1)
+
 class Level:
     def __init__(self, screen, image):
         self.clock = pygame.time.Clock()

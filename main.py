@@ -93,6 +93,8 @@ def start_the_game():
     edge_zone = 0.9  # outer radius
     last_shot = -game.gun[6]
     while game.running:
+        if game.player.killed or game.player2.killed:
+            start_the_game()
         now = pygame.time.get_ticks()
         for joystick in joysticks:
             right_x = joystick.get_axis(2)
@@ -179,8 +181,6 @@ def start_the_game():
                 if event.key == pygame.K_SPACE:
                     player1.jump()
                     player1.can_jump = False
-                if event.key == pygame.K_ESCAPE:
-                    game_window.process_custom_event(const.OPTIONS_LOAD)
                 if event.key == pygame.K_a:
                     player1.left = True
                 if event.key == pygame.K_d:
