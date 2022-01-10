@@ -1,5 +1,5 @@
 from random import choice
-
+from Score import score
 from Level_Maps import *
 import const
 from const import level_ended
@@ -8,6 +8,7 @@ from Tiles import Tile, Saw
 from player import Player
 from Shooting import guns
 from particle import Particle, create_particles
+
 
 class Level:
     def __init__(self, screen, image):
@@ -73,9 +74,14 @@ class Level:
         self.player2.update(self.tiles, self.saws, self.particle_sprites)
 
     def render(self, screen):
-
         screen.blit(self.bg, (0, 0))
-
+        pygame.draw.rect(screen, pygame.Color(self.player.color), pygame.Rect(580, 0, 60, 60))
+        pygame.draw.rect(screen, pygame.Color(self.player2.color), pygame.Rect(640, 0, 60, 60))
+        font = pygame.font.Font(None, 70)
+        text = font.render(str(score[0]), True, (255, 255, 255))
+        screen.blit(text, (595, 7))
+        text = font.render(str(score[1]), True, (255, 255, 255))
+        screen.blit(text, (657, 7))
         for bullet in self.bullet_sprites:
             if bullet.lifetime <= 0:
                 bullet.kill()
@@ -107,6 +113,33 @@ class Level:
         text = font.render(f"FPS: {round(self.clock.get_fps())}", True, (100, 255, 100))
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
         screen.blit(text, (2, -7))
+        x, y = self.player.scope
+        x -= 15
+        y -= 15
+        screen.blit(self.cursor1, (x, y))
+        x, y = self.player2.scope
+        x -= 15
+        y -= 15
+        screen.blit(self.cursor2, (x, y))
+        font = pygame.font.Font('Fonts/orange kid.ttf', 100)
+        if self.player.killed or self.player2.killed:
+            if not self.ended:
+                print('timer create')
+                pygame.time.set_timer(level_ended, 3000)
+                self.ended = True
+                if self.player.killed:
+                    score[1] += 1
+                elif self.player2.killed:
+                    score[0] += 1
+            if self.player.killed:
+                win_player = self.player2
+                self.player2.current_health = 200
+            elif self.player2.killed:
+                win_player = self.player
+                self.player.current_health = 200
+            pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(225, 300, 850, 150))
+            text = font.render(str(win_player.color).capitalize() + ' player ' + 'wins round', True, (255, 255, 255))
+            screen.blit(text, (250, 300))
         font = pygame.font.Font('Fonts/orange kid.ttf', 25)
         players_hp = (round(self.player.current_health / 50), round(self.player2.current_health / 50))
         health_bar = pygame.image.load(f'HealthBars/{players_hp[0]}.png')
@@ -118,19 +151,6 @@ class Level:
         screen.blit(health_bar, (1080, 30))
         text = font.render(str(self.player2.current_health), True, (105, 105, 105))
         screen.blit(text, (1100, 36))
-        x, y = self.player.scope
-        x -= 15
-        y -= 15
-        screen.blit(self.cursor1, (x, y))
-        x, y = self.player2.scope
-        x -= 15
-        y -= 15
-        screen.blit(self.cursor2, (x, y))
-        if self.player.killed or self.player2.killed:
-            if not self.ended:
-                print('timer create')
-                pygame.time.set_timer(level_ended, 3000)
-                self.ended = True
 
 
 class TokyoLevel(Level):

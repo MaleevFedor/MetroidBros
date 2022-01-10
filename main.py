@@ -1,6 +1,7 @@
 import os
 import sys
 from random import randint, choice
+
 import const
 from const import button_keys
 from Level_Config import TokyoLevel, ForestLevel, IndustrialLevel, ApocalypsisLevel, PlainLevel
@@ -162,6 +163,8 @@ def start_the_game():
             if event.type == const.level_ended:
                 pygame.time.set_timer(const.level_ended, 999999999)
                 start_the_game()
+            if event.type == pygame.QUIT:
+                load_menu()
             if event.type == pygame.JOYBUTTONDOWN:
                 if one_gamepad:
                     event.joy += 1
@@ -211,22 +214,26 @@ def start_the_game():
         game.clock.tick(60)
 
 
-mytheme = pygame_menu.themes.THEME_ORANGE.copy()
-myimage = pygame_menu.baseimage.BaseImage(
+def load_menu():
+    mytheme = pygame_menu.themes.THEME_ORANGE.copy()
+    myimage = pygame_menu.baseimage.BaseImage(
 
-    image_path=f'BackGrounds/{choice(os.listdir("BackGrounds/"))}',
-    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY
-)
-mytheme.background_color = myimage
-menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
-                        theme=mytheme)
+        image_path=f'BackGrounds/{choice(os.listdir("BackGrounds/"))}',
+        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY
+    )
+    mytheme.background_color = myimage
+    menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
+                            theme=mytheme)
 
-selected_level = menu.add.selector('Color1:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)],
-                                   onchange=set_color)
-selected_level = menu.add.selector('Color2:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)],
-                                   onchange=set_color_2)
+    selected_level = menu.add.selector('Color1:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)],
+                                       onchange=set_color)
+    selected_level = menu.add.selector('Color2:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)],
+                                       onchange=set_color_2)
 
-menu.add.button('Play', start_the_game)
-menu.add.button('Quit', pygame_menu.events.EXIT)
-menu.mainloop(screen)
-print(1)
+    menu.add.button('Play', start_the_game)
+    menu.add.button('Quit', pygame_menu.events.EXIT)
+    menu.mainloop(screen)
+
+
+if __name__ == '__main__':
+    load_menu()
