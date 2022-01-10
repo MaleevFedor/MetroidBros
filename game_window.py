@@ -40,3 +40,4 @@ class Options:
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
         screen.blit(text, (0, 0))
 
+print(1)

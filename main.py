@@ -225,3 +225,4 @@ menu.add.button('Play', start_the_game)
 menu.add.button('Quit', pygame_menu.events.EXIT)
 menu.mainloop(screen)
 
+print(1)

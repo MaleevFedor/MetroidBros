@@ -2,7 +2,7 @@ import pygame
 import math
 from particle import Particle, create_particles
 import const
-
+print(1)
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color, facing_right, id):
         super().__init__()
