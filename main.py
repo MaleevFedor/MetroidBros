@@ -1,6 +1,6 @@
 import os
 import sys
-from random import choice
+from random import randint, choice
 import const
 from const import button_keys
 from Level_Config import TokyoLevel, ForestLevel, IndustrialLevel, ApocalypsisLevel, PlainLevel
@@ -13,8 +13,17 @@ pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
 
+
 def load_level():
-    choiced = choice(level_list)
+    if len(level_list) == 0:
+         level_list.append('Forest')
+         level_list.append('Tokyo')
+         level_list.append('Industrial')
+         level_list.append('Apocalypsis')
+         level_list.append('Plain')
+    choice = randint(0, len(level_list) - 1)
+    choiced = level_list[choice]
+    level_list.pop(choice)
     if choiced == 'Forest':
         return GameWindow(ForestLevel(screen))
     elif choiced == 'Tokyo':
@@ -25,9 +34,6 @@ def load_level():
         return GameWindow(ApocalypsisLevel(screen))
     elif choiced == 'Plain':
         return GameWindow(PlainLevel(screen))
-
-
-
 
 
 # настройка геймпада
@@ -52,15 +58,13 @@ def pause():
         pygame.display.flip()
 
 
-
-
-
-
 def set_color(value, blank):
-   const.color1 = value[0][0]
+    const.color1 = value[0][0]
+
 
 def set_color_2(value, blank):
     const.color2 = value[0][0]
+
 
 def start_the_game():
     r21 = False
@@ -76,25 +80,21 @@ def start_the_game():
     players = (player1, player2)
     pygame.display.set_caption('Metroid Bros')
     pygame.mouse.set_visible(False)
-
-    one_gamepad = False
-
-    joysticks = []
-    for i in range(pygame.joystick.get_count()):
-        joysticks.append(pygame.joystick.Joystick(i))
-    for joystick in joysticks:
-        joystick.init()
-    if len(joysticks) == 1:
-        one_gamepad = True
-    print(f'Всего геймпадов: {len(joysticks)}')
-
     analog_keys = {0: 0, 1: 0, 2: 0, 3: 0, 4: -1, 5: -1}
     dead_zone = 0.2  # inner radius
     edge_zone = 0.9  # outer radius
     last_shot = -game.gun[6]
     while game.running:
-        if game.player.killed or game.player2.killed:
-            start_the_game()
+        one_gamepad = False
+
+        joysticks = []
+        for i in range(pygame.joystick.get_count()):
+            joysticks.append(pygame.joystick.Joystick(i))
+        for joystick in joysticks:
+            joystick.init()
+        if len(joysticks) == 1:
+            one_gamepad = True
+        print(f'Всего геймпадов: {len(joysticks)}')
         now = pygame.time.get_ticks()
         for joystick in joysticks:
             right_x = joystick.get_axis(2)
@@ -159,6 +159,9 @@ def start_the_game():
         if one_gamepad or len(joysticks) == 0:
             player1.scope = pygame.mouse.get_pos()
         for event in pygame.event.get():
+            if event.type == const.level_ended:
+                pygame.time.set_timer(const.level_ended, 999999999)
+                start_the_game()
             if event.type == pygame.JOYBUTTONDOWN:
                 if one_gamepad:
                     event.joy += 1
@@ -216,13 +219,14 @@ myimage = pygame_menu.baseimage.BaseImage(
 )
 mytheme.background_color = myimage
 menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
-                       theme=mytheme)
+                        theme=mytheme)
 
-selected_level = menu.add.selector('Color1:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)], onchange=set_color)
-selected_level = menu.add.selector('Color2:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)], onchange=set_color_2)
+selected_level = menu.add.selector('Color1:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)],
+                                   onchange=set_color)
+selected_level = menu.add.selector('Color2:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)],
+                                   onchange=set_color_2)
 
 menu.add.button('Play', start_the_game)
 menu.add.button('Quit', pygame_menu.events.EXIT)
 menu.mainloop(screen)
-
 print(1)

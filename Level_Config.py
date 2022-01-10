@@ -2,6 +2,7 @@ from random import choice
 
 from Level_Maps import *
 import const
+from const import level_ended
 import pygame
 from Tiles import Tile, Saw
 from player import Player
@@ -23,6 +24,7 @@ class Level:
         self.playable = True
         self.cursor1 = None
         self.cursor2 = None
+        self.ended = False
         self.players_dict = {}
         self.playable = True
         screen.blit(self.bg, (0, 0))
@@ -124,6 +126,11 @@ class Level:
         x -= 15
         y -= 15
         screen.blit(self.cursor2, (x, y))
+        if self.player.killed or self.player2.killed:
+            if not self.ended:
+                print('timer create')
+                pygame.time.set_timer(level_ended, 3000)
+                self.ended = True
 
 
 class TokyoLevel(Level):
@@ -158,7 +165,6 @@ class IndustrialLevel(Level):
         self.level_map = Industrial_level
         pygame.mixer.music.load('Music/industrial.mp3')
         pygame.mixer.music.play(50)
-        print('adsasf')
         self.setup_level()
 
 
