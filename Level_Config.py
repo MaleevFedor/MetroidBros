@@ -161,6 +161,8 @@ class TokyoLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = Tokyo_level
+        pygame.mixer.music.load('Music/TokyoAmbient.mp3')
+        pygame.mixer.music.play(50)
         self.setup_level()
 
 
@@ -207,4 +209,6 @@ class PlainLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = Plain
+        pygame.mixer.music.load('Music/PlainsAmbient.mp3')
+        pygame.mixer.music.play(50)
         self.setup_level()
