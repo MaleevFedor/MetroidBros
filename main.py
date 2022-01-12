@@ -90,12 +90,6 @@ def start_the_game():
     edge_zone = 0.9  # outer radius
     last_shot = -game.gun[6]
     while game.running:
-        if const.score[0] + const.score[1] == 5:
-            print(const.score)
-            copy_score = const.score
-            const.score[0], const.score[1] = 0, 0
-            print(copy_score)
-            load_restart_menu(copy_score)
         one_gamepad = False
 
         joysticks = []
@@ -173,6 +167,9 @@ def start_the_game():
             if event.type == const.level_ended and const.score[0] + const.score[1] != 0:
                 print(1)
                 pygame.time.set_timer(const.level_ended, 999999999)
+                if const.score[0] == 3 or const.score[1] == 3:
+                    copy_score = const.score
+                    load_restart_menu(copy_score)
                 start_the_game()
             if event.type == pygame.QUIT:
                 load_menu()
@@ -249,8 +246,8 @@ def load_menu():
     menu.mainloop(screen)
 
 
-
 def load_restart_menu(score):
+    const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(
 
@@ -260,7 +257,7 @@ def load_restart_menu(score):
     mytheme.background_color = myimage
     menu_restart = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
                             theme=mytheme)
-    menu_restart.add.label(f"SCORE {score[0]}:{score[1]}", max_char=-1, font_size=20)
+    menu_restart.add.label(f"SCORE {score[0]}:{score[1]}", max_char=-1, font_size=80, font_color=(0, 0, 0))
     menu_restart.add.button('Restart', start_the_game, font_color=(255, 0, 0))
     menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
     menu_restart.mainloop(screen)

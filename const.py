@@ -37,4 +37,4 @@ button_keys = {
 
 color1 = 'Blue'
 color2 = 'Red'
-score = [4, 0]
+score = [0, 0]
