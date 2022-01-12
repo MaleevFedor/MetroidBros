@@ -1,6 +1,7 @@
 import pygame
 import const
 
+
 class Tile(pygame.sprite.Sprite):
     def __init__(self, pos, sizeX, sizeY):
         pygame.sprite.Sprite.__init__(self)
@@ -26,4 +27,9 @@ class Saw(pygame.sprite.Sprite):
         self.image = const.saw_sprite_list[int(self.current_sprite)]
 
 
-
+class Slime(pygame.sprite.Sprite):
+    def __init__(self, pos, sizeX, sizeY):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((sizeX * 2, sizeY))
+        self.image.blit(pygame.image.load('SlimeTile.jpg'), (0, 0))
+        self.rect = self.image.get_rect(topleft=pos)

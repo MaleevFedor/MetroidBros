@@ -48,7 +48,7 @@ Industrial_level = [
     '                                ',
     '                                ',
     '  XXX                           ',
-    '                           XXX  ',
+    '                           _ X  ',
     '              XXX               ',
     '                                ',
     '    XXX                   XXX   ',

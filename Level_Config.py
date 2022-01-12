@@ -4,7 +4,7 @@ from Level_Maps import *
 import const
 from const import level_ended
 import pygame
-from Tiles import Tile, Saw
+from Tiles import Tile, Saw, Slime
 from player import Player
 from Shooting import guns
 from particle import Particle, create_particles
@@ -33,6 +33,7 @@ class Level:
     def setup_level(self):
         self.tiles = pygame.sprite.Group()
         self.saws = pygame.sprite.Group()
+        self.slimes = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
         self.player_sprite = pygame.sprite.GroupSingle()
         self.player2_sprite = pygame.sprite.GroupSingle()
@@ -62,6 +63,9 @@ class Level:
                 elif col == 'S':
                     saw = Saw((x, y), tile_size, tile_size)
                     self.saws.add(saw)
+                elif col == '_':
+                    slime = Slime((x, y), tile_size, tile_size)
+                    self.slimes.add(slime)
         self.players_dict = {0: [self.player_sprite, self.player],
                              1: [self.player2_sprite, self.player2]}
 
@@ -70,8 +74,8 @@ class Level:
 
     def update(self):
 
-        self.player.update(self.tiles, self.saws, self.particle_sprites)
-        self.player2.update(self.tiles, self.saws, self.particle_sprites)
+        self.player.update(self.tiles, self.saws, self.slimes, self.particle_sprites)
+        self.player2.update(self.tiles, self.saws, self.slimes, self.particle_sprites)
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
@@ -101,6 +105,7 @@ class Level:
 
         self.tiles.draw(screen)
         self.saws.draw(screen)
+        self.slimes.draw(screen)
         self.bullet_sprites.draw(screen)
         self.player_sprite.draw(screen)
         self.particle_sprites.draw(screen)

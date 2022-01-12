@@ -3,6 +3,7 @@ import math
 from particle import Particle, create_particles
 import const
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color, facing_right, id):
         super().__init__()
@@ -23,7 +24,8 @@ class Player(pygame.sprite.Sprite):
         self.y = pos[1]
         self.y += 30
         self.id = id
-        self.speed = speed
+        self.normal_speed = speed
+        self.speed = self.normal_speed
         self.gravity = gravity
         self.jump_force = jump_force
         self.extra_jumps = 2
@@ -117,7 +119,7 @@ class Player(pygame.sprite.Sprite):
             pygame.mixer.Sound.play(pygame.mixer.Sound('Music/jump.wav'))
             self.can_jump = False
 
-    def update(self, tiles, saws, particles):
+    def update(self, tiles, saws, slimes, particles):
         if self.killed:
             return None
         self.get_state()
@@ -140,6 +142,7 @@ class Player(pygame.sprite.Sprite):
 
         self.i_hate_gravity()
         self.rect.y += self.direction.y
+        self.speed = self.normal_speed
         for tile in tiles:
             if self.rect.colliderect(tile.rect):
                 if self.direction.y > 0:
@@ -159,14 +162,5 @@ class Player(pygame.sprite.Sprite):
                 self.direction.y = 0
                 self.jump()
                 create_particles((self.rect.x, self.rect.y), particles, const.blood_particle_path)
-                self.extra_jumps = 0
-                self.get_damage(20)
-        for tile in saws:
-            if self.rect.colliderect(tile.rect):
-                if self.direction.x > 0:
-                    self.rect.right = tile.rect.left
-                elif self.direction.x < 0:
-                    self.rect.left = tile.rect.right
-                self.jump()
                 self.extra_jumps = 0
                 self.get_damage(20)
