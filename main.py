@@ -39,11 +39,14 @@ def load_level():
 
 # настройка геймпада
 def shoot(player, game):
-    if not player.killed:
-        mouse_x, mouse_y = player.scope
-        for i in range(game.gun[2]):
-            bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
-            game.bullet_sprites.add(bullet_sprites)
+    try:
+        if not player.killed:
+            mouse_x, mouse_y = player.scope
+            for i in range(game.gun[2]):
+                bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
+                game.bullet_sprites.add(bullet_sprites)
+    except Exception as e:
+        print(e)
 
 
 def pause():
@@ -68,6 +71,7 @@ def set_color_2(value, blank):
 
 
 def start_the_game():
+
     r21 = False
     r22 = False
     mouse_x, mouse_y = 0, 0
@@ -86,6 +90,12 @@ def start_the_game():
     edge_zone = 0.9  # outer radius
     last_shot = -game.gun[6]
     while game.running:
+        if const.score[0] + const.score[1] == 5:
+            print(const.score)
+            copy_score = const.score
+            const.score[0], const.score[1] = 0, 0
+            print(copy_score)
+            load_restart_menu(copy_score)
         one_gamepad = False
 
         joysticks = []
@@ -95,7 +105,7 @@ def start_the_game():
             joystick.init()
         if len(joysticks) == 1:
             one_gamepad = True
-        print(f'Всего геймпадов: {len(joysticks)}')
+
         now = pygame.time.get_ticks()
         for joystick in joysticks:
             right_x = joystick.get_axis(2)
@@ -160,7 +170,8 @@ def start_the_game():
         if one_gamepad or len(joysticks) == 0:
             player1.scope = pygame.mouse.get_pos()
         for event in pygame.event.get():
-            if event.type == const.level_ended:
+            if event.type == const.level_ended and const.score[0] + const.score[1] != 0:
+                print(1)
                 pygame.time.set_timer(const.level_ended, 999999999)
                 start_the_game()
             if event.type == pygame.QUIT:
@@ -225,14 +236,35 @@ def load_menu():
     menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
                             theme=mytheme)
 
-    selected_level = menu.add.selector('Color1:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)],
-                                       onchange=set_color)
-    selected_level = menu.add.selector('Color2:', [('Yellow', 1), ('Red', 2), ('Green', 3), ('Blue', 4)],
-                                       onchange=set_color_2)
+    selected_color1 = menu.add.selector('Color1:', [('Blue', 1), ('Red', 2), ('Green', 3), ('Yellow', 4)],
+                                       onchange=set_color,
+                                       font_color=(255, 0, 0)
+                                        )
+    selected_color2 = menu.add.selector('Color2:', [('Red', 1), ('Yellow', 2),  ('Green', 3), ('Blue', 4)],
+                                       onchange=set_color_2,
+                                       font_color=(255, 0, 0))
 
-    menu.add.button('Play', start_the_game)
-    menu.add.button('Quit', pygame_menu.events.EXIT)
+    menu.add.button('Play', start_the_game, font_color=(255, 0, 0))
+    menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
     menu.mainloop(screen)
+
+
+
+def load_restart_menu(score):
+    mytheme = pygame_menu.themes.THEME_ORANGE.copy()
+    myimage = pygame_menu.baseimage.BaseImage(
+
+        image_path=f'BackGrounds/{choice(os.listdir("BackGrounds/"))}',
+        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY
+    )
+    mytheme.background_color = myimage
+    menu_restart = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
+                            theme=mytheme)
+    menu_restart.add.label(f"SCORE {score[0]}:{score[1]}", max_char=-1, font_size=20)
+    menu_restart.add.button('Restart', start_the_game, font_color=(255, 0, 0))
+    menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
+    menu_restart.mainloop(screen)
+
 
 
 if __name__ == '__main__':

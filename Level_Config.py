@@ -1,5 +1,4 @@
 from random import choice
-from Score import score
 from Level_Maps import *
 import const
 from const import level_ended
@@ -82,9 +81,9 @@ class Level:
         pygame.draw.rect(screen, pygame.Color(self.player.color), pygame.Rect(580, 0, 60, 60))
         pygame.draw.rect(screen, pygame.Color(self.player2.color), pygame.Rect(640, 0, 60, 60))
         font = pygame.font.Font(None, 70)
-        text = font.render(str(score[0]), True, (255, 255, 255))
+        text = font.render(str(const.score[0]), True, (255, 255, 255))
         screen.blit(text, (595, 7))
-        text = font.render(str(score[1]), True, (255, 255, 255))
+        text = font.render(str(const.score[1]), True, (255, 255, 255))
         screen.blit(text, (657, 7))
         for bullet in self.bullet_sprites:
             if bullet.lifetime <= 0:
@@ -133,9 +132,9 @@ class Level:
                 pygame.time.set_timer(level_ended, 3000)
                 self.ended = True
                 if self.player.killed:
-                    score[1] += 1
+                    const.score[1] += 1
                 elif self.player2.killed:
-                    score[0] += 1
+                    const.score[0] += 1
             if self.player.killed:
                 win_player = self.player2
                 self.player2.current_health = 200
