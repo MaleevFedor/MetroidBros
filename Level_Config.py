@@ -129,7 +129,7 @@ class Level:
         if self.player.killed or self.player2.killed:
             if not self.ended:
                 print('timer create')
-                pygame.time.set_timer(level_ended, 3000)
+                pygame.time.set_timer(level_ended, 3000, 1)
                 self.ended = True
                 if self.player.killed:
                     const.score[1] += 1

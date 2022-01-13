@@ -17,11 +17,11 @@ level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
 
 def load_level():
     if len(level_list) == 0:
-         level_list.append('Forest')
-         level_list.append('Tokyo')
-         level_list.append('Industrial')
-         level_list.append('Apocalypsis')
-         level_list.append('Plain')
+        level_list.append('Forest')
+        level_list.append('Tokyo')
+        level_list.append('Industrial')
+        level_list.append('Apocalypsis')
+        level_list.append('Plain')
     choice = randint(0, len(level_list) - 1)
     choiced = level_list[choice]
     level_list.pop(choice)
@@ -71,12 +71,19 @@ def set_color_2(value, blank):
 
 
 def start_the_game():
-
     r21 = False
     r22 = False
     mouse_x, mouse_y = 0, 0
 
-    holding = False
+    one_gamepad = False
+
+    joysticks = []
+    for i in range(pygame.joystick.get_count()):
+        joysticks.append(pygame.joystick.Joystick(i))
+    for joystick in joysticks:
+        joystick.init()
+    if len(joysticks) == 1:
+        one_gamepad = True
 
     game_window = load_level()
     game = game_window.active_level
@@ -90,16 +97,8 @@ def start_the_game():
     edge_zone = 0.9  # outer radius
     last_shot = -game.gun[6]
     while game.running:
-        one_gamepad = False
-
-        joysticks = []
-        for i in range(pygame.joystick.get_count()):
-            joysticks.append(pygame.joystick.Joystick(i))
-        for joystick in joysticks:
-            joystick.init()
-        if len(joysticks) == 1:
-            one_gamepad = True
-
+        if len(joysticks) != pygame.joystick.get_count():
+            load_menu()
         now = pygame.time.get_ticks()
         for joystick in joysticks:
             right_x = joystick.get_axis(2)
@@ -131,42 +130,41 @@ def start_the_game():
                                 last_shot = now
                         r22 = True
                 else:
-                    if joystick == joysticks[0]:
-                        if game.gun[7]:
-                            if now - last_shot > game.gun[6]:
-                                shoot(player1, game)
-                                last_shot = now
-                        else:
-                            if not r21:
+                    for joystick in joysticks:
+                        if joystick == joysticks[0]:
+                            if game.gun[7]:
                                 if now - last_shot > game.gun[6]:
                                     shoot(player1, game)
                                     last_shot = now
-                            r21 = True
-                    elif joystick == joysticks[1]:
-                        if game.gun[7]:
-                            if now - last_shot > game.gun[6]:
-                                shoot(player2, game)
-                                last_shot = now
-                        else:
-                            if not r22:
+                            else:
+                                if not r21:
+                                    if now - last_shot > game.gun[6]:
+                                        shoot(player1, game)
+                                        last_shot = now
+                                r21 = True
+                        elif joystick == joysticks[1]:
+                            if game.gun[7]:
                                 if now - last_shot > game.gun[6]:
                                     shoot(player2, game)
                                     last_shot = now
-                            r22 = True
-            if joystick.get_axis(5) < 0:
-                if one_gamepad:
-                    r22 = False
-                else:
-                    if joystick == joysticks[0]:
-                        r21 = False
-                    elif joystick == joysticks[1]:
-                        r22 = False
+                            else:
+                                if not r22:
+                                    if now - last_shot > game.gun[6]:
+                                        shoot(player2, game)
+                                        last_shot = now
+                                r22 = True
+                    if joystick.get_axis(5) < 0:
+                        if one_gamepad:
+                            r22 = False
+                        else:
+                            if joystick == joysticks[0]:
+                                r21 = False
+                            elif joystick == joysticks[1]:
+                                r22 = False
         if one_gamepad or len(joysticks) == 0:
-            player1.scope = pygame.mouse.get_pos()
+            player1.scope = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
         for event in pygame.event.get():
             if event.type == const.level_ended and const.score[0] + const.score[1] != 0:
-                print(1)
-                pygame.time.set_timer(const.level_ended, 999999999)
                 if const.score[0] == 3 or const.score[1] == 3:
                     copy_score = const.score
                     load_restart_menu(copy_score)
@@ -179,6 +177,7 @@ def start_the_game():
                 if event.button == button_keys['x'] or event.button == button_keys['L1']:
                     players[event.joy].jump()
                 if event.button == button_keys['left_arrow']:
+                    print(event.joy)
                     players[event.joy].left = True
                 if event.button == button_keys['right_arrow']:
                     players[event.joy].right = True
@@ -234,12 +233,12 @@ def load_menu():
                             theme=mytheme)
 
     selected_color1 = menu.add.selector('Color1:', [('Blue', 1), ('Red', 2), ('Green', 3), ('Yellow', 4)],
-                                       onchange=set_color,
-                                       font_color=(255, 0, 0)
+                                        onchange=set_color,
+                                        font_color=(255, 0, 0)
                                         )
-    selected_color2 = menu.add.selector('Color2:', [('Red', 1), ('Yellow', 2),  ('Green', 3), ('Blue', 4)],
-                                       onchange=set_color_2,
-                                       font_color=(255, 0, 0))
+    selected_color2 = menu.add.selector('Color2:', [('Red', 1), ('Yellow', 2), ('Green', 3), ('Blue', 4)],
+                                        onchange=set_color_2,
+                                        font_color=(255, 0, 0))
 
     menu.add.button('Play', start_the_game, font_color=(255, 0, 0))
     menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
@@ -256,12 +255,11 @@ def load_restart_menu(score):
     )
     mytheme.background_color = myimage
     menu_restart = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
-                            theme=mytheme)
+                                    theme=mytheme)
     menu_restart.add.label(f"SCORE {score[0]}:{score[1]}", max_char=-1, font_size=80, font_color=(0, 0, 0))
     menu_restart.add.button('Restart', start_the_game, font_color=(255, 0, 0))
     menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
     menu_restart.mainloop(screen)
-
 
 
 if __name__ == '__main__':
