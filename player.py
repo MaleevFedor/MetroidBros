@@ -112,8 +112,7 @@ class Player(pygame.sprite.Sprite):
 
     def jump(self):
         if self.extra_jumps > 0:
-            if self.direction.y > 0:
-                self.direction.y = 0
+            self.direction.y = 0
             self.direction.y += self.jump_force
             self.extra_jumps -= 1
             pygame.mixer.Sound.play(pygame.mixer.Sound('Music/jump.wav'))
