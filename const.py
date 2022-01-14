@@ -34,7 +34,7 @@ button_keys = {
     "touchpad": 15
 
 }
-
+analog_keys = {0:0, 1:0, 2:0, 3:0, 4:-1, 5: -1 }
 color1 = 'Blue'
 color2 = 'Red'
 score = [0, 0]
