@@ -107,6 +107,9 @@ class Level:
             for hit in bullets2_player:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
                 self.player.get_damage(bullet.damage)
+            tiles_bullets_2 = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites_2, False, True)
+            for hit in tiles_bullets_2:
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
             bullet.update(screen)
 
 
