@@ -40,6 +40,8 @@ class Level:
         self.tiles.add(Tile((-1, 0), 1, 720))
         self.tiles.add(Tile((1281, 0), 1, 720))
 
+
+
         for row_index, row in enumerate(self.level_map):
             for col_index, col in enumerate(row):
                 x = col_index * tile_size
@@ -50,13 +52,13 @@ class Level:
                 elif col == '1':
                     y -= tile_size
                     self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen,
-                                         self.gun[4], const.color1, True, 1)
+                                         self.gun[4], const.color1, True, 0)
                     self.player_sprite.add(self.player)
                     self.cursor1 = pygame.image.load(f'Crosshairs/{self.player.color}.png').convert_alpha()
                 elif col == '2':
                     y -= tile_size - 10
                     self.player2 = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen,
-                                          self.gun[4], const.color2, False, 0)
+                                          self.gun[4], const.color2, False, 1)
                     self.player2_sprite.add(self.player2)
                     self.cursor2 = pygame.image.load(f'Crosshairs/{self.player2.color}.png').convert_alpha()
                 elif col == 'S':
@@ -65,8 +67,8 @@ class Level:
                 elif col == '_':
                     slime = Slime((x, y), tile_size, tile_size)
                     self.slimes.add(slime)
-        self.players_dict = {0: [self.player_sprite, self.player],
-                             1: [self.player2_sprite, self.player2]}
+        self.players_dict = {1: [self.player_sprite, self.player],
+                             0: [self.player2_sprite, self.player2]}
 
     def quit(self):
         self.running = False
@@ -86,11 +88,13 @@ class Level:
         text = font.render(str(const.score[1]), True, (255, 255, 255))
         screen.blit(text, (657, 7))
         for bullet in self.bullet_sprites:
+
             if bullet.lifetime <= 0:
                 bullet.kill()
             bullets_player = pygame.sprite.groupcollide(self.bullet_sprites, self.players_dict[bullet.id][0], True, False)
             for hit in bullets_player:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
+
                 self.players_dict[bullet.id][1].get_damage(bullet.damage)
             tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
             for hit in tiles_bullets:

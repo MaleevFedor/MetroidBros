@@ -163,3 +163,4 @@ class Player(pygame.sprite.Sprite):
                 create_particles((self.rect.x, self.rect.y), particles, const.blood_particle_path)
                 self.extra_jumps = 0
                 self.get_damage(20)
+

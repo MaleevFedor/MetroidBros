@@ -14,7 +14,7 @@ Tokyo_level = [
     '   X               X       XXX  ',
     '                                ',
     '                                ',
-    '            X              XXXX ',
+    '            X  __            XXXX ',
     '      1     X                   ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
@@ -31,7 +31,7 @@ Forest_level = [
     '                                ',
     '                                ',
     '                                ',
-    '                                ',
+    '                __                ',
     '               XX               ',
     '               XX               ',
     '               XX               ',
@@ -74,7 +74,7 @@ Apocalypsis = [
     '                                ',
     '                                ',
     '                                ',
-    '      X                 X       ',
+    '      X        __         X       ',
     '1     XX      XXX      XX    2 ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
@@ -94,7 +94,7 @@ Plain = [
     '                                ',
     '                                ',
     '                                ',
-    '                                ',
+    '               __                 ',
     ' 1           XXXX           2   ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
