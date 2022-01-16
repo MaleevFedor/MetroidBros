@@ -34,6 +34,7 @@ class Level:
         self.saws = pygame.sprite.Group()
         self.slimes = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
+        self.bullet_sprites_2 = pygame.sprite.Group()
         self.player_sprite = pygame.sprite.GroupSingle()
         self.player2_sprite = pygame.sprite.GroupSingle()
         self.particle_sprites = pygame.sprite.Group()
@@ -67,8 +68,6 @@ class Level:
                 elif col == '_':
                     slime = Slime((x, y), tile_size, tile_size)
                     self.slimes.add(slime)
-        self.players_dict = {1: [self.player_sprite, self.player],
-                             0: [self.player2_sprite, self.player2]}
 
     def quit(self):
         self.running = False
@@ -91,15 +90,25 @@ class Level:
 
             if bullet.lifetime <= 0:
                 bullet.kill()
-            bullets_player = pygame.sprite.groupcollide(self.bullet_sprites, self.players_dict[bullet.id][0], True, False)
-            for hit in bullets_player:
+            bullets1_player = pygame.sprite.groupcollide(self.bullet_sprites, self.player2_sprite, True, False)
+            for hit in bullets1_player:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
+                self.player2.get_damage(bullet.damage)
 
-                self.players_dict[bullet.id][1].get_damage(bullet.damage)
             tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
             for hit in tiles_bullets:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
             bullet.update(screen)
+        for bullet in self.bullet_sprites_2:
+            if bullet.lifetime <= 0:
+                bullet.kill()
+            bullets2_player = pygame.sprite.groupcollide(self.bullet_sprites_2, self.player_sprite, True,
+                                                         False)
+            for hit in bullets2_player:
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
+                self.player.get_damage(bullet.damage)
+            bullet.update(screen)
+
 
         for particle in self.particle_sprites:
             particle.update()
@@ -110,6 +119,7 @@ class Level:
         self.saws.draw(screen)
         self.slimes.draw(screen)
         self.bullet_sprites.draw(screen)
+        self.bullet_sprites_2.draw(screen)
         self.player_sprite.draw(screen)
         self.particle_sprites.draw(screen)
         self.player.weapon_handling()

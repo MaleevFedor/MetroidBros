@@ -44,7 +44,10 @@ def shoot(player, game):
             mouse_x, mouse_y = player.scope
             for i in range(game.gun[2]):
                 bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
-                game.bullet_sprites.add(bullet_sprites)
+                if player == game.player:
+                    game.bullet_sprites.add(bullet_sprites)
+                else:
+                    game.bullet_sprites_2.add(bullet_sprites)
     except Exception as e:
         print(e)
 
@@ -147,23 +150,28 @@ def start_the_game():
                     if game.gun[7]:
                         if now - last_shot_2 > game.gun[6]:
                             shoot(player2, game)
+
+
                             last_shot_2 = now
                     else:
                         if not r22:
                             if now - last_shot_2 > game.gun[6]:
                                 shoot(player2, game)
+
                                 last_shot_2 = now
                         r22 = True
-                if joystick == joysticks[0]:
+                elif joystick == joysticks[0]:
                     # print('first shooting')
                     if game.gun[7]:
                         if now - last_shot > game.gun[6]:
                             shoot(player1, game)
+
                             last_shot = now
                     else:
                         if not r21:
                             if now - last_shot > game.gun[6]:
                                 shoot(player1, game)
+
                                 last_shot = now
                         r21 = True
                 elif joystick == joysticks[1]:
@@ -228,19 +236,20 @@ def start_the_game():
                 if event.button == 1:
                     if now - last_shot > game.gun[6]:
                         shoot(player1, game)
+
                         last_shot = now
             if event.type == pygame.QUIT:
                 sys.exit()
         if pygame.mouse.get_pressed()[0]:
             if game.gun[7]:
                 if now - last_shot > game.gun[6]:
+
                     shoot(player1, game)
                     last_shot = now
         game_window.active_level.update()
         game_window.active_level.render(screen)
         pygame.display.flip()
         game.clock.tick(60)
-
 
 def load_menu():
     pygame.mixer.music.stop()
