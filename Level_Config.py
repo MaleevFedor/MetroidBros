@@ -219,6 +219,8 @@ class ApocalypsisLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = Apocalypsis
+        pygame.mixer.music.load('Music/The Last of Us (You and Me).mp3')
+        pygame.mixer.music.play(50)
         self.setup_level()
 
 
