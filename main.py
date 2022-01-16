@@ -206,6 +206,7 @@ def start_the_game():
 
 
 def load_menu():
+    pygame.mixer.music.stop()
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(
 
@@ -231,6 +232,7 @@ def load_menu():
 
 def load_restart_menu(score):
     joysticks = []
+    pygame.mixer.music.stop()
     const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(
