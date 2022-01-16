@@ -1,7 +1,6 @@
 import os
 import sys
 from random import randint, choice
-
 import const
 from const import button_keys, analog_keys
 from Level_Config import TokyoLevel, ForestLevel, IndustrialLevel, ApocalypsisLevel, PlainLevel
@@ -45,6 +44,7 @@ def shoot(player, game):
             for i in range(game.gun[2]):
                 bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
                 game.bullet_sprites.add(bullet_sprites)
+                pygame.mixer.Sound.play(pygame.mixer.Sound(game.gun[9]))
     except Exception as e:
         print(e)
 
@@ -109,13 +109,80 @@ def start_the_game():
                 if one_gamepad:
                     players[1].scope[0] += round(right_x * 10)
                     players[1].scope[1] += round(right_y * 10)
+                    if players[1].scope[1] < 0:
+                        players[1].scope[1] = 0
+                    elif players[1].scope[1] > 720:
+                        players[1].scope[1] = 720
+                    if players[1].scope[0] < 0:
+                        players[1].scope[0] = 0
+                    elif players[1].scope[0] > 1280:
+                        players[1].scope[0] = 1280
                 else:
                     if joystick == joysticks[0]:
                         players[0].scope[0] += round(right_x * 10)
                         players[0].scope[1] += round(right_y * 10)
+                        if players[0].scope[1] < 0:
+                            players[0].scope[1] = 0
+                        elif players[0].scope[1] > 720:
+                            players[0].scope[1] = 720
+                        if players[0].scope[0] < 0:
+                            players[0].scope[0] = 0
+                        elif players[0].scope[0] > 1280:
+                            players[0].scope[0] = 1280
                     elif joystick == joysticks[1]:
                         players[1].scope[0] += round(right_x * 10)
                         players[1].scope[1] += round(right_y * 10)
+                        if players[1].scope[1] < 0:
+                            players[1].scope[1] = 0
+                        elif players[1].scope[1] > 720:
+                            players[1].scope[1] = 720
+                        if players[1].scope[0] < 0:
+                            players[1].scope[0] = 0
+                        elif players[1].scope[0] > 1280:
+                            players[1].scope[0] = 1280
+        for joystick in joysticks:
+            if joystick.get_axis(5) > 0:  # Right Trigger
+                if one_gamepad:
+                    if game.gun[7]:
+                        if now - last_shot > game.gun[6]:
+                            shoot(player2, game)
+                            last_shot = now
+                    else:
+                        if not r22:
+                            if now - last_shot > game.gun[6]:
+                                shoot(player2, game)
+                                last_shot = now
+                        r22 = True
+                if joystick == joysticks[0]:
+                    # print('first shooting')
+                    if game.gun[7]:
+                        if now - last_shot > game.gun[6]:
+                            shoot(player1, game)
+                            last_shot = now
+                    else:
+                        if not r21:
+                            if now - last_shot > game.gun[6]:
+                                shoot(player1, game)
+                                last_shot = now
+                        r21 = True
+                elif joystick == joysticks[1]:
+                    if game.gun[7]:
+                        if now - last_shot > game.gun[6]:
+                            shoot(player2, game)
+                            last_shot = now
+                    else:
+                        if not r22:
+                            if now - last_shot > game.gun[6]:
+                                shoot(player2, game)
+                                last_shot = now
+                        r22 = True
+            else:
+                if one_gamepad:
+                    r22 = False
+                if joystick == joysticks[0]:
+                    r21 = False
+                elif joystick == joysticks[1]:
+                    r22 = False
         if one_gamepad or len(joysticks) == 0:
             player1.scope = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
         for event in pygame.event.get():
@@ -158,42 +225,6 @@ def start_the_game():
                     player1.left = False
                 if event.key == pygame.K_d:
                     player1.right = False
-            if event.type == pygame.JOYAXISMOTION:
-                analog_keys[event.axis] = event.value
-                if analog_keys[5] > 0:  # Right Trigger
-                    if one_gamepad:
-                        event.joy += 1
-                    if event.joy == 0:
-                        print('first shooting')
-                        if game.gun[7]:
-                            if now - last_shot > game.gun[6]:
-                                shoot(player1, game)
-                                last_shot = now
-                        else:
-                            if not r21:
-                                if now - last_shot > game.gun[6]:
-                                    shoot(player1, game)
-                                    last_shot = now
-                            r21 = True
-                    elif event.joy == 1:
-                        print('second shooting')
-                        if game.gun[7]:
-                            if now - last_shot > game.gun[6]:
-                                shoot(player2, game)
-                                last_shot = now
-                        else:
-                            if not r22:
-                                if now - last_shot > game.gun[6]:
-                                    shoot(player2, game)
-                                    last_shot = now
-                            r22 = True
-                else:
-                    if one_gamepad:
-                        event.joy += 1
-                    if event.joy == 0:
-                        r21 = False
-                    elif event.joy == 1:
-                        r22 = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     if now - last_shot > game.gun[6]:
@@ -237,6 +268,7 @@ def load_menu():
 
 
 def load_restart_menu(score):
+    joysticks = []
     const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(
