@@ -36,15 +36,14 @@ def load_level():
         return GameWindow(PlainLevel(screen))
 
 
-# настройка геймпада
 def shoot(player, game):
     try:
         if not player.killed:
+            pygame.mixer.Sound.play(pygame.mixer.Sound(game.gun[9]))
             mouse_x, mouse_y = player.scope
             for i in range(game.gun[2]):
                 bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
                 game.bullet_sprites.add(bullet_sprites)
-                pygame.mixer.Sound.play(pygame.mixer.Sound(game.gun[9]))
     except Exception as e:
         print(e)
 
@@ -73,7 +72,6 @@ def set_color_2(value, blank):
 def start_the_game():
     r21 = False
     r22 = False
-    mouse_x, mouse_y = 0, 0
 
     one_gamepad = False
 
@@ -100,6 +98,7 @@ def start_the_game():
         if len(joysticks) != pygame.joystick.get_count():
             load_menu()
         now = pygame.time.get_ticks()
+        player1.scope = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
         for joystick in joysticks:
             right_x = joystick.get_axis(2)
             right_y = joystick.get_axis(3) * 1
@@ -183,8 +182,6 @@ def start_the_game():
                     r21 = False
                 elif joystick == joysticks[1]:
                     r22 = False
-        if one_gamepad or len(joysticks) == 0:
-            player1.scope = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
         for event in pygame.event.get():
             if event.type == const.level_ended and const.score[0] + const.score[1] != 0:
                 if const.score[0] == 3 or const.score[1] == 3:
