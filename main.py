@@ -251,6 +251,7 @@ def start_the_game():
         pygame.display.flip()
         game.clock.tick(60)
 
+
 def load_menu():
     pygame.mixer.music.stop()
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()

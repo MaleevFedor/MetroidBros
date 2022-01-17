@@ -40,8 +40,7 @@ class Level:
         self.particle_sprites = pygame.sprite.Group()
         self.tiles.add(Tile((-1, 0), 1, 720))
         self.tiles.add(Tile((1281, 0), 1, 720))
-
-
+        self.tiles.add(Tile((0, 0), 1280, 1))
 
         for row_index, row in enumerate(self.level_map):
             for col_index, col in enumerate(row):
@@ -111,7 +110,6 @@ class Level:
             for hit in tiles_bullets_2:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
             bullet.update(screen)
-
 
         for particle in self.particle_sprites:
             particle.update()
