@@ -94,16 +94,15 @@ def start_the_game():
     players = (player1, player2)
     pygame.display.set_caption('Metroid Bros')
     pygame.mouse.set_visible(False)
-    analog_keys = {0: 0, 1: 0, 2: 0, 3: 0, 4: -1, 5: -1}
-    dead_zone = 0.2  # inner radius
-    edge_zone = 0.9  # outer radius
+    dead_zone = 0.2
     last_shot = -game.gun[6]
     last_shot_2 = -game.gun[6]
     while game.running:
         if len(joysticks) != pygame.joystick.get_count():
-            load_menu()
+            load_controller_menu()
         now = pygame.time.get_ticks()
-        player1.scope = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
+        if len(joysticks) <= 1:
+            player1.scope = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
         for joystick in joysticks:
             right_x = joystick.get_axis(2)
             right_y = joystick.get_axis(3) * 1
@@ -159,7 +158,6 @@ def start_the_game():
                                 last_shot_2 = now
                         r22 = True
                 elif joystick == joysticks[0]:
-                    # print('first shooting')
                     if game.gun[7]:
                         if now - last_shot > game.gun[6]:
                             shoot(player1, game)
@@ -204,7 +202,6 @@ def start_the_game():
                 if event.button == button_keys['x'] or event.button == button_keys['L1']:
                     players[event.joy].jump()
                 if event.button == button_keys['left_arrow']:
-                    print(event.joy)
                     players[event.joy].left = True
                 if event.button == button_keys['right_arrow']:
                     players[event.joy].right = True
@@ -251,7 +248,9 @@ def start_the_game():
 
 
 def load_menu():
-    pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
+    pygame.display.set_icon(pygame.image.load('icon.png'))
+    pygame.display.set_caption('DinoMight')
+    pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
     pygame.mixer.music.play(50)
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(
@@ -277,8 +276,9 @@ def load_menu():
 
 
 def load_restart_menu(score):
-    joysticks = []
-    pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
+    pygame.display.set_icon(pygame.image.load('icon.png'))
+    pygame.display.set_caption('DinoMight')
+    pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
     pygame.mixer.music.play(50)
     const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
@@ -295,25 +295,27 @@ def load_restart_menu(score):
     menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
     menu_restart.mainloop(screen)
 
+
 def load_controller_menu():
     print('1')
     pygame.display.set_icon(pygame.image.load('icon.png'))
     pygame.display.set_caption('DinoMight')
-    pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
+    pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
     pygame.mixer.music.play(50)
     const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE
     myimage = pygame_menu.baseimage.BaseImage(
-
         image_path='ControllerMenu.png',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
     )
     mytheme.background_color = myimage
     menu_restart = pygame_menu.Menu('', screen.get_width(), screen.get_height(),
                                     theme=mytheme)
-    menu_restart.add.button('Restart', start_the_game, font_color=(255, 0, 0),  align=pygame_menu.locals.ALIGN_LEFT, font_size=80)
-    menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0), align=pygame_menu.locals.ALIGN_LEFT, font_size=80)
+    menu_restart.add.button('Restart', start_the_game, font_color=(255, 0, 0),
+                            align=pygame_menu.locals.ALIGN_LEFT, font_size=60)
+    menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0),
+                            align=pygame_menu.locals.ALIGN_LEFT, font_size=60)
     menu_restart.mainloop(screen)
 
 
