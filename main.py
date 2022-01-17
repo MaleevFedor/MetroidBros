@@ -1,3 +1,4 @@
+
 import os
 import sys
 from random import randint, choice
@@ -91,18 +92,18 @@ def start_the_game():
     player1 = game.player
     player2 = game.player2
     players = (player1, player2)
-    pygame.display.set_caption('DinoMight')
-    pygame.display.set_icon(pygame.image.load('icon.png'))
+    pygame.display.set_caption('Metroid Bros')
     pygame.mouse.set_visible(False)
-    dead_zone = 0.2
+    analog_keys = {0: 0, 1: 0, 2: 0, 3: 0, 4: -1, 5: -1}
+    dead_zone = 0.2  # inner radius
+    edge_zone = 0.9  # outer radius
     last_shot = -game.gun[6]
     last_shot_2 = -game.gun[6]
     while game.running:
         if len(joysticks) != pygame.joystick.get_count():
             load_menu()
         now = pygame.time.get_ticks()
-        if one_gamepad:
-            player1.scope = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
+        player1.scope = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
         for joystick in joysticks:
             right_x = joystick.get_axis(2)
             right_y = joystick.get_axis(3) * 1
@@ -250,8 +251,6 @@ def start_the_game():
 
 
 def load_menu():
-    pygame.display.set_icon(pygame.image.load('icon.png'))
-    pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
     pygame.mixer.music.play(50)
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
@@ -272,14 +271,13 @@ def load_menu():
                                         onchange=set_color_2,
                                         font_color=(255, 0, 0))
 
-    menu.add.button('Play', start_the_game, font_color=(255, 0, 0), align=pygame_menu.locals.ALIGN_LEFT)
+    menu.add.button('Play', start_the_game, font_color=(255, 0, 0))
     menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
     menu.mainloop(screen)
 
 
 def load_restart_menu(score):
-    pygame.display.set_icon(pygame.image.load('icon.png'))
-    pygame.display.set_caption('DinoMight')
+    joysticks = []
     pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
     pygame.mixer.music.play(50)
     const.score = [0, 0]
@@ -295,6 +293,26 @@ def load_restart_menu(score):
     menu_restart.add.label(f"SCORE {score[0]}:{score[1]}", max_char=-1, font_size=80, font_color=(0, 0, 0))
     menu_restart.add.button('Restart', start_the_game, font_color=(255, 0, 0))
     menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
+    menu_restart.mainloop(screen)
+
+def load_controller_menu():
+    pygame.display.set_icon(pygame.image.load('icon.png'))
+    pygame.display.set_caption('DinoMight')
+    pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
+    pygame.mixer.music.play(50)
+    const.score = [0, 0]
+    mytheme = pygame_menu.themes.THEME_ORANGE.copy()
+    mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE
+    myimage = pygame_menu.baseimage.BaseImage(
+
+        image_path='ControllerMenu.png',
+        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
+    )
+    mytheme.background_color = myimage
+    menu_restart = pygame_menu.Menu('', screen.get_width(), screen.get_height(),
+                                    theme=mytheme)
+    menu_restart.add.button('Restart', start_the_game, font_color=(255, 0, 0),  align=pygame_menu.locals.ALIGN_LEFT, font_size=80)
+    menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0), align=pygame_menu.locals.ALIGN_LEFT, font_size=80)
     menu_restart.mainloop(screen)
 
 
