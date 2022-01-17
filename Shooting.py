@@ -8,7 +8,7 @@ guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 450, False, 38, 'M
         'shotgun': (60, 10, 12, 0.2, 'GunsAssets/Pump Shotgun.png', 4, 800, False, 15, 'Music/GunSounds/shotgun.wav'),
         'AWP': (250, 30, 1, 0, 'GunsAssets/Awp.png', 6, 1250, False, 200, 'Music/GunSounds/Awp.wav'),
         'm4': (200, 10, 1, 0.04, 'GunsAssets/M4A1s.png', 10, 325, True, 48, 'Music/GunSounds/m4a1-1e.mp3'),
-        'ak': (200, 17, 1, 0.27, 'GunsAssets/Ak 47.png', 9, 250, True, 50, 'Music/GunSounds/Ak.mp3'),
+        'ak': (200, 17, 1, 0.27, 'GunsAssets/Ak 47.png', 9, 250, True, 66, 'Music/GunSounds/Ak.mp3'),
         'p90': (200, 15, 1, 0.23, 'GunsAssets/P90.png', 8, 150, True, 33, 'Music/GunSounds/mac10.mp3'),
         'mac10': (200, 18, 1, 0.35, 'GunsAssets/mac10.png', 8, 200, True, 20, 'Music/GunSounds/mac10.mp3')}
 

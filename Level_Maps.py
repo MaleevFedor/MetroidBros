@@ -75,7 +75,7 @@ Apocalypsis = [
     '                                ',
     '                                ',
     '      X                 X       ',
-    '1     XX      XXX      XX    2  ',
+    ' 1    XX               XX   2  ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
 Plain = [

@@ -150,8 +150,6 @@ def start_the_game():
                     if game.gun[7]:
                         if now - last_shot_2 > game.gun[6]:
                             shoot(player2, game)
-
-
                             last_shot_2 = now
                     else:
                         if not r22:
@@ -253,7 +251,8 @@ def start_the_game():
 
 
 def load_menu():
-    pygame.mixer.music.stop()
+    pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
+    pygame.mixer.music.play(50)
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(
 
@@ -279,7 +278,8 @@ def load_menu():
 
 def load_restart_menu(score):
     joysticks = []
-    pygame.mixer.music.stop()
+    pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
+    pygame.mixer.music.play(50)
     const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(

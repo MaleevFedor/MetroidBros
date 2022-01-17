@@ -180,7 +180,7 @@ class TokyoLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = Tokyo_level
-        pygame.mixer.music.load('Music/TokyoAmbient.mp3')
+        pygame.mixer.music.load('Music/Ambients/TokyoAmbient.mp3')
         pygame.mixer.music.play(50)
         self.setup_level()
 
@@ -193,6 +193,8 @@ class ForestLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = Forest_level
+        pygame.mixer.music.load('Music/Ambients/ForestAmbient.wav')
+        pygame.mixer.music.play(50)
         self.setup_level()
 
 
@@ -204,7 +206,7 @@ class IndustrialLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = Industrial_level
-        pygame.mixer.music.load('Music/industrial.mp3')
+        pygame.mixer.music.load('Music/Ambients/industrial.mp3')
         pygame.mixer.music.play(50)
         self.setup_level()
 
@@ -217,7 +219,7 @@ class ApocalypsisLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = Apocalypsis
-        pygame.mixer.music.load('Music/The Last of Us (You and Me).mp3')
+        pygame.mixer.music.load('Music/Ambients/The Last of Us (You and Me).mp3')
         pygame.mixer.music.play(50)
         self.setup_level()
 
@@ -230,6 +232,6 @@ class PlainLevel(Level):
         self.jump_force = -13
         self.screen = screen
         self.level_map = Plain
-        pygame.mixer.music.load('Music/PlainsAmbient.mp3')
+        pygame.mixer.music.load('Music/Ambients/PlainsAmbient.mp3')
         pygame.mixer.music.play(50)
         self.setup_level()
