@@ -296,6 +296,7 @@ def load_restart_menu(score):
     menu_restart.mainloop(screen)
 
 def load_controller_menu():
+    print('1')
     pygame.display.set_icon(pygame.image.load('icon.png'))
     pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
