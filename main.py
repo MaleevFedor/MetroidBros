@@ -1,4 +1,3 @@
-
 import os
 import sys
 from random import randint, choice
@@ -92,7 +91,7 @@ def start_the_game():
     player1 = game.player
     player2 = game.player2
     players = (player1, player2)
-    pygame.display.set_caption('Metroid Bros')
+    pygame.display.set_caption('DinoMight')
     pygame.mouse.set_visible(False)
     dead_zone = 0.2
     last_shot = -game.gun[6]
@@ -238,7 +237,6 @@ def start_the_game():
         if pygame.mouse.get_pressed()[0]:
             if game.gun[7]:
                 if now - last_shot > game.gun[6]:
-
                     shoot(player1, game)
                     last_shot = now
         game_window.active_level.update()
@@ -304,9 +302,9 @@ def load_controller_menu():
     pygame.mixer.music.play(50)
     const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
-    mytheme.title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_NONE
+    mytheme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE
     myimage = pygame_menu.baseimage.BaseImage(
-        image_path='ControllerMenu.png',
+        image_path='BackGrounds/ControllerMenu.png',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
     )
     mytheme.background_color = myimage

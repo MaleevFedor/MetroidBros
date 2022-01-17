@@ -1,8 +1,8 @@
 import pygame
 
 OPTIONS_LOAD = pygame.USEREVENT + 1
-tile_particle_path = 'Particle.png'
-blood_particle_path = 'Blood Particle.png'
+tile_particle_path = 'Particles/Particle.png'
+blood_particle_path = 'Particles/Blood Particle.png'
 saw_sprite_list = []
 saw_sprite_list.append(pygame.image.load('Saw/Saw1.png'))
 saw_sprite_list.append(pygame.image.load('Saw/Saw2.png'))

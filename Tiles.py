@@ -31,5 +31,5 @@ class Slime(pygame.sprite.Sprite):
     def __init__(self, pos, sizeX, sizeY):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((sizeX * 2, sizeY))
-        self.image.blit(pygame.image.load('SlimeTile.jpg'), (0, 0))
+        self.image.blit(pygame.image.load('Tiles/SlimeTile.jpg'), (0, 0))
         self.rect = self.image.get_rect(topleft=pos)
