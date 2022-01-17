@@ -1,4 +1,3 @@
-
 import os
 import sys
 from random import randint, choice
@@ -92,18 +91,18 @@ def start_the_game():
     player1 = game.player
     player2 = game.player2
     players = (player1, player2)
-    pygame.display.set_caption('Metroid Bros')
+    pygame.display.set_caption('DinoMight')
+    pygame.display.set_icon(pygame.image.load('icon.png'))
     pygame.mouse.set_visible(False)
-    analog_keys = {0: 0, 1: 0, 2: 0, 3: 0, 4: -1, 5: -1}
-    dead_zone = 0.2  # inner radius
-    edge_zone = 0.9  # outer radius
+    dead_zone = 0.2
     last_shot = -game.gun[6]
     last_shot_2 = -game.gun[6]
     while game.running:
         if len(joysticks) != pygame.joystick.get_count():
             load_menu()
         now = pygame.time.get_ticks()
-        player1.scope = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
+        if one_gamepad:
+            player1.scope = [pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1]]
         for joystick in joysticks:
             right_x = joystick.get_axis(2)
             right_y = joystick.get_axis(3) * 1
@@ -251,6 +250,8 @@ def start_the_game():
 
 
 def load_menu():
+    pygame.display.set_icon(pygame.image.load('icon.png'))
+    pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
     pygame.mixer.music.play(50)
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
@@ -277,7 +278,8 @@ def load_menu():
 
 
 def load_restart_menu(score):
-    joysticks = []
+    pygame.display.set_icon(pygame.image.load('icon.png'))
+    pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.mp3')
     pygame.mixer.music.play(50)
     const.score = [0, 0]
