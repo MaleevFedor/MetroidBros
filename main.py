@@ -271,7 +271,7 @@ def load_menu():
                                         onchange=set_color_2,
                                         font_color=(255, 0, 0))
 
-    menu.add.button('Play', start_the_game, font_color=(255, 0, 0))
+    menu.add.button('Play', start_the_game, font_color=(255, 0, 0), align=pygame_menu.locals.ALIGN_LEFT)
     menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
     menu.mainloop(screen)
 
