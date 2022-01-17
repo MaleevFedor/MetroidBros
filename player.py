@@ -160,7 +160,7 @@ class Player(pygame.sprite.Sprite):
             if self.rect.colliderect(tile.rect):
                 if self.direction.y > 0:
                     self.rect.bottom = tile.rect.top
-                    self.extra_jumps = 2
+                    self.extra_jumps = 1
                     self.speed *= 0.2
                 elif self.direction.y < 0:
                     self.rect.top = tile.rect.bottom
