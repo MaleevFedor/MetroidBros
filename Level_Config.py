@@ -30,6 +30,7 @@ class Level:
         screen.blit(self.bg, (0, 0))
 
     def setup_level(self):
+        self.Heals = pygame.sprite.Group()
         self.tiles = pygame.sprite.Group()
         self.saws = pygame.sprite.Group()
         self.slimes = pygame.sprite.Group()
