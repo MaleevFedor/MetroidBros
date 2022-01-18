@@ -295,7 +295,6 @@ def load_restart_menu(score):
 
 
 def load_controller_menu():
-    print('1')
     pygame.display.set_icon(pygame.image.load('icon.png'))
     pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
@@ -304,7 +303,7 @@ def load_controller_menu():
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     mytheme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE
     myimage = pygame_menu.baseimage.BaseImage(
-        image_path='BackGrounds/ControllerMenu.png',
+        image_path='ControllerMenu.png',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
     )
     mytheme.background_color = myimage
