@@ -15,8 +15,8 @@ Tokyo_level = [
     '                                ',
     '                          XXXXXX',
     '            X                   ',
-    '      1X    X         X         ',
-    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
+    '      1X    XT        X         ',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', ]
 
 Forest_level = [
     '                                ',
@@ -36,7 +36,7 @@ Forest_level = [
     '               XX               ',
     '               XX               ',
     'H    1X_ _ _ _ XX_ _ _ _ X2    H',
-    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', ]
 
 Industrial_level = [
     '                                ',
@@ -56,7 +56,7 @@ Industrial_level = [
     '                                ',
     '      XXS S S S S S S S XX      ',
     '1     XX                XX    2 ',
-    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', ]
 
 Apocalypsis = [
     '                                ',
@@ -76,7 +76,7 @@ Apocalypsis = [
     '                                ',
     '       X                X       ',
     '  1    XX      H       XX    2  ',
-    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', ]
 
 Plain = [
     '                                ',
@@ -95,8 +95,8 @@ Plain = [
     '                                ',
     '                                ',
     '                                ',
-    '  1           XXXX           2  ',
-    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
+    '  1            T             2  ',
+    'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', ]
 
 tile_size = 40
 screen_width = 1280

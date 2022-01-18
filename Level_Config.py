@@ -3,7 +3,7 @@ from Level_Maps import *
 import const
 from const import level_ended
 import pygame
-from Tiles import Tile, Saw, Slime, Heal
+from Tiles import Tile, Saw, Slime, Heal, Trampoline
 from player import Player
 from Shooting import guns
 from particle import Particle, create_particles
@@ -30,6 +30,7 @@ class Level:
         screen.blit(self.bg, (0, 0))
 
     def setup_level(self):
+        self.trampoline = pygame.sprite.Group()
         self.heals = pygame.sprite.Group()
         self.tiles = pygame.sprite.Group()
         self.saws = pygame.sprite.Group()
@@ -47,10 +48,7 @@ class Level:
             for col_index, col in enumerate(row):
                 x = col_index * tile_size
                 y = row_index * tile_size
-                if col == 'X':
-                    tile = Tile((x, y), tile_size, tile_size)
-                    self.tiles.add(tile)
-                elif col == '1':
+                if col == '1':
                     y -= tile_size
                     self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen,
                                          self.gun[4], const.color1, True, 0)
@@ -62,21 +60,23 @@ class Level:
                                           self.gun[4], const.color2, False, 1)
                     self.player2_sprite.add(self.player2)
                     self.cursor2 = pygame.image.load(f'Crosshairs/{self.player2.color}.png').convert_alpha()
+                elif col == 'X':
+                    self.tiles.add(Tile((x, y), tile_size, tile_size))
                 elif col == 'S':
-                    saw = Saw((x, y), tile_size, tile_size)
-                    self.saws.add(saw)
+                    self.saws.add(Saw((x, y), tile_size, tile_size))
                 elif col == '_':
-                    slime = Slime((x, y), tile_size, tile_size)
-                    self.slimes.add(slime)
+                    self.slimes.add(Slime((x, y), tile_size, tile_size))
                 elif col == 'H':
                     self.heals.add(Heal((x, y), tile_size, tile_size))
+                elif col == 'T':
+                    self.trampoline.add(Trampoline((x, y), tile_size, tile_size))
 
     def quit(self):
         self.running = False
 
     def update(self):
-        self.player.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals)
-        self.player2.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals)
+        self.player.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline)
+        self.player2.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline)
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
@@ -113,12 +113,11 @@ class Level:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
             bullet.update(screen)
 
-
         for particle in self.particle_sprites:
             particle.update()
         for i in self.saws:
             i.animate()
-
+        self.trampoline.draw(screen)
         self.tiles.draw(screen)
         self.saws.draw(screen)
         self.heals.draw(screen)
@@ -147,7 +146,6 @@ class Level:
         font = pygame.font.Font('Fonts/orange kid.ttf', 100)
         if self.player.killed or self.player2.killed:
             if not self.ended:
-                print('timer create')
                 pygame.time.set_timer(level_ended, 3000, 1)
                 self.ended = True
                 if self.player.killed:
