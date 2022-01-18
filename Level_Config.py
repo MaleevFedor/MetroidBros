@@ -176,7 +176,7 @@ class Level:
 
 class TokyoLevel(Level):
     def __init__(self, screen):
-        Level.__init__(self, screen, 'BackGrounds/NeonTokyoBackground.jpg')
+        Level.__init__(self, screen, 'BackGrounds/DevsTokyo.png')
         self.speed = 4
         self.gravity = 0.3
         self.jump_force = -13

@@ -194,7 +194,7 @@ def start_the_game():
                     load_restart_menu(copy_score)
                 start_the_game()
             if event.type == pygame.QUIT:
-                load_menu()
+                pygame.quit()
             if event.type == pygame.JOYBUTTONDOWN:
                 if one_gamepad:
                     event.joy += 1

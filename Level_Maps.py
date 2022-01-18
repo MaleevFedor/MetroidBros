@@ -1,21 +1,21 @@
 Tokyo_level = [
     '                                ',
     '                                ',
-    '                                ',
+    '                        H       ',
     '                      XXXXXX    ',
     '                                ',
     '             X                  ',
     '                                ',
     '  X                             ',
-    '                    X           ',
+    '                                ',
     '                                ',
     '         X                      ',
     '                             2  ',
-    '   X               X       XXX  ',
+    '   X               X            ',
     '                                ',
-    '                                ',
-    '            X              XXXX ',
-    '      1     X                   ',
+    '                          XXXXXX',
+    '            X                   ',
+    '      1     X         X         ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
 Forest_level = [
