@@ -3,7 +3,7 @@ from Level_Maps import *
 import const
 from const import level_ended
 import pygame
-from Tiles import Tile, Saw, Slime
+from Tiles import Tile, Saw, Slime, Heal
 from player import Player
 from Shooting import guns
 from particle import Particle, create_particles
@@ -30,7 +30,7 @@ class Level:
         screen.blit(self.bg, (0, 0))
 
     def setup_level(self):
-        self.Heals = pygame.sprite.Group()
+        self.heals = pygame.sprite.Group()
         self.tiles = pygame.sprite.Group()
         self.saws = pygame.sprite.Group()
         self.slimes = pygame.sprite.Group()
@@ -68,14 +68,15 @@ class Level:
                 elif col == '_':
                     slime = Slime((x, y), tile_size, tile_size)
                     self.slimes.add(slime)
+                elif col == 'H':
+                    self.heals.add(Heal((x, y), tile_size, tile_size))
 
     def quit(self):
         self.running = False
 
     def update(self):
-
-        self.player.update(self.tiles, self.saws, self.slimes, self.particle_sprites)
-        self.player2.update(self.tiles, self.saws, self.slimes, self.particle_sprites)
+        self.player.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals)
+        self.player2.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals)
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
@@ -87,7 +88,6 @@ class Level:
         text = font.render(str(const.score[1]), True, (255, 255, 255))
         screen.blit(text, (657, 7))
         for bullet in self.bullet_sprites:
-
             if bullet.lifetime <= 0:
                 bullet.kill()
             bullets1_player = pygame.sprite.groupcollide(self.bullet_sprites, self.player2_sprite, True, False)
@@ -119,6 +119,7 @@ class Level:
 
         self.tiles.draw(screen)
         self.saws.draw(screen)
+        self.heals.draw(screen)
         self.slimes.draw(screen)
         self.bullet_sprites.draw(screen)
         self.bullet_sprites_2.draw(screen)

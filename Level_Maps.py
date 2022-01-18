@@ -15,7 +15,7 @@ Tokyo_level = [
     '                                ',
     '                                ',
     '            X              XXXX ',
-    '      1     X                   ',
+    '      1     X        H          ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
 Forest_level = [
@@ -31,7 +31,7 @@ Forest_level = [
     '                                ',
     '                                ',
     '                                ',
-    '                                ',
+    '                H               ',
     '               XX               ',
     '               XX               ',
     '               XX               ',
@@ -47,7 +47,7 @@ Industrial_level = [
     '                                ',
     '                                ',
     '                                ',
-    '  XXX                           ',
+    '  XXX                       H   ',
     '                           XXX  ',
     '             _ _ _              ',
     '                                ',
@@ -95,7 +95,7 @@ Plain = [
     '                                ',
     '                                ',
     '                                ',
-    ' 1           XXXX           2   ',
+    ' 1           XXXX  H        2   ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
 tile_size = 40

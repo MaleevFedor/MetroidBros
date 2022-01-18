@@ -1,6 +1,6 @@
 import pygame
 import math
-from particle import Particle, create_particles
+from particle import create_particles
 import const
 
 
@@ -118,7 +118,7 @@ class Player(pygame.sprite.Sprite):
             pygame.mixer.Sound.play(pygame.mixer.Sound('Music/Effects/jump.wav'))
             self.can_jump = False
 
-    def update(self, tiles, saws, slimes, particles):
+    def update(self, tiles, saws, slimes, particles, heals):
         if self.killed:
             return None
         self.get_state()
@@ -144,6 +144,13 @@ class Player(pygame.sprite.Sprite):
                     self.rect.right = tile.rect.left
                 elif self.direction.x < 0:
                     self.rect.left = tile.rect.right
+
+        for tile in heals:
+            if self.rect.colliderect(tile.rect):
+                if self.current_health <= 100 and tile.image != const.open_med:
+                    tile.image = const.open_med
+                    self.get_health(100)
+                    create_particles((self.rect.x, self.rect.y), particles, const.heal_particle_path)
 
         self.i_hate_gravity()
         self.rect.y += self.direction.y

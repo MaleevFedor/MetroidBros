@@ -3,17 +3,20 @@ import pygame
 OPTIONS_LOAD = pygame.USEREVENT + 1
 tile_particle_path = 'Particles/Particle.png'
 blood_particle_path = 'Particles/Blood Particle.png'
+heal_particle_path = 'Particles/HealParticle.png'
 saw_sprite_list = []
-saw_sprite_list.append(pygame.image.load('Saw/Saw1.png'))
-saw_sprite_list.append(pygame.image.load('Saw/Saw2.png'))
-saw_sprite_list.append(pygame.image.load('Saw/Saw3.png'))
-saw_sprite_list.append(pygame.image.load('Saw/Saw4.png'))
-saw_sprite_list.append(pygame.image.load('Saw/Saw5.png'))
-saw_sprite_list.append(pygame.image.load('Saw/Saw6.png'))
-saw_sprite_list.append(pygame.image.load('Saw/Saw7.png'))
-saw_sprite_list.append(pygame.image.load('Saw/Saw8.png'))
+saw_sprite_list.append(pygame.image.load('Tiles/Saw/Saw1.png'))
+saw_sprite_list.append(pygame.image.load('Tiles/Saw/Saw2.png'))
+saw_sprite_list.append(pygame.image.load('Tiles/Saw/Saw3.png'))
+saw_sprite_list.append(pygame.image.load('Tiles/Saw/Saw4.png'))
+saw_sprite_list.append(pygame.image.load('Tiles/Saw/Saw5.png'))
+saw_sprite_list.append(pygame.image.load('Tiles/Saw/Saw6.png'))
+saw_sprite_list.append(pygame.image.load('Tiles/Saw/Saw7.png'))
+saw_sprite_list.append(pygame.image.load('Tiles/Saw/Saw8.png'))
 level_ended = pygame.USEREVENT + 2
 timer_breaker = pygame.USEREVENT + 3
+open_med = pygame.image.load('Tiles/MedKit/OpenMedKit.png')
+close_med = pygame.image.load('Tiles/MedKit/CloseMedKit.png')
 level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
 button_keys = {
     "x": 0,
