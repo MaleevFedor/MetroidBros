@@ -15,7 +15,7 @@ Tokyo_level = [
     '                                ',
     '                                ',
     '            X              XXXX ',
-    '      1     X        H          ',
+    '      1     X                   ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
 Forest_level = [
@@ -31,23 +31,23 @@ Forest_level = [
     '                                ',
     '                                ',
     '                                ',
-    '                H               ',
+    '                                ',
     '               XX               ',
     '               XX               ',
     '               XX               ',
-    '     1X_ _ _ _ XX_ _ _ _ X2     ',
+    'H    1X_ _ _ _ XX_ _ _ _ X2    H',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
 Industrial_level = [
     '                                ',
     '                                ',
-    '                                ',
+    '               H                ',
     '           XXXXXXXXXX           ',
     '                                ',
     '                                ',
     '                                ',
     '                                ',
-    '  XXX                       H   ',
+    '  XXX                           ',
     '                           XXX  ',
     '             _ _ _              ',
     '                                ',
@@ -68,14 +68,14 @@ Apocalypsis = [
     '                                ',
     '                                ',
     '                                ',
-    'XXXXX                      XXXXX',
+    'XXX_                       _ XXX',
     '                                ',
     '                                ',
     '                                ',
     '                                ',
     '                                ',
-    '      X                 X       ',
-    '  1   XX       H        XX   2  ',
+    '       X                X       ',
+    '  1    XX      H       XX    2  ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',]
 
 Plain = [
