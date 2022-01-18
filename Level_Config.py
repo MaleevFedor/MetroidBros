@@ -87,6 +87,7 @@ class Level:
         screen.blit(text, (595, 7))
         text = font.render(str(const.score[1]), True, (255, 255, 255))
         screen.blit(text, (657, 7))
+
         for bullet in self.bullet_sprites:
             if bullet.lifetime <= 0:
                 bullet.kill()
@@ -111,6 +112,7 @@ class Level:
             for hit in tiles_bullets_2:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
             bullet.update(screen)
+
 
         for particle in self.particle_sprites:
             particle.update()

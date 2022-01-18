@@ -165,6 +165,7 @@ class Player(pygame.sprite.Sprite):
                 self.direction.y = 0
         for tile in slimes:
             if self.rect.colliderect(tile.rect):
+                create_particles((self.rect.centerx, self.rect.bottom), particles, const.slime_particle, 2, 30)
                 if self.direction.y > 0:
                     self.rect.bottom = tile.rect.top
                     self.extra_jumps = 2
@@ -185,4 +186,5 @@ class Player(pygame.sprite.Sprite):
                 create_particles((self.rect.x, self.rect.y), particles, const.blood_particle_path)
                 self.extra_jumps = 0
                 self.get_damage(20)
+
 

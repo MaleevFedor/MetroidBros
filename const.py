@@ -4,6 +4,7 @@ OPTIONS_LOAD = pygame.USEREVENT + 1
 tile_particle_path = 'Particles/Particle.png'
 blood_particle_path = 'Particles/Blood Particle.png'
 heal_particle_path = 'Particles/HealParticle.png'
+slime_particle = 'Particles/SlimeParticle.png'
 saw_sprite_list = []
 saw_sprite_list.append(pygame.image.load('Tiles/Saw/Saw1.png'))
 saw_sprite_list.append(pygame.image.load('Tiles/Saw/Saw2.png'))
