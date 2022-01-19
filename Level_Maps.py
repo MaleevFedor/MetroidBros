@@ -5,7 +5,7 @@ Tokyo_level = [
     '                      XXXXXX    ',
     '                                ',
     '             X                  ',
-    '                                ',
+    '  H                             ',
     '  X                             ',
     '                                ',
     '         X                      ',
@@ -15,7 +15,7 @@ Tokyo_level = [
     '                                ',
     '                          XXXXXX',
     '            X                   ',
-    '      1X    XT        X         ',
+    '      1X    XT        X     H H ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', ]
 
 Forest_level = [
@@ -46,8 +46,8 @@ Industrial_level = [
     '                                ',
     '                                ',
     '                                ',
-    '                                ',
-    '  XXX                           ',
+    '  H                             ',
+    '  XXX                        H  ',
     '                           XXX  ',
     '             _ _ _              ',
     '                                ',
@@ -67,7 +67,7 @@ Apocalypsis = [
     '                                ',
     '                                ',
     '                                ',
-    '                                ',
+    'H                              H',
     'XXX_                       _ XXX',
     '                                ',
     '                                ',
@@ -75,7 +75,7 @@ Apocalypsis = [
     '                                ',
     '                                ',
     '       X                X       ',
-    '  1    XX      H       XX    2  ',
+    '  1    XX  H   H    H  XX    2  ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', ]
 
 Plain = [
@@ -95,7 +95,7 @@ Plain = [
     '                                ',
     '                                ',
     '                                ',
-    '  1            T             2  ',
+    '  1       H    T        H    2  ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', ]
 
 tile_size = 40

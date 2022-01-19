@@ -68,7 +68,8 @@ class Level:
                 elif col == '_':
                     self.slimes.add(Slime((x, y), tile_size, tile_size))
                 elif col == 'H':
-                    self.heals.add(Heal((x, y), tile_size, tile_size))
+                    if choice([True, False, True, False, False]):
+                        self.heals.add(Heal((x, y), tile_size, tile_size))
                 elif col == 'T':
                     self.trampoline.add(Trampoline((x, y), tile_size, tile_size))
 
