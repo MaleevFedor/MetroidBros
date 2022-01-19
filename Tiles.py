@@ -42,3 +42,12 @@ class Heal(pygame.sprite.Sprite):
         self.image.blit(const.close_med, (0, 0))
         self.image.set_colorkey((0, 0, 0))
         self.rect = self.image.get_rect(topleft=pos)
+
+
+class Trampoline(pygame.sprite.Sprite):
+    def __init__(self, pos, sizeX, sizeY):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((sizeX * 3, sizeY))
+        self.image.blit(pygame.image.load('Tiles/Trampoline.png'), (0, 0))
+        self.image.set_colorkey((0, 0, 0))
+        self.rect = self.image.get_rect(topleft=pos)
