@@ -37,6 +37,7 @@ class Level:
         self.slimes = pygame.sprite.Group()
         self.bullet_sprites = pygame.sprite.Group()
         self.bullet_sprites_2 = pygame.sprite.Group()
+        self.all_bullets = pygame.sprite.Group()
         self.player_sprite = pygame.sprite.GroupSingle()
         self.player2_sprite = pygame.sprite.GroupSingle()
         self.particle_sprites = pygame.sprite.Group()
@@ -96,9 +97,6 @@ class Level:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
                 self.player2.get_damage(bullet.damage)
 
-            tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
-            for hit in tiles_bullets:
-                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
             bullet.update(screen)
         for bullet in self.bullet_sprites_2:
             if bullet.lifetime <= 0:
@@ -108,10 +106,15 @@ class Level:
             for hit in bullets2_player:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
                 self.player.get_damage(bullet.damage)
-            tiles_bullets_2 = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites_2, False, True)
-            for hit in tiles_bullets_2:
-                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
+
             bullet.update(screen)
+        for i in self.all_bullets:
+            tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.all_bullets, False, True)
+            slime_bullets = pygame.sprite.groupcollide(self.slimes, self.all_bullets, False, True)
+            for hit in tiles_bullets:
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
+            for hit in slime_bullets:
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.slime_particle)
 
         for particle in self.particle_sprites:
             particle.update()
