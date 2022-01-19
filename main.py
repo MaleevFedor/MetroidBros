@@ -47,6 +47,7 @@ def shoot(player, game):
                     game.bullet_sprites.add(bullet_sprites)
                 else:
                     game.bullet_sprites_2.add(bullet_sprites)
+                game.all_bullets.add(bullet_sprites)
     except Exception as e:
         print(e)
 

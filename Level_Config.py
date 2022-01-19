@@ -39,6 +39,7 @@ class Level:
         self.player_sprite = pygame.sprite.GroupSingle()
         self.player2_sprite = pygame.sprite.GroupSingle()
         self.particle_sprites = pygame.sprite.Group()
+        self.all_bullets = pygame.sprite.Group()
         self.tiles.add(Tile((-1, 0), 1, 720))
         self.tiles.add(Tile((1281, 0), 1, 720))
         self.tiles.add(Tile((0, 0), 1280, 1))
@@ -71,6 +72,8 @@ class Level:
                 elif col == 'H':
                     self.heals.add(Heal((x, y), tile_size, tile_size))
 
+
+
     def quit(self):
         self.running = False
 
@@ -95,10 +98,6 @@ class Level:
             for hit in bullets1_player:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
                 self.player2.get_damage(bullet.damage)
-
-            tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites, False, True)
-            for hit in tiles_bullets:
-                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
             bullet.update(screen)
         for bullet in self.bullet_sprites_2:
             if bullet.lifetime <= 0:
@@ -108,11 +107,15 @@ class Level:
             for hit in bullets2_player:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
                 self.player.get_damage(bullet.damage)
-            tiles_bullets_2 = pygame.sprite.groupcollide(self.tiles, self.bullet_sprites_2, False, True)
-            for hit in tiles_bullets_2:
-                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
             bullet.update(screen)
 
+        for i in self.all_bullets:
+            tiles_bullet = pygame.sprite.groupcollide(self.all_bullets, self.tiles, True, False)
+            bullet_slime = pygame.sprite.groupcollide(self.all_bullets, self.slimes, True, False)
+            for hit in bullet_slime:
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.slime_particle)
+            for hit in tiles_bullet:
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
 
         for particle in self.particle_sprites:
             particle.update()
