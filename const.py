@@ -19,7 +19,7 @@ level_ended = pygame.USEREVENT + 2
 timer_breaker = pygame.USEREVENT + 3
 open_med = pygame.image.load('Tiles/MedKit/OpenMedKit.png')
 close_med = pygame.image.load('Tiles/MedKit/CloseMedKit.png')
-level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
+
 button_keys = {
     "x": 0,
     "circle": 1,
