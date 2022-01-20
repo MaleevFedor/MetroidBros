@@ -2,7 +2,7 @@ import os
 import sys
 from random import randint, choice
 import const
-from const import button_keys, analog_keys
+from const import button_keys
 from Level_Config import TokyoLevel, ForestLevel, IndustrialLevel, ApocalypsisLevel, PlainLevel
 from Shooting import Bullet
 from game_window import GameWindow
