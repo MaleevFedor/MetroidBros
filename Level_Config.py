@@ -25,7 +25,7 @@ class Level:
         self.cursor1 = None
         self.cursor2 = None
         self.ended = False
-        self.players_dict = {}
+
         self.playable = True
         screen.blit(self.bg, (0, 0))
 
@@ -73,12 +73,20 @@ class Level:
                 elif col == 'T':
                     self.trampoline.add(Trampoline((x, y), tile_size, tile_size))
 
+
     def quit(self):
         self.running = False
 
     def update(self):
         self.player.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline)
         self.player2.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline)
+
+    def bullet_col_check(self, bullet_group, player_sprite, player):
+        for bullet in bullet_group:
+            bullets1_player = pygame.sprite.groupcollide(bullet_group, player_sprite, True, False)
+            for hit in bullets1_player:
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
+                player.get_damage(bullet.damage)
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
@@ -90,26 +98,12 @@ class Level:
         text = font.render(str(const.score[1]), True, (255, 255, 255))
         screen.blit(text, (657, 7))
 
-        for bullet in self.bullet_sprites:
+        self.bullet_col_check(self.bullet_sprites, self.player2_sprite, self.player2)
+        self.bullet_col_check(self.bullet_sprites_2, self.player_sprite, self.player)
+        for bullet in self.all_bullets:
+            bullet.update(screen)
             if bullet.lifetime <= 0:
                 bullet.kill()
-            bullets1_player = pygame.sprite.groupcollide(self.bullet_sprites, self.player2_sprite, True, False)
-            for hit in bullets1_player:
-                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
-                self.player2.get_damage(bullet.damage)
-
-            bullet.update(screen)
-        for bullet in self.bullet_sprites_2:
-            if bullet.lifetime <= 0:
-                bullet.kill()
-            bullets2_player = pygame.sprite.groupcollide(self.bullet_sprites_2, self.player_sprite, True,
-                                                         False)
-            for hit in bullets2_player:
-                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
-                self.player.get_damage(bullet.damage)
-
-            bullet.update(screen)
-        for i in self.all_bullets:
             tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.all_bullets, False, True)
             slime_bullets = pygame.sprite.groupcollide(self.slimes, self.all_bullets, False, True)
             medkit_bullets = pygame.sprite.groupcollide(self.heals, self.all_bullets, False, True)
@@ -120,6 +114,7 @@ class Level:
             for hit in medkit_bullets:
                 hit.kill()
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.MedKitDestroy_path)
+
 
         for particle in self.particle_sprites:
             particle.update()
