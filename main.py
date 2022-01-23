@@ -23,7 +23,6 @@ def load_level():
     choice = randint(0, len(const.level_list) - 1)
     choiced = const.level_list[choice]
     const.level_list.pop(choice)
-    print(const.level_list)
     if choiced == 'Forest':
         return GameWindow(ForestLevel(screen))
     elif choiced == 'Tokyo':
@@ -193,9 +192,12 @@ def start_the_game():
                     r22 = False
         for event in pygame.event.get():
             if event.type == const.level_ended and const.score[0] + const.score[1] != 0:
-                if const.score[0] == 3 or const.score[1] == 3:
+                if const.score[0] == 3:
                     copy_score = const.score
-                    load_restart_menu(copy_score)
+                    load_restart_menu(copy_score, players[0].color)
+                if const.score[1] == 3:
+                    copy_score = const.score
+                    load_restart_menu(copy_score, players[1].color)
                 start_the_game()
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -277,13 +279,13 @@ def load_menu():
     selected_color2 = menu.add.selector('Color2:', [('Red', 1), ('Yellow', 2), ('Green', 3), ('Blue', 4)],
                                         onchange=set_color_2,
                                         font_color=(0, 0, 0), selection_color=(51, 51, 51))
-    menu.add.range_slider('Volume', 100, (0, 100), 10, onchange=set_volume, selection_color=(51, 51, 51))
+    menu.add.range_slider('Volume', 50, (0, 100), 10, onchange=set_volume, selection_color=(51, 51, 51))
     menu.add.button('Play', start_the_game, font_color=(0, 0, 0), selection_color=(51, 51, 51), font_name='Fonts/m3x6.ttf')
     menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(0, 0, 0), selection_color=(51, 51, 51))
     menu.mainloop(screen)
 
 
-def load_restart_menu(score):
+def load_restart_menu(score, color):
     const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
     pygame.display.set_icon(pygame.image.load('icon.ico'))
     pygame.display.set_caption('DinoMight')
@@ -291,9 +293,9 @@ def load_restart_menu(score):
     pygame.mixer.music.play(-1)
     const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
+    mytheme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE
     myimage = pygame_menu.baseimage.BaseImage(
-
-        image_path=f'BackGrounds/{choice(os.listdir("BackGrounds/"))}',
+        image_path=f'BackGrounds/WinScreens/{color.lower()}.png',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY
     )
     mytheme.background_color = myimage

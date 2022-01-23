@@ -20,7 +20,7 @@ level_ended = pygame.USEREVENT + 2
 timer_breaker = pygame.USEREVENT + 3
 open_med = pygame.image.load('Tiles/MedKit/OpenMedKit.png')
 close_med = pygame.image.load('Tiles/MedKit/CloseMedKit.png')
-volume = 1.0
+volume = 0.5
 level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
 button_keys = {
     "x": 0,
@@ -44,4 +44,3 @@ button_keys = {
 color1 = 'Blue'
 color2 = 'Red'
 score = [0, 0]
-volume = 50
