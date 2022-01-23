@@ -316,7 +316,7 @@ def load_controller_menu():
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     mytheme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE
     myimage = pygame_menu.baseimage.BaseImage(
-        image_path='ControllerMenu.png',
+        image_path='BackGrounds/ControllerMenu.png',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY,
     )
     mytheme.background_color = myimage
