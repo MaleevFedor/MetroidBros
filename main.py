@@ -273,7 +273,7 @@ def load_menu():
                                         onchange=set_color_2,
                                         font_color=(255, 0, 0))
 
-    menu.add.button('Play', start_the_game, font_color=(255, 0, 0))
+    menu.add.button('Play', start_the_game, font_color=(255, 0, 0), background_color=(0, 255, 0), selection_color=(0, 0, 255))
     menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
     menu.add.range_slider('volume', 1, (1, 100), 10, onchange=set_volume)
     menu.mainloop(screen)
