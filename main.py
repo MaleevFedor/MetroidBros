@@ -310,9 +310,9 @@ def load_restart_menu(score, color):
     menu_restart.add.button('Restart', start_the_game, font_color=(0, 0, 0), font_size=80,
                             align=pygame_menu.locals.ALIGN_LEFT,
                             selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
-    menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(0, 0, 0), font_size=80,
-                            align=pygame_menu.locals.ALIGN_LEFT, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
     menu_restart.add.button('Exit to main menu', load_menu, font_color=(0, 0, 0), font_size=80,
+                            align=pygame_menu.locals.ALIGN_LEFT, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
+    menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(0, 0, 0), font_size=80,
                             align=pygame_menu.locals.ALIGN_LEFT, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
     menu_restart.mainloop(screen)
 
@@ -333,10 +333,13 @@ def load_controller_menu():
     mytheme.background_color = myimage
     menu_restart = pygame_menu.Menu('', screen.get_width(), screen.get_height(),
                                     theme=mytheme)
-    menu_restart.add.button('Restart', start_the_game, font_color=(255, 0, 0),
-                            align=pygame_menu.locals.ALIGN_LEFT, font_size=60)
-    menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0),
-                            align=pygame_menu.locals.ALIGN_LEFT, font_size=60)
+    menu_restart.add.button('Restart', start_the_game, font_color=(255, 255, 255), selection_color=(212, 213, 104),
+                            align=pygame_menu.locals.ALIGN_LEFT, font_size=90, font_name='Fonts/m3x6.ttf')
+    menu_restart.add.button('Exit to main menu', load_menu, font_color=(255, 255, 255), selection_color=(212, 213, 104),
+                            align=pygame_menu.locals.ALIGN_LEFT, font_size=90, font_name='Fonts/m3x6.ttf')
+    menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 255, 255),
+                            selection_color=(212, 213, 104),
+                            align=pygame_menu.locals.ALIGN_LEFT, font_size=90, font_name='Fonts/m3x6.ttf')
     menu_restart.mainloop(screen)
 
 
