@@ -277,8 +277,8 @@ def load_menu():
     selected_color2 = menu.add.selector('Color2:', [('Red', 1), ('Yellow', 2), ('Green', 3), ('Blue', 4)],
                                         onchange=set_color_2,
                                         font_color=(0, 0, 0), selection_color=(51, 51, 51))
-    menu.add.range_slider('volume', 100, (0, 100), 10, onchange=set_volume, selection_color=(51, 51, 51))
-    menu.add.button('Play', start_the_game, font_color=(0, 0, 0), selection_color=(51, 51, 51))
+    menu.add.range_slider('Volume', 100, (0, 100), 10, onchange=set_volume, selection_color=(51, 51, 51))
+    menu.add.button('Play', start_the_game, font_color=(0, 0, 0), selection_color=(51, 51, 51), font_name='Fonts/m3x6.ttf')
     menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(0, 0, 0), selection_color=(51, 51, 51))
     menu.mainloop(screen)
 

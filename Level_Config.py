@@ -106,13 +106,14 @@ class Level:
             tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.all_bullets, False, True)
             trampoline_bullets = pygame.sprite.groupcollide(self.trampoline, self.all_bullets, False, True)
             slime_bullets = pygame.sprite.groupcollide(self.slimes, self.all_bullets, False, True)
-            medkit_bullets = pygame.sprite.groupcollide(self.heals, self.all_bullets, False, True)
+            medkit_bullets = pygame.sprite.groupcollide(self.heals, self.all_bullets, True, True)
+            for hit in trampoline_bullets:
+                create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.trampoline_path)
             for hit in tiles_bullets:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.tile_particle_path)
             for hit in slime_bullets:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.slime_particle)
             for hit in medkit_bullets:
-                hit.kill()
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.MedKitDestroy_path)
 
         for particle in self.particle_sprites:
