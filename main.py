@@ -246,6 +246,9 @@ def start_the_game():
         game.clock.tick(60)
 
 
+def set_volume(blank):
+    pass
+
 def load_menu():
     level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
     pygame.display.set_icon(pygame.image.load('icon.png'))
@@ -272,6 +275,7 @@ def load_menu():
 
     menu.add.button('Play', start_the_game, font_color=(255, 0, 0))
     menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
+    menu.add.range_slider('volume', 1, (1, 100), 10, onchange=set_volume)
     menu.mainloop(screen)
 
 
@@ -294,6 +298,7 @@ def load_restart_menu(score):
     menu_restart.add.label(f"SCORE {score[0]}:{score[1]}", max_char=-1, font_size=80, font_color=(0, 0, 0))
     menu_restart.add.button('Restart', start_the_game, font_color=(255, 0, 0))
     menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
+    menu_restart.add.button('Exit to main menu', load_menu, font_color=(255, 0, 0))
     menu_restart.mainloop(screen)
 
 

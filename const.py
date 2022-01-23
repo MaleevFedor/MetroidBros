@@ -42,3 +42,4 @@ button_keys = {
 color1 = 'Blue'
 color2 = 'Red'
 score = [0, 0]
+volume = 50
