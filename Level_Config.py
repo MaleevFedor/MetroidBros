@@ -105,6 +105,7 @@ class Level:
             if bullet.lifetime <= 0:
                 bullet.kill()
             tiles_bullets = pygame.sprite.groupcollide(self.tiles, self.all_bullets, False, True)
+            trampoline_bullets = pygame.sprite.groupcollide(self.trampoline, self.all_bullets, False, True)
             slime_bullets = pygame.sprite.groupcollide(self.slimes, self.all_bullets, False, True)
             medkit_bullets = pygame.sprite.groupcollide(self.heals, self.all_bullets, False, True)
             for hit in tiles_bullets:
