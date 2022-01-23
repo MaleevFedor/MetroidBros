@@ -23,7 +23,6 @@ class GameWindow:
             self.active_level = Options()
 
 
-
 class Options:
     def __init__(self):
         self.bg_color = (255, 0, 0)
@@ -39,4 +38,3 @@ class Options:
         text = font.render(f"OPTIONS", True, (100, 255, 100))
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(0, 0, 85, 20))
         screen.blit(text, (0, 0))
-

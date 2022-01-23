@@ -24,7 +24,6 @@ class Particle(pygame.sprite.Sprite):
             self.kill()
 
 
-
 def create_particles(position, group, path, amount=20, lifetime=100):
     particle_count = amount
     numbers = range(-5, 6)

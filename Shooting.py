@@ -1,6 +1,7 @@
 from math import cos, sin, atan2
 import pygame
 from random import uniform
+
 bullets = []
 guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 450, False, 38, 'Music/GunSounds/usp.wav'),
         'pistol': (200, 10, 1, 0.1, 'GunsAssets/Pistol.png', 10, 200, False, 33, 'Music/GunSounds/Glock.mp3'),
@@ -14,14 +15,14 @@ guns = {'usp': (200, 10, 1, 0.03, 'GunsAssets/Usp-s.png', 10, 450, False, 38, 'M
 
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, x, y, mouse_x, mouse_y, id, gun):
+    def __init__(self, x, y, mouse_x, mouse_y, bullet_id, gun):
         pygame.sprite.Sprite.__init__(self)
-        self.lifetime, self.speed, self.bullet_count, self.spread, self.path, self.size, self.recoil, self.automatic,\
+        self.lifetime, self.speed, self.bullet_count, self.spread, self.path, self.size, self.recoil, self.automatic, \
         self.damage, self.sound = gun
         self.image = pygame.Surface((self.size, self.size))
         self.image = pygame.transform.scale(pygame.image.load('GunsAssets/Bullet2.png'), (self.size, self.size))
         self.rect = self.image.get_rect()
-        self.id = id
+        self.id = bullet_id
         self.rect.centery = y
         self.rect.centerx = x
         self.angle = atan2(mouse_y - y, mouse_x - x)

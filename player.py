@@ -5,7 +5,7 @@ import const
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color, facing_right, id):
+    def __init__(self, pos, gravity, speed, jump_force, screen, weapon, color, facing_right, bullets_id):
         super().__init__()
         self.screen = screen
         self.health = 20
@@ -23,7 +23,7 @@ class Player(pygame.sprite.Sprite):
         self.x = pos[0]
         self.y = pos[1]
         self.y += 30
-        self.id = id
+        self.id = bullets_id
         self.normal_speed = speed
         self.speed = self.normal_speed
         self.gravity = gravity

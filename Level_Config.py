@@ -179,7 +179,7 @@ class Level:
 
 class TokyoLevel(Level):
     def __init__(self, screen):
-        Level.__init__(self, screen, 'BackGrounds/DevsTokyo.png')
+        Level.__init__(self, screen, 'BackGrounds/Level/DevsTokyo.png')
         self.speed = 4
         self.gravity = 0.3
         self.jump_force = -13
@@ -192,7 +192,7 @@ class TokyoLevel(Level):
 
 class ForestLevel(Level):
     def __init__(self, screen):
-        Level.__init__(self, screen, 'BackGrounds/Forest.png')
+        Level.__init__(self, screen, 'BackGrounds/Level/Forest.png')
         self.speed = 4
         self.gravity = 0.3
         self.jump_force = -13
@@ -205,7 +205,7 @@ class ForestLevel(Level):
 
 class IndustrialLevel(Level):
     def __init__(self, screen):
-        Level.__init__(self, screen, 'BackGrounds/Industrial.png')
+        Level.__init__(self, screen, 'BackGrounds/Level/Industrial.png')
         self.speed = 4
         self.gravity = 0.3
         self.jump_force = -13
@@ -218,7 +218,7 @@ class IndustrialLevel(Level):
 
 class ApocalypsisLevel(Level):
     def __init__(self, screen):
-        Level.__init__(self, screen, 'BackGrounds/Apocalypsis.jpg')
+        Level.__init__(self, screen, 'BackGrounds/Level/Apocalypsis.jpg')
         self.speed = 4
         self.gravity = 0.3
         self.jump_force = -13
@@ -231,7 +231,7 @@ class ApocalypsisLevel(Level):
 
 class PlainLevel(Level):
     def __init__(self, screen):
-        Level.__init__(self, screen, 'BackGrounds/Plain.png')
+        Level.__init__(self, screen, 'BackGrounds/Level/Plain.png')
         self.speed = 4
         self.gravity = 0.3
         self.jump_force = -13

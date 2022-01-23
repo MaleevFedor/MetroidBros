@@ -20,18 +20,18 @@ def load_level():
         const.level_list.append('Industrial')
         const.level_list.append('Apocalypsis')
         const.level_list.append('Plain')
-    choice = randint(0, len(const.level_list) - 1)
-    choiced = const.level_list[choice]
-    const.level_list.pop(choice)
-    if choiced == 'Forest':
+    index = randint(0, len(const.level_list) - 1)
+    chosen_level = const.level_list[index]
+    const.level_list.pop(index)
+    if chosen_level == 'Forest':
         return GameWindow(ForestLevel(screen))
-    elif choiced == 'Tokyo':
+    elif chosen_level == 'Tokyo':
         return GameWindow(TokyoLevel(screen))
-    elif choiced == 'Industrial':
+    elif chosen_level == 'Industrial':
         return GameWindow(IndustrialLevel(screen))
-    elif choiced == 'Apocalypsis':
+    elif chosen_level == 'Apocalypsis':
         return GameWindow(ApocalypsisLevel(screen))
-    elif choiced == 'Plain':
+    elif chosen_level == 'Plain':
         return GameWindow(PlainLevel(screen))
 
 
@@ -272,14 +272,14 @@ def load_menu():
     menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
                             theme=mytheme, joystick_enabled=False)
 
-    selected_color1 = menu.add.selector('Color1:', [('Blue', 1), ('Red', 2), ('Green', 3), ('Yellow', 4)],
-                                        onchange=set_color,
-                                        font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
-                                        font_name='Fonts/m3x6.ttf',
-                                        )
-    selected_color2 = menu.add.selector('Color2:', [('Red', 1), ('Yellow', 2), ('Green', 3), ('Blue', 4)],
-                                        onchange=set_color_2, font_size=60,
-                                        font_color=(0, 0, 0), selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
+    menu.add.selector('Color1:', [('Blue', 1), ('Red', 2), ('Green', 3), ('Yellow', 4)],
+                      onchange=set_color,
+                      font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
+                      font_name='Fonts/m3x6.ttf',
+                      )
+    menu.add.selector('Color2:', [('Red', 1), ('Yellow', 2), ('Green', 3), ('Blue', 4)],
+                      onchange=set_color_2, font_size=60,
+                      font_color=(0, 0, 0), selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
     menu.add.range_slider('Volume', 50, (0, 100), 10, onchange=set_volume, selection_color=(0, 0, 0), font_size=60,
                           font_name='Fonts/m3x6.ttf')
     menu.add.button('Play', start_the_game, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
