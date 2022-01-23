@@ -256,7 +256,7 @@ def set_volume(blank):
 
 def load_menu():
     const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
-    pygame.display.set_icon(pygame.image.load('icon.png'))
+    pygame.display.set_icon(pygame.image.load('icon.ico'))
     pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
     pygame.mixer.music.play(-1)
@@ -285,7 +285,7 @@ def load_menu():
 
 def load_restart_menu(score):
     const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
-    pygame.display.set_icon(pygame.image.load('icon.png'))
+    pygame.display.set_icon(pygame.image.load('icon.ico'))
     pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
     pygame.mixer.music.play(-1)
@@ -308,7 +308,7 @@ def load_restart_menu(score):
 
 def load_controller_menu():
     const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
-    pygame.display.set_icon(pygame.image.load('icon.png'))
+    pygame.display.set_icon(pygame.image.load('icon.ico'))
     pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
     pygame.mixer.music.play(-1)
