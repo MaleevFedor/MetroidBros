@@ -11,19 +11,19 @@ import pygame_menu
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
-level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
 
 
 def load_level():
-    if len(level_list) == 0:
-        level_list.append('Forest')
-        level_list.append('Tokyo')
-        level_list.append('Industrial')
-        level_list.append('Apocalypsis')
-        level_list.append('Plain')
-    choice = randint(0, len(level_list) - 1)
-    choiced = level_list[choice]
-    level_list.pop(choice)
+    if len(const.level_list) == 0:
+        const.level_list.append('Forest')
+        const.level_list.append('Tokyo')
+        const.level_list.append('Industrial')
+        const.level_list.append('Apocalypsis')
+        const.level_list.append('Plain')
+    choice = randint(0, len(const.level_list) - 1)
+    choiced = const.level_list[choice]
+    const.level_list.pop(choice)
+    print(const.level_list)
     if choiced == 'Forest':
         return GameWindow(ForestLevel(screen))
     elif choiced == 'Tokyo':
@@ -39,7 +39,10 @@ def load_level():
 def shoot(player, game):
     try:
         if not player.killed:
-            pygame.mixer.Sound.play(pygame.mixer.Sound(game.gun[9]))
+            shot_sound = pygame.mixer.Sound(game.gun[9])
+            pygame.mixer.Sound.set_volume(shot_sound, const.volume)
+            pygame.mixer.Sound.play(shot_sound)
+
             mouse_x, mouse_y = player.scope
             for i in range(game.gun[2]):
                 bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
@@ -247,15 +250,16 @@ def start_the_game():
 
 
 def set_volume(blank):
-    pygame.mixer.music.set_volume(blank * 0.01)
+    const.volume = round(blank) * 0.01
+    pygame.mixer.music.set_volume(const.volume)
 
 
 def load_menu():
-    level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
+    const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
     pygame.display.set_icon(pygame.image.load('icon.png'))
     pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
-    pygame.mixer.music.play(50)
+    pygame.mixer.music.play(-1)
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(
 
@@ -264,7 +268,7 @@ def load_menu():
     )
     mytheme.background_color = myimage
     menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
-                            theme=mytheme)
+                            theme=mytheme, joystick_enabled=False)
 
     selected_color1 = menu.add.selector('Color1:', [('Blue', 1), ('Red', 2), ('Green', 3), ('Yellow', 4)],
                                         onchange=set_color,
@@ -280,11 +284,11 @@ def load_menu():
 
 
 def load_restart_menu(score):
-    level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
+    const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
     pygame.display.set_icon(pygame.image.load('icon.png'))
     pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
-    pygame.mixer.music.play(50)
+    pygame.mixer.music.play(-1)
     const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(
@@ -303,11 +307,11 @@ def load_restart_menu(score):
 
 
 def load_controller_menu():
-    level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
+    const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
     pygame.display.set_icon(pygame.image.load('icon.png'))
     pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
-    pygame.mixer.music.play(50)
+    pygame.mixer.music.play(-1)
     const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     mytheme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE

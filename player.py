@@ -33,6 +33,8 @@ class Player(pygame.sprite.Sprite):
         self.killed = False
         self.right = False
         self.left = False
+        self.jump_sound = pygame.mixer.Sound('Music/Effects/jump.wav')
+        pygame.mixer.Sound.set_volume(self.jump_sound, const.volume)
         self.scope = [self.rect[0], self.rect[1]]
         self.animations = {'idle': [],
                            'run': [],
@@ -115,7 +117,7 @@ class Player(pygame.sprite.Sprite):
             self.direction.y = 0
             self.direction.y += self.jump_force
             self.extra_jumps -= 1
-            pygame.mixer.Sound.play(pygame.mixer.Sound('Music/Effects/jump.wav'))
+            pygame.mixer.Sound.play(self.jump_sound)
             self.can_jump = False
 
     def update(self, tiles, saws, slimes, particles, heals, trampolines):

@@ -6,7 +6,7 @@ import pygame
 from Tiles import Tile, Saw, Slime, Heal, Trampoline
 from player import Player
 from Shooting import guns
-from particle import Particle, create_particles
+from particle import create_particles
 
 
 class Level:
@@ -73,7 +73,6 @@ class Level:
                 elif col == 'T':
                     self.trampoline.add(Trampoline((x, y), tile_size, tile_size))
 
-
     def quit(self):
         self.running = False
 
@@ -114,7 +113,6 @@ class Level:
             for hit in medkit_bullets:
                 hit.kill()
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.MedKitDestroy_path)
-
 
         for particle in self.particle_sprites:
             particle.update()
@@ -186,7 +184,7 @@ class TokyoLevel(Level):
         self.screen = screen
         self.level_map = Tokyo_level
         pygame.mixer.music.load('Music/Ambients/TokyoAmbient.mp3')
-        pygame.mixer.music.play(50)
+        pygame.mixer.music.play(-1)
         self.setup_level()
 
 
@@ -199,7 +197,7 @@ class ForestLevel(Level):
         self.screen = screen
         self.level_map = Forest_level
         pygame.mixer.music.load('Music/Ambients/ForestAmbient.wav')
-        pygame.mixer.music.play(50)
+        pygame.mixer.music.play(-1)
         self.setup_level()
 
 
@@ -212,7 +210,7 @@ class IndustrialLevel(Level):
         self.screen = screen
         self.level_map = Industrial_level
         pygame.mixer.music.load('Music/Ambients/industrial.mp3')
-        pygame.mixer.music.play(50)
+        pygame.mixer.music.play(-1)
         self.setup_level()
 
 
@@ -225,7 +223,7 @@ class ApocalypsisLevel(Level):
         self.screen = screen
         self.level_map = Apocalypsis
         pygame.mixer.music.load('Music/Ambients/The Last of Us (You and Me).mp3')
-        pygame.mixer.music.play(50)
+        pygame.mixer.music.play(-1)
         self.setup_level()
 
 
@@ -238,5 +236,5 @@ class PlainLevel(Level):
         self.screen = screen
         self.level_map = Plain
         pygame.mixer.music.load('Music/Ambients/PlainsAmbient.mp3')
-        pygame.mixer.music.play(50)
+        pygame.mixer.music.play(-1)
         self.setup_level()
