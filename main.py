@@ -274,14 +274,18 @@ def load_menu():
 
     selected_color1 = menu.add.selector('Color1:', [('Blue', 1), ('Red', 2), ('Green', 3), ('Yellow', 4)],
                                         onchange=set_color,
-                                        font_color=(0, 0, 0), selection_color=(51, 51, 51)
+                                        font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
+                                        font_name='Fonts/m3x6.ttf',
                                         )
     selected_color2 = menu.add.selector('Color2:', [('Red', 1), ('Yellow', 2), ('Green', 3), ('Blue', 4)],
-                                        onchange=set_color_2,
-                                        font_color=(0, 0, 0), selection_color=(51, 51, 51))
-    menu.add.range_slider('Volume', 50, (0, 100), 10, onchange=set_volume, selection_color=(51, 51, 51))
-    menu.add.button('Play', start_the_game, font_color=(0, 0, 0), selection_color=(51, 51, 51), font_name='Fonts/m3x6.ttf')
-    menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(0, 0, 0), selection_color=(51, 51, 51))
+                                        onchange=set_color_2, font_size=60,
+                                        font_color=(0, 0, 0), selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
+    menu.add.range_slider('Volume', 50, (0, 100), 10, onchange=set_volume, selection_color=(0, 0, 0), font_size=60,
+                          font_name='Fonts/m3x6.ttf')
+    menu.add.button('Play', start_the_game, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
+                    font_name='Fonts/m3x6.ttf')
+    menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
+                    font_name='Fonts/m3x6.ttf')
     menu.mainloop(screen)
 
 
@@ -299,12 +303,17 @@ def load_restart_menu(score, color):
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY
     )
     mytheme.background_color = myimage
-    menu_restart = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
+    menu_restart = pygame_menu.Menu('', screen.get_width(), screen.get_height(),
                                     theme=mytheme)
-    menu_restart.add.label(f"SCORE {score[0]}:{score[1]}", max_char=-1, font_size=80, font_color=(0, 0, 0))
-    menu_restart.add.button('Restart', start_the_game, font_color=(255, 0, 0))
-    menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
-    menu_restart.add.button('Exit to main menu', load_menu, font_color=(255, 0, 0))
+    menu_restart.add.label(f"SCORE {score[0]}:{score[1]}", max_char=-1, font_size=200, font_color=(255, 0, 0),
+                           align=pygame_menu.locals.ALIGN_LEFT, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
+    menu_restart.add.button('Restart', start_the_game, font_color=(0, 0, 0), font_size=80,
+                            align=pygame_menu.locals.ALIGN_LEFT,
+                            selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
+    menu_restart.add.button('Quit', pygame_menu.events.EXIT, font_color=(0, 0, 0), font_size=80,
+                            align=pygame_menu.locals.ALIGN_LEFT, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
+    menu_restart.add.button('Exit to main menu', load_menu, font_color=(0, 0, 0), font_size=80,
+                            align=pygame_menu.locals.ALIGN_LEFT, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
     menu_restart.mainloop(screen)
 
 
