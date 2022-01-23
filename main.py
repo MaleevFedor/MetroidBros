@@ -246,8 +246,8 @@ def start_the_game():
         game.clock.tick(60)
 
 
-def set_volume(volume):
-    pygame.mixer.music.set_volume(volume * 0.01)
+def set_volume(blank):
+    pygame.mixer.music.set_volume(blank * 0.01)
 
 
 def load_menu():
