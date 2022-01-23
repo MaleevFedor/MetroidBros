@@ -247,7 +247,8 @@ def start_the_game():
 
 
 def set_volume(blank):
-    pass
+    pygame.mixer.music.set_volume(blank * 0.01)
+
 
 def load_menu():
     level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
@@ -258,7 +259,7 @@ def load_menu():
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(
 
-        image_path=f'BackGrounds/{choice(os.listdir("BackGrounds/"))}',
+        image_path=f'BackGrounds/MainMenu/{choice(os.listdir("BackGrounds/MainMenu/"))}',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY
     )
     mytheme.background_color = myimage
@@ -267,15 +268,15 @@ def load_menu():
 
     selected_color1 = menu.add.selector('Color1:', [('Blue', 1), ('Red', 2), ('Green', 3), ('Yellow', 4)],
                                         onchange=set_color,
-                                        font_color=(255, 0, 0)
+                                        font_color=(0, 0, 0)
                                         )
     selected_color2 = menu.add.selector('Color2:', [('Red', 1), ('Yellow', 2), ('Green', 3), ('Blue', 4)],
                                         onchange=set_color_2,
-                                        font_color=(255, 0, 0))
+                                        font_color=(0, 0, 0))
 
-    menu.add.button('Play', start_the_game, font_color=(255, 0, 0), background_color=(0, 255, 0), selection_color=(0, 0, 255))
-    menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(255, 0, 0))
-    menu.add.range_slider('volume', 1, (1, 100), 10, onchange=set_volume)
+    menu.add.button('Play', start_the_game, font_color=(0, 0, 0))
+    menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(0, 0, 0))
+    menu.add.range_slider('volume', 100, (0, 100), 10, onchange=set_volume)
     menu.mainloop(screen)
 
 
