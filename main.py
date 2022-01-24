@@ -267,6 +267,8 @@ def set_volume(blank):
 
 
 def load_menu():
+    const.score = [0, 0]
+    const.block_gamepad_menu = False
     const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
     pygame.display.set_icon(pygame.image.load('icon.ico'))
     pygame.display.set_caption('DinoMight')
