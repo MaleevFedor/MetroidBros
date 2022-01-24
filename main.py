@@ -75,10 +75,11 @@ def set_color_2(value, blank):
     const.color2 = value[0][0]
 
 
-def start_the_game():
+def start_the_game(actual_score=True):
     r21 = False
     r22 = False
-
+    if not actual_score:
+        const.score = [0, 0]
     one_gamepad = False
 
     joysticks = []
@@ -88,7 +89,6 @@ def start_the_game():
         joystick.init()
     if len(joysticks) == 1:
         one_gamepad = True
-
     game_window = load_level()
     game = game_window.active_level
     player1 = game.player
@@ -251,6 +251,14 @@ def start_the_game():
         game.clock.tick(60)
 
 
+def restart_game():
+    start_the_game(False)
+
+
+def continue_game():
+    start_the_game(True)
+
+
 def set_volume(blank):
     const.volume = round(blank) * 0.01
     pygame.mixer.music.set_volume(const.volume)
@@ -280,8 +288,8 @@ def load_menu():
     menu.add.selector('Color2:', [('Red', 1), ('Yellow', 2), ('Green', 3), ('Blue', 4)],
                       onchange=set_color_2, font_size=60,
                       font_color=(0, 0, 0), selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
-    menu.add.range_slider('Volume', 50, (0, 100), 10, onchange=set_volume, selection_color=(0, 0, 0), font_size=60,
-                          font_name='Fonts/m3x6.ttf')
+    menu.add.range_slider('Volume', const.volume * 100, (0, 100), 10, onchange=set_volume, selection_color=(0, 0, 0),
+                          font_size=60, font_name='Fonts/m3x6.ttf')
     menu.add.button('Play', start_the_game, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
                     font_name='Fonts/m3x6.ttf')
     menu.add.button('Quit', pygame_menu.events.EXIT, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
@@ -295,7 +303,6 @@ def load_restart_menu(score, color):
     pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
     pygame.mixer.music.play(-1)
-    const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     mytheme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE
     myimage = pygame_menu.baseimage.BaseImage(
@@ -307,7 +314,7 @@ def load_restart_menu(score, color):
                                     theme=mytheme)
     menu_restart.add.label(f"SCORE {score[0]}:{score[1]}", max_char=-1, font_size=200, font_color=(255, 0, 0),
                            align=pygame_menu.locals.ALIGN_LEFT, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
-    menu_restart.add.button('Restart', start_the_game, font_color=(0, 0, 0), font_size=80,
+    menu_restart.add.button('Restart', restart_game, font_color=(0, 0, 0), font_size=80,
                             align=pygame_menu.locals.ALIGN_LEFT,
                             selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
     menu_restart.add.button('Exit to main menu', load_menu, font_color=(0, 0, 0), font_size=80,
@@ -323,7 +330,6 @@ def load_controller_menu():
     pygame.display.set_caption('DinoMight')
     pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
     pygame.mixer.music.play(-1)
-    const.score = [0, 0]
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     mytheme.title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_NONE
     myimage = pygame_menu.baseimage.BaseImage(
@@ -333,7 +339,9 @@ def load_controller_menu():
     mytheme.background_color = myimage
     menu_restart = pygame_menu.Menu('', screen.get_width(), screen.get_height(),
                                     theme=mytheme)
-    menu_restart.add.button('Restart', start_the_game, font_color=(255, 255, 255), selection_color=(212, 213, 104),
+    menu_restart.add.button('Continue', continue_game, font_color=(255, 255, 255), selection_color=(212, 213, 104),
+                            align=pygame_menu.locals.ALIGN_LEFT, font_size=90, font_name='Fonts/m3x6.ttf')
+    menu_restart.add.button('Restart', restart_game, font_color=(255, 255, 255), selection_color=(212, 213, 104),
                             align=pygame_menu.locals.ALIGN_LEFT, font_size=90, font_name='Fonts/m3x6.ttf')
     menu_restart.add.button('Exit to main menu', load_menu, font_color=(255, 255, 255), selection_color=(212, 213, 104),
                             align=pygame_menu.locals.ALIGN_LEFT, font_size=90, font_name='Fonts/m3x6.ttf')
