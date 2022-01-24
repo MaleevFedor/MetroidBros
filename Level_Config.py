@@ -155,6 +155,8 @@ class Level:
                     const.score[1] += 1
                 elif self.player2.killed:
                     const.score[0] += 1
+                if 3 in const.score:
+                    const.block_gamepad_menu = True
             if self.player.killed:
                 win_player = self.player2
                 self.player2.current_health = 200

@@ -22,6 +22,7 @@ open_med = pygame.image.load('Tiles/MedKit/OpenMedKit.png')
 close_med = pygame.image.load('Tiles/MedKit/CloseMedKit.png')
 volume = 0.5
 level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
+block_gamepad_menu = False
 button_keys = {
     "x": 0,
     "circle": 1,

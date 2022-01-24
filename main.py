@@ -100,7 +100,7 @@ def start_the_game(actual_score=True):
     last_shot = -game.gun[6]
     last_shot_2 = -game.gun[6]
     while game.running:
-        if len(joysticks) != pygame.joystick.get_count():
+        if len(joysticks) != pygame.joystick.get_count() and not const.block_gamepad_menu:
             load_controller_menu()
         now = pygame.time.get_ticks()
         if len(joysticks) <= 1:
@@ -252,10 +252,12 @@ def start_the_game(actual_score=True):
 
 
 def restart_game():
+    const.block_gamepad_menu = False
     start_the_game(False)
 
 
 def continue_game():
+    const.block_gamepad_menu = False
     start_the_game(True)
 
 
