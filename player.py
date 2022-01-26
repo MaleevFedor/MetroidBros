@@ -39,6 +39,7 @@ class Player(pygame.sprite.Sprite):
         self.animations = {'idle': [],
                            'run': [],
                            'jump': [],
+                           'hurt': [],
                            'fall': []}
         self.animations['idle'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Idle/Idle1.png'))
         self.animations['idle'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Idle/Idle2.png'))
@@ -53,6 +54,9 @@ class Player(pygame.sprite.Sprite):
         self.animations['run'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Run/Run6.png'))
 
         self.animations['jump'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/jump.png'))
+        self.animations['hurt'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Hurt/Hurt1.png'))
+        self.animations['hurt'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Hurt/Hurt2.png'))
+        self.animations['hurt'].append(pygame.image.load(f'DinosaursAssets/{self.color}Dino/Hurt/Hurt3.png'))
         self.sprites = []
         self.current_state = 'idle'
         self.current_sprite = 0
@@ -78,6 +82,8 @@ class Player(pygame.sprite.Sprite):
     def get_damage(self, amount):
         if self.current_health > 0:
             self.current_health -= amount
+            self.current_state = 'hurt'
+            self.current_sprite = 0
         if self.current_health <= 0:
             self.current_health = 0
             self.kill()
@@ -93,19 +99,21 @@ class Player(pygame.sprite.Sprite):
         self.direction.y += self.gravity
 
     def get_state(self):
-        if self.extra_jumps != 2:
-            self.current_state = 'jump'
-        elif self.right or self.left:
-            self.current_state = 'run'
-        else:
-            self.current_state = 'idle'
+        if self.current_state != 'hurt':
+            if self.extra_jumps != 2:
+                self.current_state = 'jump'
+            elif self.right or self.left:
+                self.current_state = 'run'
+            else:
+                self.current_state = 'idle'
 
     def animation(self):
         current_animation = self.animations[self.current_state]
-
         self.current_sprite += 0.10
         if self.current_sprite >= len(current_animation):
             self.current_sprite = 0
+            if self.current_state == 'hurt':
+                self.current_state = ''
         image = current_animation[int(self.current_sprite)]
         if self.facing_right:
             self.image = image

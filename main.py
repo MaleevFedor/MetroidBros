@@ -9,9 +9,6 @@ from game_window import GameWindow
 import pygame
 import pygame_menu
 
-pygame.init()
-screen = pygame.display.set_mode((1280, 720))
-
 
 def load_level():
     if len(const.level_list) == 0:
@@ -356,4 +353,6 @@ def load_controller_menu():
 
 
 if __name__ == '__main__':
+    pygame.init()
+    screen = pygame.display.set_mode((1280, 720))
     load_menu()

@@ -81,13 +81,13 @@ Apocalypsis = [
 Plain = [
     '                                ',
     '                                ',
+    '             X    X              ',
+    '  H         HX    XH        H    ',
+    'XXXXXXXXXXXXXX    XXXXXXXXXXXXXXX',
     '                                ',
-    '  H        HX    XH        H    ',
-    'XXXXXXXXXXXXX    XXXXXXXXXXXXXX',
     '                                ',
-    '                                ',
-    '            X    X              ',
-    'XXXXXX   XXXX    XXXXX    XXXXXX',
+    '             X    X              ',
+    'XXXXXX   XXXXX    XXXXX    XXXXXX',
     '                                ',
     '                                ',
     '                                ',
@@ -95,7 +95,7 @@ Plain = [
     '      XXXX            XXXX       ',
     '                                ',
     '                                ',
-    '  1       H  T          H    2  ',
+    '  1       H   T         H    2  ',
     'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', ]
 
 tile_size = 40
