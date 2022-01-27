@@ -128,6 +128,26 @@ class Player(pygame.sprite.Sprite):
             pygame.mixer.Sound.play(self.jump_sound)
             self.can_jump = False
 
+    def col_x_check(self, collided_sprite):
+        for tile in collided_sprite:
+            if self.rect.colliderect(tile.rect):
+                if self.direction.x > 0:
+                    self.rect.right = tile.rect.left
+                elif self.direction.x < 0:
+                    self.rect.left = tile.rect.right
+
+    def col_y_check(self, collided_sprite):
+        for tile in collided_sprite:
+            if self.rect.colliderect(tile.rect):
+                if self.direction.y > 0:
+                    self.rect.bottom = tile.rect.top
+                    self.extra_jumps = 2
+                elif self.direction.y < 0:
+                    self.rect.top = tile.rect.bottom
+                self.direction.y = 0
+
+
+
     def update(self, tiles, saws, slimes, particles, heals, trampolines, other_player):
         if self.killed:
             return None
@@ -142,25 +162,10 @@ class Player(pygame.sprite.Sprite):
         else:
             self.direction.x = 0
         self.rect.x += self.direction.x
-        for tile in tiles:
-            if self.rect.colliderect(tile.rect):
-                if self.direction.x > 0:
-                    self.rect.right = tile.rect.left
-                elif self.direction.x < 0:
-                    self.rect.left = tile.rect.right
-        for tile in slimes:
-            if self.rect.colliderect(tile.rect):
-                if self.direction.x > 0:
-                    self.rect.right = tile.rect.left
-                elif self.direction.x < 0:
-                    self.rect.left = tile.rect.right
-
-        for tile in trampolines:
-            if self.rect.colliderect(tile.rect):
-                if self.direction.x > 0:
-                    self.rect.right = tile.rect.left
-                elif self.direction.x < 0:
-                    self.rect.left = tile.rect.right
+        self.col_x_check(tiles)
+        self.col_x_check(slimes)
+        self.col_x_check(trampolines)
+        self.col_x_check(other_player)
 
         for tile in heals:
             if self.rect.colliderect(tile.rect):
@@ -168,34 +173,12 @@ class Player(pygame.sprite.Sprite):
                     tile.image = const.open_med
                     self.get_health(100)
                     create_particles((self.rect.x, self.rect.y), particles, const.heal_particle_path)
-        for tile in other_player:
-            if self.rect.colliderect(tile.rect):
-                if self.direction.x > 0:
-                    self.rect.right = tile.rect.left
-                elif self.direction.x < 0:
-                    self.rect.left = tile.rect.right
-
 
         self.i_hate_gravity()
         self.rect.y += self.direction.y
         self.speed = self.normal_speed
-        for tile in tiles:
-            if self.rect.colliderect(tile.rect):
-                if self.direction.y > 0:
-                    self.rect.bottom = tile.rect.top
-                    self.extra_jumps = 2
-                elif self.direction.y < 0:
-                    self.rect.top = tile.rect.bottom
-                self.direction.y = 0
-        for tile in other_player:
-            if self.rect.colliderect(tile.rect):
-                if self.direction.y > 0:
-                    self.rect.bottom = tile.rect.top
-                    self.extra_jumps = 2
-                elif self.direction.y < 0:
-                    self.rect.top = tile.rect.bottom
-                self.direction.y = 0
-
+        self.col_y_check(tiles)
+        self.col_y_check(other_player)
         for tile in slimes:
             if self.rect.colliderect(tile.rect):
                 if self.direction.x != 0:
