@@ -165,7 +165,7 @@ class Player(pygame.sprite.Sprite):
         self.col_x_check(tiles)
         self.col_x_check(slimes)
         self.col_x_check(trampolines)
-        self.col_x_check(other_player)
+
 
         for tile in heals:
             if self.rect.colliderect(tile.rect):
@@ -178,7 +178,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.direction.y
         self.speed = self.normal_speed
         self.col_y_check(tiles)
-        self.col_y_check(other_player)
+
+
         for tile in slimes:
             if self.rect.colliderect(tile.rect):
                 if self.direction.x != 0:
