@@ -128,7 +128,7 @@ class Player(pygame.sprite.Sprite):
             pygame.mixer.Sound.play(self.jump_sound)
             self.can_jump = False
 
-    def update(self, tiles, saws, slimes, particles, heals, trampolines):
+    def update(self, tiles, saws, slimes, particles, heals, trampolines, other_player):
         if self.killed:
             return None
         self.get_state()
@@ -154,6 +154,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.right = tile.rect.left
                 elif self.direction.x < 0:
                     self.rect.left = tile.rect.right
+
         for tile in trampolines:
             if self.rect.colliderect(tile.rect):
                 if self.direction.x > 0:
@@ -167,11 +168,26 @@ class Player(pygame.sprite.Sprite):
                     tile.image = const.open_med
                     self.get_health(100)
                     create_particles((self.rect.x, self.rect.y), particles, const.heal_particle_path)
+        for tile in other_player:
+            if self.rect.colliderect(tile.rect):
+                if self.direction.x > 0:
+                    self.rect.right = tile.rect.left
+                elif self.direction.x < 0:
+                    self.rect.left = tile.rect.right
+
 
         self.i_hate_gravity()
         self.rect.y += self.direction.y
         self.speed = self.normal_speed
         for tile in tiles:
+            if self.rect.colliderect(tile.rect):
+                if self.direction.y > 0:
+                    self.rect.bottom = tile.rect.top
+                    self.extra_jumps = 2
+                elif self.direction.y < 0:
+                    self.rect.top = tile.rect.bottom
+                self.direction.y = 0
+        for tile in other_player:
             if self.rect.colliderect(tile.rect):
                 if self.direction.y > 0:
                     self.rect.bottom = tile.rect.top
