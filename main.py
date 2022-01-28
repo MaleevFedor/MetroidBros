@@ -10,8 +10,6 @@ import pygame
 import pygame_menu
 
 
-
-
 def shoot(player, game):
     try:
         if not player.killed:
@@ -66,7 +64,8 @@ def start_the_game(actual_score=True):
         joystick.init()
     if len(joysticks) == 1:
         one_gamepad = True
-    game_window = GameWindow.load_level(1, screen)
+    game_window = GameWindow()
+    game_window.load_level(screen)
     game = game_window.active_level
     player1 = game.player
     player2 = game.player2

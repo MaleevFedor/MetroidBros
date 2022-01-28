@@ -1,12 +1,11 @@
 import const
-import pygame
 from random import randint
 from Level_Config import TokyoLevel, ForestLevel, IndustrialLevel, ApocalypsisLevel, PlainLevel
 
 
 class GameWindow:
-    def __init__(self, active_level):
-        self.active_level = active_level
+    def __init__(self):
+        self.active_level = None
 
     def update(self):
         self.active_level.update()
@@ -25,14 +24,14 @@ class GameWindow:
         chosen_level = const.level_list[index]
         const.level_list.pop(index)
         if chosen_level == 'Forest':
-            return GameWindow(ForestLevel(screen))
+            self.active_level = ForestLevel(screen)
         elif chosen_level == 'Tokyo':
-            return GameWindow(TokyoLevel(screen))
+            self.active_level = TokyoLevel(screen)
         elif chosen_level == 'Industrial':
-            return GameWindow(IndustrialLevel(screen))
+            self.active_level = IndustrialLevel(screen)
         elif chosen_level == 'Apocalypsis':
-            return GameWindow(ApocalypsisLevel(screen))
+            self.active_level = ApocalypsisLevel(screen)
         elif chosen_level == 'Plain':
-            return GameWindow(PlainLevel(screen))
+            self.active_level = PlainLevel(screen)
 
 
