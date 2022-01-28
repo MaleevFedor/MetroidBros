@@ -1,9 +1,8 @@
 import os
 import sys
-from random import randint, choice
+from random import choice
 import const
 from const import button_keys
-from Level_Config import TokyoLevel, ForestLevel, IndustrialLevel, ApocalypsisLevel, PlainLevel
 from Shooting import Bullet
 from game_window import GameWindow
 import pygame
@@ -76,6 +75,7 @@ def start_the_game(actual_score=True):
     last_shot = -game.gun[6]
     last_shot_2 = -game.gun[6]
     while game.running:
+        game.clock.tick(60)
         if len(joysticks) != pygame.joystick.get_count() and not const.block_gamepad_menu:
             load_controller_menu()
         now = pygame.time.get_ticks()
@@ -224,7 +224,6 @@ def start_the_game(actual_score=True):
         game_window.active_level.update()
         game_window.active_level.render(screen)
         pygame.display.flip()
-        game.clock.tick(60)
 
 
 def restart_game():
@@ -335,3 +334,5 @@ if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode((1280, 720))
     load_menu()
+
+# We did what we could

@@ -74,11 +74,13 @@ class Level:
                     self.trampoline.add(Trampoline((x, y), tile_size, tile_size))
 
     def quit(self):
-        self.running = Falsed
+        self.running = False
 
     def update(self):
-        self.player.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline, self.player2_sprite)
-        self.player2.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline, self.player_sprite)
+        self.player.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline,
+                           self.player2_sprite)
+        self.player2.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline,
+                            self.player_sprite)
 
     def bullet_col_check(self, bullet_group, player_sprite, player):
         for bullet in bullet_group:
@@ -99,8 +101,6 @@ class Level:
 
         self.bullet_col_check(self.bullet_sprites, self.player2_sprite, self.player2)
         self.bullet_col_check(self.bullet_sprites_2, self.player_sprite, self.player)
-
-
 
         for bullet in self.all_bullets:
             bullet.update(screen)

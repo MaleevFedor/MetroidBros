@@ -33,5 +33,3 @@ class GameWindow:
             self.active_level = ApocalypsisLevel(screen)
         elif chosen_level == 'Plain':
             self.active_level = PlainLevel(screen)
-
-

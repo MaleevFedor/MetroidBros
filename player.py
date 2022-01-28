@@ -146,8 +146,6 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
 
-
-
     def update(self, tiles, saws, slimes, particles, heals, trampolines, other_player):
         if self.killed:
             return None
@@ -166,7 +164,6 @@ class Player(pygame.sprite.Sprite):
         self.col_x_check(slimes)
         self.col_x_check(trampolines)
 
-
         for tile in heals:
             if self.rect.colliderect(tile.rect):
                 if self.current_health <= 100 and tile.image != const.open_med:
@@ -178,7 +175,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.direction.y
         self.speed = self.normal_speed
         self.col_y_check(tiles)
-
 
         for tile in slimes:
             if self.rect.colliderect(tile.rect):
