@@ -10,26 +10,6 @@ import pygame
 import pygame_menu
 
 
-def load_level():
-    if len(const.level_list) == 0:
-        const.level_list.append('Forest')
-        const.level_list.append('Tokyo')
-        const.level_list.append('Industrial')
-        const.level_list.append('Apocalypsis')
-        const.level_list.append('Plain')
-    index = randint(0, len(const.level_list) - 1)
-    chosen_level = const.level_list[index]
-    const.level_list.pop(index)
-    if chosen_level == 'Forest':
-        return GameWindow(ForestLevel(screen))
-    elif chosen_level == 'Tokyo':
-        return GameWindow(TokyoLevel(screen))
-    elif chosen_level == 'Industrial':
-        return GameWindow(IndustrialLevel(screen))
-    elif chosen_level == 'Apocalypsis':
-        return GameWindow(ApocalypsisLevel(screen))
-    elif chosen_level == 'Plain':
-        return GameWindow(PlainLevel(screen))
 
 
 def shoot(player, game):
@@ -86,7 +66,7 @@ def start_the_game(actual_score=True):
         joystick.init()
     if len(joysticks) == 1:
         one_gamepad = True
-    game_window = load_level()
+    game_window = GameWindow.load_level(1, screen)
     game = game_window.active_level
     player1 = game.player
     player2 = game.player2
