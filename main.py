@@ -241,6 +241,11 @@ def set_volume(blank):
     pygame.mixer.music.set_volume(const.volume)
 
 
+def check_name(name):
+    print('User name:', name)
+    
+
+
 def load_menu():
     const.score = [0, 0]
     const.block_gamepad_menu = False
@@ -329,10 +334,37 @@ def load_controller_menu():
                             align=pygame_menu.locals.ALIGN_LEFT, font_size=90, font_name='Fonts/m3x6.ttf')
     menu_restart.mainloop(screen)
 
+def load_login_menu():
+    const.score = [0, 0]
+    const.block_gamepad_menu = False
+    const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
+    pygame.display.set_icon(pygame.image.load('icon.ico'))
+    pygame.display.set_caption('DinoMight')
+    pygame.mixer.music.load('Music/Ambients/MainMenu.wav')
+    pygame.mixer.music.play(-1)
+    mytheme = pygame_menu.themes.THEME_ORANGE.copy()
+    myimage = pygame_menu.baseimage.BaseImage(
+
+        image_path=f'BackGrounds/Level/{choice(os.listdir("BackGrounds/Level/"))}',
+        drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY
+    )
+    mytheme.background_color = myimage
+    menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
+                            theme=mytheme, joystick_enabled=False)
+    menu.add.text_input('Login1: ', default='Sleevkid', onchange=check_name)
+    menu.add.text_input('Password: ', password=True, )
+    menu.add.button('Submit1', load_menu, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
+                    font_name='Fonts/m3x6.ttf')
+    menu.add.text_input('Login2: ', default='Wooster', onchange=check_name)
+    menu.add.text_input('Password: ',  password=True)
+    menu.add.button('Submit2', load_menu, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
+                    font_name='Fonts/m3x6.ttf')
+    menu.mainloop(screen)
+
 
 if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode((1280, 720))
-    load_menu()
+    load_login_menu()
 
 # We did what we could
