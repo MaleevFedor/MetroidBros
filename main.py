@@ -345,18 +345,18 @@ def load_login_menu():
     mytheme = pygame_menu.themes.THEME_ORANGE.copy()
     myimage = pygame_menu.baseimage.BaseImage(
 
-        image_path=f'BackGrounds/Level/{choice(os.listdir("BackGrounds/Level/"))}',
+        image_path=f'BackGrounds/MainMenu/{choice(os.listdir("BackGrounds/MainMenu/"))}',
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_REPEAT_XY
     )
     mytheme.background_color = myimage
     menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
                             theme=mytheme, joystick_enabled=False)
-    menu.add.text_input('Login1: ', default='Sleevkid', onchange=check_name)
-    menu.add.text_input('Password: ', password=True, )
+    menu.add.text_input('Login1: ', default='Sleevkid', onchange=check_name,  font_name='Fonts/m3x6.ttf', selection_color=(0, 0, 0), font_size=60)
+    menu.add.text_input('Password: ', password=True,  font_name='Fonts/m3x6.ttf', selection_color=(0, 0, 0), font_size=60)
     menu.add.button('Submit1', load_menu, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
                     font_name='Fonts/m3x6.ttf')
-    menu.add.text_input('Login2: ', default='Wooster', onchange=check_name)
-    menu.add.text_input('Password: ',  password=True)
+    menu.add.text_input('Login2: ', default='Wooster', onchange=check_name, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),  font_name='Fonts/m3x6.ttf')
+    menu.add.text_input('Password: ',  password=True, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
     menu.add.button('Submit2', load_menu, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
                     font_name='Fonts/m3x6.ttf')
     menu.mainloop(screen)
