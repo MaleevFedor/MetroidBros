@@ -353,12 +353,12 @@ def load_login_menu():
                             theme=mytheme, joystick_enabled=False)
     menu.add.text_input('Login1: ', default='Sleevkid', onchange=check_name,  font_name='Fonts/m3x6.ttf', selection_color=(0, 0, 0), font_size=60)
     menu.add.text_input('Password: ', password=True,  font_name='Fonts/m3x6.ttf', selection_color=(0, 0, 0), font_size=60)
-    menu.add.button('Submit1', load_menu, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
-                    font_name='Fonts/m3x6.ttf')
+
     menu.add.text_input('Login2: ', default='Wooster', onchange=check_name, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),  font_name='Fonts/m3x6.ttf')
     menu.add.text_input('Password: ',  password=True, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
-    menu.add.button('Submit2', load_menu, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
+    menu.add.button('Submit', load_menu, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
                     font_name='Fonts/m3x6.ttf')
+
     menu.mainloop(screen)
 
 
