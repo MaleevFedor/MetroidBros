@@ -16,7 +16,15 @@ class User(SqlAlchemyBase, UserMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.now)
     banned = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
-
+    elo = sqlalchemy.Column(sqlalchemy.Integer, default=1000)
+    picture = sqlalchemy.Column(sqlalchemy.String, default='default')
+    kills = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    deaths = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    accuracy = sqlalchemy.Column(sqlalchemy.Integer, default=100)
+    hp_healed = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    saws_deaths = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    blood_spilled = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)
 
