@@ -104,6 +104,8 @@ def register():
             return render_template('registration.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
+        if form.about.data == '':
+            form.about.data = 'Информация отсутствует'
         user = User(
             login=form.login.data,
             email=form.email.data,
