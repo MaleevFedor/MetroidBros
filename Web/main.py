@@ -1,7 +1,7 @@
 import os
 from datetime import timedelta
 
-from flask import Flask, render_template, make_response, redirect, session, send_file
+from flask import Flask, render_template, make_response, redirect, session, send_file, request
 from flask_login import LoginManager, login_user, login_required, logout_user
 
 from data import db_session
@@ -58,6 +58,21 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
+
+
+def db_check_password(login, password):
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.login == login).first()
+    if user and user.check_password(password):
+        return True
+
+
+@app.route('/game_login', methods=['POST'])
+def game_login():
+    if db_check_password(request.json['login'], request.json['password']):
+        return 'ok'
+    return 'not ok'
+
 
 
 @app.route('/download')

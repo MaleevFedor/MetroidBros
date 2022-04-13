@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 from random import choice
@@ -7,6 +8,7 @@ from Shooting import Bullet
 from game_window import GameWindow
 import pygame
 import pygame_menu
+import requests
 
 
 def shoot(player, game):
@@ -241,9 +243,26 @@ def set_volume(blank):
     pygame.mixer.music.set_volume(const.volume)
 
 
-def check_name(name):
-    print('User name:', name)
-    
+def save_name(name, player_num):
+    if player_num == 1:
+        const.player1_name = name
+    else:
+        const.player2_name = name
+
+
+def save_password(password, player_num):
+    if player_num == 1:
+        const.player1_password = password
+    else:
+        const.player2_password = password
+
+
+def login():
+    req = requests.post(const.PASSWORD_CHECK_ADRESS, json={'login': const.player1_name, 'password': const.player1_password})
+    req_2 = requests.post(const.PASSWORD_CHECK_ADRESS,
+                        json={'login': const.player2_name, 'password': const.player2_password})
+    if req.text == 'ok' and req_2.text == 'ok':
+        load_menu()
 
 
 def load_menu():
@@ -351,12 +370,12 @@ def load_login_menu():
     mytheme.background_color = myimage
     menu = pygame_menu.Menu('DinoMight', screen.get_width(), screen.get_height(),
                             theme=mytheme, joystick_enabled=False)
-    menu.add.text_input('Login1: ', default='Sleevkid', onchange=check_name,  font_name='Fonts/m3x6.ttf', selection_color=(0, 0, 0), font_size=60)
-    menu.add.text_input('Password: ', password=True,  font_name='Fonts/m3x6.ttf', selection_color=(0, 0, 0), font_size=60)
+    menu.add.text_input('Login1: ',  onchange=save_name, player_num=1,   font_name='Fonts/m3x6.ttf', selection_color=(0, 0, 0), font_size=60)
+    menu.add.text_input('Password: ', password=True,  font_name='Fonts/m3x6.ttf', selection_color=(0, 0, 0), font_size=60, onchange=save_password, player_num=1)
 
-    menu.add.text_input('Login2: ', default='Wooster', onchange=check_name, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),  font_name='Fonts/m3x6.ttf')
-    menu.add.text_input('Password: ',  password=True, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf')
-    menu.add.button('Submit', load_menu, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
+    menu.add.text_input('Login2: ', onchange=save_name, player_num=2,  font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),  font_name='Fonts/m3x6.ttf')
+    menu.add.text_input('Password: ',  password=True, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0), font_name='Fonts/m3x6.ttf', onchange=save_password, player_num=2)
+    menu.add.button('Submit', login, font_color=(0, 0, 0), font_size=60, selection_color=(0, 0, 0),
                     font_name='Fonts/m3x6.ttf')
 
     menu.mainloop(screen)

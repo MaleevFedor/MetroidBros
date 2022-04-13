@@ -1,5 +1,7 @@
 import pygame
 
+
+PASSWORD_CHECK_ADRESS = 'http://127.0.0.1:8080/game_login'
 OPTIONS_LOAD = pygame.USEREVENT + 1
 tile_particle_path = 'Particles/Particle.png'
 blood_particle_path = 'Particles/Blood Particle.png'
@@ -45,3 +47,7 @@ button_keys = {
 color1 = 'Blue'
 color2 = 'Red'
 score = [0, 0]
+player1_name = ''
+player2_name = ''
+player1_password = ''
+player2_password = ''
