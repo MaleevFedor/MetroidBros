@@ -9,6 +9,7 @@ from game_window import GameWindow
 import pygame
 import pygame_menu
 import requests
+from data_collector import DataCollector
 
 
 def shoot(player, game):
@@ -70,6 +71,8 @@ def start_the_game(actual_score=True):
     game = game_window.active_level
     player1 = game.player
     player2 = game.player2
+    dc_1 = game.dc_1
+    dc_2 = game.dc_2
     players = (player1, player2)
     pygame.display.set_caption('DinoMight')
     pygame.mouse.set_visible(False)
@@ -170,8 +173,11 @@ def start_the_game(actual_score=True):
                     r22 = False
         for event in pygame.event.get():
             if event.type == const.level_ended and const.score[0] + const.score[1] != 0:
+                dc_1.post()
+                dc_2.post()
                 if const.score[0] == 3:
                     copy_score = const.score
+
                     load_restart_menu(copy_score, players[0].color)
                 if const.score[1] == 3:
                     copy_score = const.score
@@ -263,6 +269,10 @@ def login():
                         json={'login': const.player2_name, 'password': const.player2_password})
     if req.text == 'ok' and req_2.text == 'ok':
         load_menu()
+
+    else:
+        load_login_menu()
+
 
 
 def load_menu():

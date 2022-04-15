@@ -2,6 +2,7 @@ import pygame
 
 
 PASSWORD_CHECK_ADRESS = 'http://127.0.0.1:8080/game_login'
+STATISTIC_CHECK_ADRESS = 'http://127.0.0.1:8080/stats'
 OPTIONS_LOAD = pygame.USEREVENT + 1
 tile_particle_path = 'Particles/Particle.png'
 blood_particle_path = 'Particles/Blood Particle.png'

@@ -207,3 +207,5 @@ class Player(pygame.sprite.Sprite):
                     self.rect.bottom = tile.rect.top
                     self.direction.y *= -1.07
                     self.extra_jumps = 0
+
+

@@ -7,6 +7,7 @@ from Tiles import Tile, Saw, Slime, Heal, Trampoline
 from player import Player
 from Shooting import guns
 from particle import create_particles
+from data_collector import DataCollector
 
 
 class Level:
@@ -53,13 +54,16 @@ class Level:
                     y -= tile_size
                     self.player = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen,
                                          self.gun[4], const.color1, True, 0)
+                    self.dc_1 = DataCollector(self.player)
                     self.player_sprite.add(self.player)
                     self.cursor1 = pygame.image.load(f'Crosshairs/{self.player.color}.png').convert_alpha()
                 elif col == '2':
                     y -= tile_size - 10
                     self.player2 = Player((x, y), self.gravity, self.speed, self.jump_force, self.screen,
                                           self.gun[4], const.color2, False, 1)
+                    self.dc_2 = DataCollector(self.player2)
                     self.player2_sprite.add(self.player2)
+
                     self.cursor2 = pygame.image.load(f'Crosshairs/{self.player2.color}.png').convert_alpha()
                 elif col == 'X':
                     self.tiles.add(Tile((x, y), tile_size, tile_size))
@@ -79,6 +83,7 @@ class Level:
     def update(self):
         self.player.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline,
                            self.player2_sprite)
+
         self.player2.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline,
                             self.player_sprite)
 
@@ -156,8 +161,10 @@ class Level:
                 self.ended = True
                 if self.player.killed:
                     const.score[1] += 1
+                    self.dc_2.kills += 1
                 elif self.player2.killed:
                     const.score[0] += 1
+                    self.dc_1.kills += 1
                 if 3 in const.score:
                     const.block_gamepad_menu = True
             if self.player.killed:
