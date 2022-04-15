@@ -1,7 +1,8 @@
 import os
 from datetime import timedelta
 
-from flask import Flask, render_template, make_response, redirect, session, send_file, request
+from flask import Flask, render_template, make_response, redirect, session,\
+    send_file, request, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user
 
 from data import db_session
@@ -29,7 +30,10 @@ def load_user(user):
 
 @app.route('/')
 def base_page():
-    return render_template('base.html', title='DinoStats')
+    return render_template('welcome.html', title='DinoStats',
+                           href=url_for('static', filename='css/welcome.css'),
+                           font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'),
+                           light_font=url_for('static', filename='fonts/Light-Fredoka.ttf'))
 
 
 @app.route('/mainpage')
@@ -74,8 +78,8 @@ def game_login():
     return 'not ok'
 
 
-
 @app.route('/download')
+@login_required
 def download_game():
     redirect('/mainpage')
     return send_file(app.config['DOWNLOAD_GAME_PATH'])
@@ -104,6 +108,8 @@ def register():
             return render_template('registration.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
+        if form.about.data == '':
+            form.about.data = 'Информация отсутствует'
         user = User(
             login=form.login.data,
             email=form.email.data,
@@ -117,14 +123,17 @@ def register():
 
 
 @app.route('/profile/<username>')
+@login_required
 def search_profile(username):
     db_sess = db_session.create_session()
     found_user = db_sess.query(User).filter((User.email == username) | (User.login == username)).first()
     return found_user.login
 
 
-# поиск через адрессную строку
+@app.errorhandler(401)
+def custom_401(error):
+    return redirect('/')
 
 
 if __name__ == '__main__':
-    app.run("127.0.0.1", 8080)
+    app.run("127.0.0.1", 80)
