@@ -22,7 +22,7 @@ login_manager.init_app(app)
 db_session.global_init("db/login_users")
 
 
-#Game-stats fucntions
+# Game-stats functions
 @app.route('/stats', methods=['POST'])
 def update_stats():
     db_sess = db_session.create_session()
@@ -46,7 +46,7 @@ def db_check_password(login, password):
         return True
 
 
-#Site functions
+# Site functions
 @login_manager.user_loader
 def load_user(user):
     db_sess = db_session.create_session()
@@ -77,9 +77,10 @@ def login():
             login_user(user, remember=form.remember_me.data)
             return redirect("/mainpage")
         return render_template('login.html',
-                               message="Неправильный логин или пароль",
-                               form=form)
-    return render_template('login.html', title='Авторизация', form=form)
+                               message="Incorrect login or password", form=form,
+                               font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'))
+    return render_template('login.html', title='Login', form=form,
+                           font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'))
 
 
 @app.route('/logout')
