@@ -3,7 +3,7 @@ from datetime import timedelta
 
 from flask import Flask, render_template, make_response, redirect, session,\
     send_file, request, url_for
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 from data import db_session
 from data.user_class import User
@@ -141,13 +141,29 @@ def register():
 @login_required
 def search_profile(username):
     db_sess = db_session.create_session()
+    if current_user.login == username or current_user.email == username:
+        return redirect('/my_profile')
     found_user = db_sess.query(User).filter((User.email == username) | (User.login == username)).first()
-    return found_user.login
+    if found_user:
+        return found_user.login
+    else:
+        return 'No such user'
+
+
+@app.route('/profile/my')
+@login_required
+def my_profile():
+    return 'here is your profile'
 
 
 @app.errorhandler(401)
 def custom_401(error):
     return redirect('/')
+
+
+@app.errorhandler(404)
+def custom_404(error):
+    return redirect('/mainpage')
 
 
 if __name__ == '__main__':
