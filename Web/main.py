@@ -113,15 +113,17 @@ def register():
         if form.password.data != form.password_again.data:
             return render_template('registration.html', title='Регистрация',
                                    form=form,
-                                   message="Пароли не совпадают")
+                                   message="Passwords are not the same",
+                                   font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'))
         db_sess = db_session.create_session()
         if db_sess.query(User).filter(User.email == form.email.data).first() or \
                 db_sess.query(User).filter(User.login == form.login.data).first():
             return render_template('registration.html', title='Регистрация',
                                    form=form,
-                                   message="Такой пользователь уже есть")
+                                   message="User already exists",
+                                   font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'))
         if form.about.data == '':
-            form.about.data = 'Информация отсутствует'
+            form.about.data = 'No information'
         user = User(
             login=form.login.data,
             email=form.email.data,
@@ -131,7 +133,8 @@ def register():
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
-    return render_template('registration.html', title='Регистрация', form=form)
+    return render_template('registration.html', title='Регистрация', form=form,
+                           font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'))
 
 
 @app.route('/profile/<username>')
