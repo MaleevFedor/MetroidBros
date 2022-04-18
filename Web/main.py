@@ -28,6 +28,7 @@ def update_stats():
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter((User.email == request.json['user']) | (User.login == request.json['user'])).first()
     user.kills += request.json['kills']
+    user.deaths += request.json['deaths']
     db_sess.commit()
     return 'ok'
 
@@ -147,4 +148,4 @@ def custom_401(error):
 
 
 if __name__ == '__main__':
-    app.run("127.0.0.1", 80)
+    app.run("127.0.0.1", 8080)
