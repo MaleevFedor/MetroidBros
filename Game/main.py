@@ -364,6 +364,7 @@ def load_controller_menu():
     menu_restart.mainloop(screen)
 
 def load_login_menu():
+    print('dota')
     const.score = [0, 0]
     const.block_gamepad_menu = False
     const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']
