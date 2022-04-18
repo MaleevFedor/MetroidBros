@@ -55,7 +55,9 @@ def load_user(user):
 
 
 @app.route('/')
-def base_page():
+def welcome_page():
+    if current_user.is_authenticated:
+        return redirect('/mainpage')
     return render_template('welcome.html', title='DinoStats',
                            href=url_for('static', filename='css/welcome.css'),
                            font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'),
@@ -65,7 +67,10 @@ def base_page():
 @app.route('/mainpage')
 @login_required
 def main_page():
-    return render_template('base.html', title='DinoStats')
+    return render_template('navbar.html', title='DinoStats',
+                           css=url_for('static', filename='css/welcome.css'),
+                           font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'),
+                           light_font=url_for('static', filename='fonts/Light-Fredoka.ttf'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -168,4 +173,4 @@ def custom_404(error):
 
 
 if __name__ == '__main__':
-    app.run("127.0.0.1", 8080)
+    app.run("127.0.0.1", 80)
