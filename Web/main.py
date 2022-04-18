@@ -67,10 +67,7 @@ def welcome_page():
 @app.route('/mainpage')
 @login_required
 def main_page():
-    return render_template('navbar.html', title='DinoStats',
-                           css=url_for('static', filename='css/welcome.css'),
-                           font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'),
-                           light_font=url_for('static', filename='fonts/Light-Fredoka.ttf'))
+    return render_template('navbar.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
