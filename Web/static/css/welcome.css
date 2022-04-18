@@ -24,7 +24,7 @@
   background-color: white;
   border: none;
   color: black;
-  padding: 30px;
+  padding: 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -46,9 +46,6 @@
 }
 
 /*center divs*/
-
-
-
 .flex-parent {
   display: flex;
 }
@@ -56,6 +53,7 @@
 .jc-center {
   justify-content: center;
 }
+
 h1{font-size: 150px;}
 h2{font-size: 48px;
 transform: translate(0, -150%)}

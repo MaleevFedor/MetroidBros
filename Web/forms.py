@@ -5,18 +5,18 @@ from flask_wtf import FlaskForm, RecaptchaField
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Никнейм или почта', validators=[DataRequired()])
-    password = PasswordField('Пароль', validators=[DataRequired()])
-    remember_me = BooleanField('Запомнить меня')
-    submit = SubmitField('Войти')
+    email = StringField('Mail or username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember me')
+    submit = SubmitField('Enter')
 
 
 class RegisterForm(FlaskForm):
-    email = EmailField('Почта', validators=[DataRequired()])
-    login = StringField('Имя пользователя', validators=[DataRequired()])
-    password = PasswordField('Пароль', validators=[DataRequired()])
-    password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
-    about = TextAreaField("О себе")
+    email = EmailField('Mail address', validators=[DataRequired()])
+    login = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    password_again = PasswordField('Password again', validators=[DataRequired()])
+    about = TextAreaField("About you")
     picture = FileField()
     recaptcha = RecaptchaField()
-    submit = SubmitField('Зарегистрироваться')
+    submit = SubmitField('Confirm')
