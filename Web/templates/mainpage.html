@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{Title}}</title>
+    <link rel="stylesheet" href="{{css}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>@font-face {
+    font-family: "CustomFredoka";
+    src: url({{font}});
+    }
+    * {
+      font-family: 'CustomFredoka';
+    }
+</style><!-- fonts -->
+</head>
+<body>
+<div class="topnav">
+  <a class="navbar-brand" href="/">
+      <div class="logo-image">
+            <img src="{{logo}}" width="179" height="40">
+      </div>
+  </a>
+  <a href="/rating">rating</a>
+  <a href="/download">download</a>
+  <a href="/achievements">achievements</a>
+  <a href="/history">matches</a>
+  <a href="/tournaments">tournaments</a>
+  <div class="search-container">
+    <form action="" method="post" class="">
+        {{ form.hidden_tag() }}
+        <p>{{ form.search }}<button><i class="fa fa-search"></i>{{ form.submit() }}</button></p>
+    </form>
+  </div>
+</div>
+</body>
+</html>

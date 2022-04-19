@@ -1,5 +1,5 @@
 from wtforms import StringField, PasswordField, BooleanField,\
-    SubmitField, EmailField, TextAreaField, FileField
+    SubmitField, EmailField, TextAreaField, FileField, HiddenField
 from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm, RecaptchaField
 
@@ -20,3 +20,8 @@ class RegisterForm(FlaskForm):
     picture = FileField()
     recaptcha = RecaptchaField()
     submit = SubmitField('Confirm')
+
+
+class SearchForm(FlaskForm):
+    search = StringField(default='Search..')
+    submit = HiddenField(SubmitField)

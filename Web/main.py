@@ -7,7 +7,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 
 from data import db_session
 from data.user_class import User
-from forms import LoginForm, RegisterForm
+from forms import LoginForm, RegisterForm, SearchForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -66,10 +66,17 @@ def welcome_page():
                            light_font=url_for('static', filename='fonts/Light-Fredoka.ttf'))
 
 
-@app.route('/mainpage')
+@app.route('/mainpage', methods=['GET', 'POST'])
 @login_required
 def main_page():
-    return render_template('navbar.html')
+    form = SearchForm()
+    if form.validate_on_submit():
+        print(form.search.data)
+        return redirect(f'/profile/{form.search.data}')
+    return render_template('mainpage.html', form=form, Title='DinoStats',
+                           css=url_for('static', filename='css/navbar.css'),
+                           font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'),
+                           logo=url_for('static', filename='img/logo.csv'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -147,7 +154,7 @@ def register():
 def search_profile(username):
     db_sess = db_session.create_session()
     if current_user.login == username or current_user.email == username:
-        return redirect('/my_profile')
+        return redirect('/profile/my')
     found_user = db_sess.query(User).filter((User.email == username) | (User.login == username)).first()
     if found_user:
         return found_user.login
@@ -159,6 +166,30 @@ def search_profile(username):
 @login_required
 def my_profile():
     return 'here is your profile'
+
+
+@app.route('/rating')
+@login_required
+def show_rating():
+    return 'here will be rating'
+
+
+@app.route('/achievements')
+@login_required
+def show_achiv():
+    return 'here will be achievements'
+
+
+@app.route('/history')
+@login_required
+def show_history():
+    return 'here will be your recent matches'
+
+
+@app.route('/tournaments')
+@login_required
+def show_tournaments():
+    return 'here maybe will be tournaments list'
 
 
 @app.errorhandler(401)
