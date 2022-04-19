@@ -29,6 +29,8 @@ def update_stats():
     user = db_sess.query(User).filter((User.email == request.json['user']) | (User.login == request.json['user'])).first()
     user.kills += request.json['kills']
     user.deaths += request.json['deaths']
+    user.wins += request.json['wins']
+    user.hp_healed += request.json['hp']
     db_sess.commit()
     return 'ok'
 

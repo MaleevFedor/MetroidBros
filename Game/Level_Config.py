@@ -80,12 +80,13 @@ class Level:
     def quit(self):
         self.running = False
 
+
     def update(self):
         self.player.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline,
-                           self.player2_sprite)
+                           self.player2_sprite, self.dc_1)
 
         self.player2.update(self.tiles, self.saws, self.slimes, self.particle_sprites, self.heals, self.trampoline,
-                            self.player_sprite)
+                            self.player_sprite, self.dc_2)
 
     def bullet_col_check(self, bullet_group, player_sprite, player):
         for bullet in bullet_group:
@@ -93,6 +94,7 @@ class Level:
             for hit in bullets1_player:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
                 player.get_damage(bullet.damage)
+
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))

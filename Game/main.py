@@ -363,6 +363,7 @@ def load_controller_menu():
                             align=pygame_menu.locals.ALIGN_LEFT, font_size=90, font_name='Fonts/m3x6.ttf')
     menu_restart.mainloop(screen)
 
+
 def load_login_menu():
     print('dota')
     const.score = [0, 0]

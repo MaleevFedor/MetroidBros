@@ -146,7 +146,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.top = tile.rect.bottom
                 self.direction.y = 0
 
-    def update(self, tiles, saws, slimes, particles, heals, trampolines, other_player):
+    def update(self, tiles, saws, slimes, particles, heals, trampolines, other_player, dc):
         if self.killed:
             return None
         self.get_state()
@@ -169,6 +169,8 @@ class Player(pygame.sprite.Sprite):
                 if self.current_health <= 100 and tile.image != const.open_med:
                     tile.image = const.open_med
                     self.get_health(100)
+                    dc.hp_healed += 100
+
                     create_particles((self.rect.x, self.rect.y), particles, const.heal_particle_path)
 
         self.i_hate_gravity()
