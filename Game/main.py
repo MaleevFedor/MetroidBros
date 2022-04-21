@@ -173,15 +173,19 @@ def start_the_game(actual_score=True):
                     r22 = False
         for event in pygame.event.get():
             if event.type == const.level_ended and const.score[0] + const.score[1] != 0:
-                dc_1.post()
-                dc_2.post()
                 if const.score[0] == 3:
                     copy_score = const.score
-
+                    dc_1.wins += 1
+                    dc_1.post()
+                    dc_2.post()
                     load_restart_menu(copy_score, players[0].color)
                 if const.score[1] == 3:
                     copy_score = const.score
+                    dc_2.wins += 1
+                    dc_1.post()
+                    dc_2.post()
                     load_restart_menu(copy_score, players[1].color)
+
                 start_the_game()
             if event.type == pygame.QUIT:
                 pygame.quit()

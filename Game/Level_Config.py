@@ -173,11 +173,9 @@ class Level:
                     const.block_gamepad_menu = True
             if self.player.killed:
                 win_player = self.player2
-                self.dc_2.wins += 1
                 self.player2.current_health = 200
             elif self.player2.killed:
                 win_player = self.player
-                self.dc_1.wins += 1
                 self.player.current_health = 200
             pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(225, 300, 850, 150))
             text = font.render(str(win_player.color).capitalize() + ' player ' + 'wins round', True, (255, 255, 255))

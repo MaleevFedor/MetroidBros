@@ -11,6 +11,7 @@ class DataCollector:
         self.hp_healed = 0
 
     def post(self):
+
         if self.player.id == 0:
             req = requests.post(const.STATISTIC_CHECK_ADRESS,
                                 json={'user': const.player1_name, 'kills': self.kills, 'deaths': self.deaths,
