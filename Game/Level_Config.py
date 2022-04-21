@@ -94,6 +94,10 @@ class Level:
             for hit in bullets1_player:
                 create_particles((hit.rect.x, hit.rect.y), self.particle_sprites, const.blood_particle_path)
                 player.get_damage(bullet.damage)
+                if player.id == 0:
+                    self.dc_2.hits += 1
+                else:
+                    self.dc_1.hits += 1
 
 
     def render(self, screen):

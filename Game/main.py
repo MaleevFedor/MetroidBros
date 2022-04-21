@@ -23,8 +23,10 @@ def shoot(player, game):
             for i in range(game.gun[2]):
                 bullet_sprites = Bullet(player.rect.centerx, player.rect.centery, mouse_x, mouse_y, player.id, game.gun)
                 if player == game.player:
+                    game.dc_1.shots += 1
                     game.bullet_sprites.add(bullet_sprites)
                 else:
+                    game.dc_2.shots += 1
                     game.bullet_sprites_2.add(bullet_sprites)
                 game.all_bullets.add(bullet_sprites)
     except Exception as e:
@@ -176,12 +178,14 @@ def start_the_game(actual_score=True):
                 if const.score[0] == 3:
                     copy_score = const.score
                     dc_1.wins += 1
+                    dc_2.loses += 1
                     dc_1.post()
                     dc_2.post()
                     load_restart_menu(copy_score, players[0].color)
                 if const.score[1] == 3:
                     copy_score = const.score
                     dc_2.wins += 1
+                    dc_1.loses += 1
                     dc_1.post()
                     dc_2.post()
                     load_restart_menu(copy_score, players[1].color)
@@ -369,7 +373,6 @@ def load_controller_menu():
 
 
 def load_login_menu():
-    print('dota')
     const.score = [0, 0]
     const.block_gamepad_menu = False
     const.level_list = ['Forest', 'Tokyo', 'Industrial', 'Apocalypsis', 'Plain']

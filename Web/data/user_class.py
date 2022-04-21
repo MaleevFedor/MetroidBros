@@ -27,6 +27,8 @@ class User(SqlAlchemyBase, UserMixin):
     hp_healed = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     saws_deaths = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     blood_spilled = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    shots = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    hits = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)
