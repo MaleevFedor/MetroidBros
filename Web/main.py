@@ -60,10 +60,7 @@ def load_user(user):
 def welcome_page():
     if current_user.is_authenticated:
         return redirect('/mainpage')
-    return render_template('welcome.html', title='DinoStats',
-                           href=url_for('static', filename='css/welcome.css'),
-                           font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'),
-                           light_font=url_for('static', filename='fonts/Light-Fredoka.ttf'))
+    return render_template('welcome.html')
 
 
 @app.route('/mainpage', methods=['GET', 'POST'])
@@ -71,12 +68,13 @@ def welcome_page():
 def main_page():
     form = SearchForm()
     if form.validate_on_submit():
-        print(form.search.data)
         return redirect(f'/profile/{form.search.data}')
-    return render_template('mainpage.html', form=form, Title='DinoStats',
-                           css=url_for('static', filename='css/navbar.css'),
-                           font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'),
-                           logo=url_for('static', filename='img/logo.csv'))
+    return render_template('mainpage.html', form=form)
+
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -89,10 +87,8 @@ def login():
             login_user(user, remember=form.remember_me.data)
             return redirect("/mainpage")
         return render_template('login.html',
-                               message="Incorrect login or password", form=form,
-                               font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'))
-    return render_template('login.html', title='Login', form=form,
-                           font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'))
+                               message="Incorrect login or password", form=form)
+    return render_template('login.html', form=form)
 
 
 @app.route('/logout')
@@ -123,17 +119,13 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
-            return render_template('registration.html', title='Регистрация',
-                                   form=form,
-                                   message="Passwords are not the same",
-                                   font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'))
+            return render_template('registration.html',
+                                   form=form, message="Passwords are not the same",)
         db_sess = db_session.create_session()
         if db_sess.query(User).filter(User.email == form.email.data).first() or \
                 db_sess.query(User).filter(User.login == form.login.data).first():
-            return render_template('registration.html', title='Регистрация',
-                                   form=form,
-                                   message="User already exists",
-                                   font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'))
+            return render_template('registration.html',
+                                   form=form, message="User already exists",)
         if form.about.data == '':
             form.about.data = 'No information'
         user = User(
@@ -145,8 +137,7 @@ def register():
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
-    return render_template('registration.html', title='Регистрация', form=form,
-                           font=url_for('static', filename='fonts/FredokaOne-Regular.ttf'))
+    return render_template('registration.html', form=form)
 
 
 @app.route('/profile/<username>')
@@ -171,6 +162,13 @@ def my_profile():
 @app.route('/rating')
 @login_required
 def show_rating():
+    db_sess = db_session.create_session()
+    user_list = []
+    for user in db_sess.query(User).all():
+        user_list.append(user)
+    user_list = sorted(user_list, key=lambda user: user.elo, reverse=True)
+    for user in user_list:
+        print(user.login, user.elo)
     return 'here will be rating'
 
 

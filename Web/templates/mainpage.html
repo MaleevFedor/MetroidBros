@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{{Title}}</title>
-    <link rel="stylesheet" href="{{css}}">
+    <title>{{DinoStats}}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>@font-face {
     font-family: "CustomFredoka";
-    src: url({{font}});
+    src: url({{url_for('static', filename='fonts/FredokaOne-Regular.ttf')}});
     }
     * {
       font-family: 'CustomFredoka';
@@ -18,7 +18,7 @@
 <div class="topnav">
   <a class="navbar-brand" href="/">
       <div class="logo-image">
-            <img src="{{logo}}" width="179" height="40">
+            <img src="{{url_for('static', filename='img/logo.csv')}}" width="179" height="40">
       </div>
   </a>
   <a href="/rating">rating</a>
