@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{Title}}</title>
-    <link rel="stylesheet" href="{{href}}">
+    <title>DinoStats</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/welcome.css')}}">
     <style>
     @font-face {
     font-family: "CustomFredoka";
-    src: url({{font}});
+    src: url({{url_for('static', filename='fonts/FredokaOne-Regular.ttf')}});
     }
     @font-face {
     font-family: "LightFredoka";
-    src: url({{light_font}});
+    src: url({{url_for('static', filename='fonts/Light-Fredoka.ttf')}});
     }
     h1, h2 {
       font-family: 'LightFredoka';
