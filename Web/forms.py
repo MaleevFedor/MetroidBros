@@ -23,5 +23,5 @@ class RegisterForm(FlaskForm):
 
 
 class SearchForm(FlaskForm):
-    search = StringField(default='Search..')
+    search = StringField(render_kw={"placeholder": "Search.."})
     submit = HiddenField(SubmitField)

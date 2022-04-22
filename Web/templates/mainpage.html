@@ -29,7 +29,7 @@
   <div class="search-container">
     <form action="" method="post" class="">
         {{ form.hidden_tag() }}
-        <p>{{ form.search }}<button><i class="fa fa-search"></i>{{ form.submit() }}</button></p>
+        <p><input id="search" name="search" type="text" placeholder="Search.."><button><i class="fa fa-search"></i>{{ form.submit() }}</button></p>
     </form>
   </div>
 </div>
