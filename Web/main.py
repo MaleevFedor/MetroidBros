@@ -148,7 +148,7 @@ def register():
 def search_profile(username):
     db_sess = db_session.create_session()
     if current_user.login == username or current_user.email == username:
-        return redirect('/profile/my')
+        return redirect('/my_profile')
     found_user = db_sess.query(User).filter((User.email == username) | (User.login == username)).first()
     if found_user:
         return found_user.login
@@ -156,7 +156,7 @@ def search_profile(username):
         return 'No such user'
 
 
-@app.route('/profile/my')
+@app.route('/my_profile')
 @login_required
 def my_profile():
     return 'here is your profile'
