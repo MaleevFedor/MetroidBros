@@ -173,6 +173,9 @@ class Level:
                     const.score[0] += 1
                     self.dc_1.kills += 1
                     self.dc_2.deaths += 1
+                if const.score[0] != 3 and const.score[1] != 3:
+                   self.dc_1.post()
+                   self.dc_2.post()
                 if 3 in const.score:
                     const.block_gamepad_menu = True
             if self.player.killed:
