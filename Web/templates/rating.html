@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+  <a class="active" href="/rating">rating</a>
+  <a href="/download">download</a>
+  <a href="/achievements">achievements</a>
+  <a href="/history">matches</a>
+  <a href="/tournaments">tournaments</a>
+{% endblock %}
+
+{% block content %}
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+<thead>
+   <tr>
+     <th class="th-sm">World ranking</th>
+     <th class="th-sm">Nickname</th>
+     <th class="th-sm">Matches played</th>
+     <th class="th-sm">Rank(elo)</th>
+  </tr>
+</thead>
+<tbody>
+{% for user in context.users %}
+<tr>
+    <td>{{ user.world_ranking }}</td>
+    <td>{{ user.nickname }}</td>
+    <td>{{ user.matches_played }}</td>
+    <td>{{ user.rank }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

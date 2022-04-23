@@ -162,17 +162,26 @@ def my_profile():
     return 'here is your profile'
 
 
-@app.route('/rating')
+@app.route('/rating', methods=['GET', 'POST'])
 @login_required
 def show_rating():
+    form = SearchForm()
+    if form.validate_on_submit():
+        return redirect(f'/profile/{form.search.data}')
     db_sess = db_session.create_session()
     user_list = []
     for user in db_sess.query(User).all():
         user_list.append(user)
+    user_list = sorted(user_list, key=lambda user: user.wins + user.loses)
     user_list = sorted(user_list, key=lambda user: user.elo, reverse=True)
-    for user in user_list:
-        print(user.login, user.elo)
-    return 'here will be rating'
+    context = {}
+    context['users'] = []
+    for i, user in enumerate(user_list):
+        if i == 100:
+            break
+        context['users'].append({'world_ranking': i + 1, 'nickname': user.login,
+                                 'matches_played': user.wins + user.loses, 'rank': f'({user.elo})'})
+    return render_template('rating.html', context=context, form=form)
 
 
 @app.route('/achievements')
