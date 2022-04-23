@@ -80,7 +80,6 @@ def main_page():
     return render_template('mainpage.html', form=form)
 
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
