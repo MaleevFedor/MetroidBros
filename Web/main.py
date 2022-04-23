@@ -34,6 +34,7 @@ def update_stats():
     user.loses += request.json['loses']
     user.shots += request.json['shots']
     user.hits += request.json['hits']
+    user.saws_deaths += request.json['saws_deaths']
     db_sess.commit()
     return 'ok'
 

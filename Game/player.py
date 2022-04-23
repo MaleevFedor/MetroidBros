@@ -87,6 +87,7 @@ class Player(pygame.sprite.Sprite):
         if self.current_health <= 0:
             self.current_health = 0
             self.kill()
+
             self.killed = True
 
     def get_health(self, amount):
@@ -202,6 +203,9 @@ class Player(pygame.sprite.Sprite):
                 create_particles((self.rect.x, self.rect.y), particles, const.blood_particle_path)
                 self.extra_jumps = 0
                 self.get_damage(20)
+                if self.current_health == 0:
+                    dc.saws_deaths += 1
+
 
         for tile in trampolines:
             if self.rect.colliderect(tile.rect):
