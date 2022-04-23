@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>{{DinoStats}}</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/navbar.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -27,6 +27,8 @@
       </div>
   </a>
   {% block navbar %}{% endblock %}
+  <a class="profile" href="/logout"><img src="{{ url_for('static', filename='img/logout.svg') }}"></a>
+  <a class="profile" href="/my_profile">{{ current_user.login }}</a>
   <div class="search-container">
     <form action="" method="post" class="">
         {{ form.hidden_tag() }}

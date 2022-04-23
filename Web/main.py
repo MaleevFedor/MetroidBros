@@ -7,6 +7,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 
 from data import db_session
 from data.user_class import User
+from Rating import ranked_emblems, check_rating, number_of_predators
 from data.match_class import Match
 from forms import LoginForm, RegisterForm, SearchForm
 
@@ -20,13 +21,6 @@ app.config['RECAPTCHA_PUBLIC_KEY'] = '6LfJ75IeAAAAADHld1mi9lW-uCMBkZT0PTNnsLx9'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LfJ75IeAAAAANTfinH4snDS7flzeoAmP963clPI'
 login_manager = LoginManager()
 login_manager.init_app(app)
-ranked_emblems = {'Apex Predator': 'Apex_Predator.png',
-                  'Master': 'Master.png',
-                  'Red Raptor': 'Red_Raptor.png',
-                  'Green Raptor': 'Green_Raptor.png',
-                  'Grey Raptor': 'Grey_Raptor.png',
-                  'Brown Raptor': 'Brown_Raptor.png',
-                  'banned': ''}
 db_session.global_init("db/login_users")
 
 
@@ -82,12 +76,9 @@ def main_page():
     form = SearchForm()
     if form.validate_on_submit():
         return redirect(f'/profile/{form.search.data}')
+    db_sess = db_session.create_session()
     return render_template('mainpage.html', form=form)
 
-
-@app.route('/test')
-def test():
-    return render_template('test.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -114,8 +105,8 @@ def logout():
 @app.route('/download')
 @login_required
 def download_game():
-    redirect('/mainpage')
-    return send_file(app.config['DOWNLOAD_GAME_PATH'])
+    send_file(app.config['DOWNLOAD_GAME_PATH'])
+    return redirect('/mainpage')
 
 
 @app.route("/session_test")
@@ -187,25 +178,12 @@ def show_rating():
     data = dict()
     data['users'] = []
     for i, user in enumerate(user_list):
+        if user.banned:
+            i -= 1
+            continue
         if i == 100:
             break
-        elo = user.elo
-        if elo >= 1000 and i <= 4:
-            rank = 'Apex Predator'
-        elif elo >= 1000:
-            rank = 'Master'
-        elif 1000 > elo >= 800:
-            rank = 'Red Raptor'
-        elif 800 > elo >= 600:
-            rank = 'Green Raptor'
-        elif 600 > elo >= 400:
-            rank = 'Grey Raptor'
-        elif 400 > elo:
-            rank = 'Brown Raptor'
-        elif user.banned:
-            rank = 'banned'
-        else:
-            rank = 'Unranked'
+        rank = check_rating(user.elo, i)
         data['users'].append({'world_ranking': i + 1, 'nickname': user.login,
                               'matches_played': user.wins + user.loses, 'rank': f'{rank}({user.elo})',
                               'path': url_for('static', filename=f'img/Emblems/Ranked/{ranked_emblems[rank]}')})
