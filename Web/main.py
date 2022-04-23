@@ -1,8 +1,8 @@
 import os
 from datetime import timedelta
 
-from flask import Flask, render_template, make_response, redirect, session,\
-    send_file, request
+from flask import Flask, render_template, make_response, redirect, session, \
+    send_file, request, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 from data import db_session
@@ -19,6 +19,13 @@ app.config['RECAPTCHA_PUBLIC_KEY'] = '6LfJ75IeAAAAADHld1mi9lW-uCMBkZT0PTNnsLx9'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LfJ75IeAAAAANTfinH4snDS7flzeoAmP963clPI'
 login_manager = LoginManager()
 login_manager.init_app(app)
+ranked_emblems = {'Apex Predator': 'Apex_Predator.png',
+                  'Master': 'Master.png',
+                  'Red Raptor': 'Red_Raptor.png',
+                  'Green Raptor': 'Green_Raptor.png',
+                  'Grey Raptor': 'Grey_Raptor.png',
+                  'Brown Raptor': 'Brown_Raptor.png',
+                  'banned': ''}
 db_session.global_init("db/login_users")
 
 
@@ -26,7 +33,8 @@ db_session.global_init("db/login_users")
 @app.route('/stats', methods=['POST'])
 def update_stats():
     db_sess = db_session.create_session()
-    user = db_sess.query(User).filter((User.email == request.json['user']) | (User.login == request.json['user'])).first()
+    user = db_sess.query(User).filter(
+        (User.email == request.json['user']) | (User.login == request.json['user'])).first()
     user.kills += request.json['kills']
     user.deaths += request.json['deaths']
     user.wins += request.json['wins']
@@ -124,12 +132,12 @@ def register():
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
             return render_template('registration.html',
-                                   form=form, message="Passwords are not the same",)
+                                   form=form, message="Passwords are not the same", )
         db_sess = db_session.create_session()
         if db_sess.query(User).filter(User.email == form.email.data).first() or \
                 db_sess.query(User).filter(User.login == form.login.data).first():
             return render_template('registration.html',
-                                   form=form, message="User already exists",)
+                                   form=form, message="User already exists", )
         if form.about.data == '':
             form.about.data = 'No information'
         user = User(
@@ -175,14 +183,32 @@ def show_rating():
         user_list.append(user)
     user_list = sorted(user_list, key=lambda user: user.wins + user.loses)
     user_list = sorted(user_list, key=lambda user: user.elo, reverse=True)
-    context = {}
-    context['users'] = []
+    data = dict()
+    data['users'] = []
     for i, user in enumerate(user_list):
         if i == 100:
             break
-        context['users'].append({'world_ranking': i + 1, 'nickname': user.login,
-                                 'matches_played': user.wins + user.loses, 'rank': f'({user.elo})'})
-    return render_template('rating.html', context=context, form=form)
+        elo = user.elo
+        if elo >= 1000 and i <= 4:
+            rank = 'Apex Predator'
+        elif elo >= 1000:
+            rank = 'Master'
+        elif 1000 > elo >= 800:
+            rank = 'Red Raptor'
+        elif 800 > elo >= 600:
+            rank = 'Green Raptor'
+        elif 600 > elo >= 400:
+            rank = 'Grey Raptor'
+        elif 400 > elo:
+            rank = 'Brown Raptor'
+        elif user.banned:
+            rank = 'banned'
+        else:
+            rank = 'Unranked'
+        data['users'].append({'world_ranking': i + 1, 'nickname': user.login,
+                              'matches_played': user.wins + user.loses, 'rank': f'{rank}({user.elo})',
+                              'path': url_for('static', filename=f'img/Emblems/Ranked/{ranked_emblems[rank]}')})
+    return render_template('rating.html', data=data, form=form)
 
 
 @app.route('/achievements')

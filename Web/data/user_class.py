@@ -16,7 +16,7 @@ class User(SqlAlchemyBase, UserMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     created_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.now)
     banned = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
-    elo = sqlalchemy.Column(sqlalchemy.Integer, default=1000)
+    elo = sqlalchemy.Column(sqlalchemy.Integer, default=300, nullable=False)
     wins = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     loses = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     views = sqlalchemy.Column(sqlalchemy.Integer, default=0)
