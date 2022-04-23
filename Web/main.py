@@ -7,6 +7,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 
 from data import db_session
 from data.user_class import User
+from data.match_class import Match
 from forms import LoginForm, RegisterForm, SearchForm
 
 app = Flask(__name__)
