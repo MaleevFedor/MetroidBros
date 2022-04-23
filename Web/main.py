@@ -2,7 +2,7 @@ import os
 from datetime import timedelta
 
 from flask import Flask, render_template, make_response, redirect, session,\
-    send_file, request, url_for
+    send_file, request
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 from data import db_session
