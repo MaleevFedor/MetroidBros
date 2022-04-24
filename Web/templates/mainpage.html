@@ -8,7 +8,7 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales'],
+          ['Match id', 'K/D'],
           ['2004',  1],
           ['2005',  0.3],
           ['2006',  2],
@@ -30,10 +30,10 @@
 
 {% block navbar %}
   <a href="/rating">rating</a>
-  <a href="/download">download</a>
-  <a href="/achievements">achievements</a>
   <a href="/history">matches</a>
-  <a href="/tournaments">tournaments</a>
+  <a href="/achievements">achievements</a>
+  <a href="/download">download</a>
+  <a href="/help">help</a>
 {% endblock %}
 
 {% block content %}
