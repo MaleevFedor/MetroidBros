@@ -1,7 +1,7 @@
 import requests
 import const
 import const
-
+import Rating
 
 class DataCollector:
     def __init__(self, player):
@@ -40,16 +40,19 @@ class DataCollector:
                                       'hits': self.hits, 'saws_deaths': self.saws_deaths})
 
     def match_post(self):
+
         if self.player.id == 0:
             req = requests.post(const.STATISTIC_MATCH_ADRESS,
                                 json={'player_name': const.player1_name, 'kills': const.match_kills, 'deaths': const.match_deaths,
                                       'hp':   const.match_hp_healed, 'shots': const.match_shot,
-                                      'hits':  const.match_hits, 'saws_deaths': const.match_saws_deaths})
+                                      'hits':  const.match_hits, 'saws_deaths': const.match_saws_deaths,
+                                      'result': const.match_result})
         else:
             req = requests.post(const.STATISTIC_MATCH_ADRESS,
                                 json={'player_name': const.player2_name, 'kills': const.match_kills_2, 'deaths': const.match_deaths_2,
                                       'hp': const.match_hp_healed_2, 'shots': const.match_shot_2,
-                                      'hits':  const.match_hits_2, 'saws_deaths':  const.match_saws_deaths_2})
+                                      'hits':  const.match_hits_2, 'saws_deaths':  const.match_saws_deaths_2,
+                                      'result': const.match_result_2})
 
 
 

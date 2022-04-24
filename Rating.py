@@ -25,3 +25,7 @@ def check_rating(elo, i=1000000):
         return 'Brown Raptor'
     else:
         return 'Unranked'
+
+
+def count_elo(result, rank_1, rank_2):
+    pass

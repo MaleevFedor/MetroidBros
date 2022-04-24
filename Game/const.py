@@ -2,6 +2,7 @@ import pygame
 
 
 PASSWORD_CHECK_ADRESS = 'http://127.0.0.1:80/game_login'
+ELO_CHECK_ADRESS = 'http://127.0.0.1:80/player_elo'
 STATISTIC_CHECK_ADRESS = 'http://127.0.0.1:80/stats'
 STATISTIC_MATCH_ADRESS = 'http://127.0.0.1:80/stats_match'
 
@@ -61,10 +62,13 @@ match_hp_healed = 0
 match_saws_deaths = 0
 match_shot = 0
 match_hits = 0
+match_result = ''
+
 
 match_kills_2 = 0
 match_deaths_2 = 0
 match_hp_healed_2 = 0
 match_saws_deaths_2 = 0
 match_shot_2 = 0
-match_hits_2 =  0
+match_hits_2 = 0
+match_result_2 = ''

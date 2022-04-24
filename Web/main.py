@@ -54,17 +54,27 @@ def update_match_stats():
             shots=request.json['shots'],
             hits=request.json['hits'],
             elo=0,
-            results='vvvvv'
+            results=request.json['result']
         )
     db_sess.add(match)
     db_sess.commit()
     return 'ok'
+
 
 @app.route('/game_login', methods=['POST'])
 def game_login():
     if db_check_password(request.json['login'], request.json['password']):
         return 'ok'
     return 'not ok'
+
+
+@app.route('/player_elo', methods=['POST'])
+def get_elo():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(
+        (User.email == request.json['name']) | (User.login == request.json['name'])).first()
+    return user.elo
+
 
 
 def db_check_password(login, password):
@@ -193,6 +203,7 @@ def show_rating():
     user_list = sorted(user_list, key=lambda user: user.elo, reverse=True)
     data = dict()
     data['users'] = []
+
     for i, user in enumerate(user_list):
         if user.banned:
             i -= 1

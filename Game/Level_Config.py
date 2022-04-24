@@ -168,9 +168,13 @@ class Level:
                 if self.player.killed:
                     const.score[1] += 1
                     self.dc_2.kills += 1
+                    const.match_result += 'L'
+                    const.match_result_2 += 'V'
                     self.dc_1.deaths += 1
                 elif self.player2.killed:
                     const.score[0] += 1
+                    const.match_result += 'V'
+                    const.match_result_2 += 'L'
                     self.dc_1.kills += 1
                     self.dc_2.deaths += 1
                 if const.score[0] != 3 and const.score[1] != 3:
