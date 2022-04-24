@@ -73,7 +73,7 @@ def get_elo():
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(
         (User.email == request.json['name']) | (User.login == request.json['name'])).first()
-    return user.elo
+    return str(user.elo)
 
 
 
