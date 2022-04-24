@@ -10,7 +10,8 @@
 }
 h1{font-size: 150px;}
 th, td{font-size: 30px;}
-h5{font-size: 35px; color: 	#708090;}
+h2{font-size: 35px; color: 	#708090;}
+.my_table{width:50%;margin-bottom:1rem;color:#212529}
 </style>
 {% endblock %}
 
@@ -28,14 +29,14 @@ h5{font-size: 35px; color: 	#708090;}
     <h1>World Ranking</h1>
 </div>
 <div class="flex-parent jc-center">
-    <h5>Here we gather for you a list of the best players in the world</h5>
+    <h2>Here we gather for you a list of the best players in the world</h2>
 </div>
 <div class="flex-parent jc-center">
-<table class="table table-striped table-bordered table-sm" width="50%">
+<table class="my_table table-striped table-bordered table-sm" width="50%">
     <thead>
        <tr>
          <th style="width:2%">#</th>
-         <th>Nickname</th>
+         <th style="width:22%">Nickname</th>
          <th style="width:17%">Matches played</th>
          <th style="width:22%">Rank(elo)</th>
       </tr>
