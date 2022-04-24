@@ -184,7 +184,8 @@ def show_rating():
         rank = check_rating(user.elo, i)
         data['users'].append({'world_ranking': i + 1, 'nickname': user.login,
                               'matches_played': user.wins + user.loses, 'rank': f'{rank}({user.elo})',
-                              'path': url_for('static', filename=f'img/Emblems/Ranked/{ranked_emblems[rank]}')})
+                              'path': url_for('static', filename=f'img/Emblems/Ranked/{ranked_emblems[rank]}'),
+                              'me': user.login == current_user.login})
     return render_template('rating.html', data=data, form=form)
 
 

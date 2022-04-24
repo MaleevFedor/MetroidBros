@@ -42,7 +42,11 @@ h5{font-size: 35px; color: 	#708090;}
     </thead>
     <tbody>
     {% for user in data.users %}
+        {% if user.me %}
+    <tr class="alert alert-danger">
+    {% else %}
     <tr>
+    {% endif %}
         <td>{{ user.world_ranking }}</td>
         <td>{{ user.nickname }}</td>
         <td>{{ user.matches_played }}</td>
