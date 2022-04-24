@@ -43,32 +43,34 @@ class DataCollector:
         rank_1 = Rating.check_rating(int(requests.post(const.ELO_CHECK_ADRESS, json={'name': const.player1_name}).text))
         rank_2 = Rating.check_rating(int(requests.post(const.ELO_CHECK_ADRESS, json={'name': const.player2_name}).text))
         print(rank_1, rank_2)
+        print(const.match_result, const.match_result_2)
         if self.player.id == 0:
             req = requests.post(const.STATISTIC_MATCH_ADRESS,
                                 json={'player_name': const.player1_name, 'kills': const.match_kills, 'deaths': const.match_deaths,
                                       'hp':   const.match_hp_healed, 'shots': const.match_shot,
                                       'hits':  const.match_hits, 'saws_deaths': const.match_saws_deaths,
                                       'result': const.match_result})
+            const.match_kills = 0
+            const.match_deaths = 0
+            const.match_hp_healed = 0
+            const.match_saws_deaths = 0
+            const.match_shot = 0
+            const.match_hits = 0
+            const.match_result = ''
         else:
             req = requests.post(const.STATISTIC_MATCH_ADRESS,
                                 json={'player_name': const.player2_name, 'kills': const.match_kills_2, 'deaths': const.match_deaths_2,
                                       'hp': const.match_hp_healed_2, 'shots': const.match_shot_2,
                                       'hits':  const.match_hits_2, 'saws_deaths':  const.match_saws_deaths_2,
                                       'result': const.match_result_2})
-        const.match_kills = 0
-        const.match_deaths = 0
-        const.match_hp_healed = 0
-        const.match_saws_deaths = 0
-        const.match_shot = 0
-        const.match_hits = 0
-        const.match_kills_2 = 0
-        const.match_deaths_2 = 0
-        const.match_hp_healed_2 = 0
-        const.match_saws_deaths_2 = 0
-        const.match_shot_2 = 0
-        const.match_hits_2 = 0
-        const.match_result_2 = ''
-        const.match_result = ''
+            const.match_kills_2 = 0
+            const.match_deaths_2 = 0
+            const.match_hp_healed_2 = 0
+            const.match_saws_deaths_2 = 0
+            const.match_shot_2 = 0
+            const.match_hits_2 = 0
+            const.match_result_2 = ''
+
 
 
 
