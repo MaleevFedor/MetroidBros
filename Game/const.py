@@ -3,6 +3,8 @@ import pygame
 
 PASSWORD_CHECK_ADRESS = 'http://127.0.0.1:80/game_login'
 STATISTIC_CHECK_ADRESS = 'http://127.0.0.1:80/stats'
+STATISTIC_MATCH_ADRESS = 'http://127.0.0.1:80/stats_match'
+
 OPTIONS_LOAD = pygame.USEREVENT + 1
 tile_particle_path = 'Particles/Particle.png'
 blood_particle_path = 'Particles/Blood Particle.png'
@@ -52,3 +54,10 @@ player1_name = ''
 player2_name = ''
 player1_password = ''
 player2_password = ''
+
+match_kills = 0
+match_deaths = 0
+match_hp_healed = 0
+match_saws_deaths = 0
+match_shot = 0
+match_hits =0

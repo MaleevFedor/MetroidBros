@@ -42,6 +42,24 @@ def update_stats():
     return 'ok'
 
 
+@app.route('/stats_match', methods=['POST'])
+def update_match_stats():
+    db_sess = db_session.create_session()
+    match = Match(
+            player_name=request.json['player_name'],
+            kills=request.json['kills'],
+            deaths=request.json['deaths'],
+            hp_healed=request.json['hp'],
+            saws_deaths=request.json['saws_deaths'],
+            shots=request.json['shots'],
+            hits=request.json['hits'],
+            elo=0,
+            results='vvvvv'
+        )
+    db_sess.add(match)
+    db_sess.commit()
+    return 'ok'
+
 @app.route('/game_login', methods=['POST'])
 def game_login():
     if db_check_password(request.json['login'], request.json['password']):
