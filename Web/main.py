@@ -227,13 +227,16 @@ def show_achiv():
 @app.route('/history')
 @login_required
 def show_history():
-    return 'here will be your recent matches'
+    form = SearchForm()
+    if form.validate_on_submit():
+        return redirect(f'/profile/{form.search.data}')
+    return render_template('history.html', form=form)
 
 
-@app.route('/tournaments')
+@app.route('/help')
 @login_required
-def show_tournaments():
-    return 'here maybe will be tournaments list'
+def give_help():
+    return 'i also need it'
 
 
 @app.errorhandler(401)

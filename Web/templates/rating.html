@@ -1,27 +1,16 @@
 {% extends "base.html" %}
 
 {% block script %}
-<style>.flex-parent {
-  display: flex;
-}
-
-.jc-center {
-  justify-content: center;
-}
-h1{font-size: 150px;}
-th, td{font-size: 30px;}
-h2{font-size: 35px; color: 	#708090;}
-.my_table{width:50%;margin-bottom:1rem;color:#212529}
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
 {% endblock %}
 
 
 {% block navbar %}
   <a class="active" href="/rating">rating</a>
-  <a href="/download">download</a>
-  <a href="/achievements">achievements</a>
   <a href="/history">matches</a>
-  <a href="/tournaments">tournaments</a>
+  <a href="/achievements">achievements</a>
+  <a href="/download">download</a>
+  <a href="/help">help</a>
 {% endblock %}
 
 {% block content %}
@@ -35,7 +24,7 @@ h2{font-size: 35px; color: 	#708090;}
 <table class="my_table table-striped table-bordered table-sm" width="50%">
     <thead>
        <tr>
-         <th style="width:2%">#</th>
+         <th style="width:1%">#</th>
          <th style="width:22%">Nickname</th>
          <th style="width:17%">Matches played</th>
          <th style="width:22%">Rank(elo)</th>
