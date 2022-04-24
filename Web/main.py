@@ -76,7 +76,6 @@ def main_page():
     form = SearchForm()
     if form.validate_on_submit():
         return redirect(f'/profile/{form.search.data}')
-    db_sess = db_session.create_session()
     return render_template('mainpage.html', form=form)
 
 
