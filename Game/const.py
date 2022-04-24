@@ -60,4 +60,11 @@ match_deaths = 0
 match_hp_healed = 0
 match_saws_deaths = 0
 match_shot = 0
-match_hits =0
+match_hits = 0
+
+match_kills_2 = 0
+match_deaths_2 = 0
+match_hp_healed_2 = 0
+match_saws_deaths_2 = 0
+match_shot_2 = 0
+match_hits_2 =  0
