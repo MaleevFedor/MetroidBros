@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import sqlalchemy
 from .db_session import SqlAlchemyBase
 
@@ -7,6 +9,7 @@ class Match(SqlAlchemyBase):
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     player_name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     enemy_name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    match_date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.now)
     results = sqlalchemy.Column(sqlalchemy.String, nullable=False)# -> 'WLWLW' где W это победа а L это поражение
     elo = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
     kills = sqlalchemy.Column(sqlalchemy.Integer, default=0, nullable=False)
