@@ -76,7 +76,6 @@ def get_elo():
     return str(user.elo)
 
 
-
 def db_check_password(login, password):
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.login == login).first()
@@ -197,7 +196,7 @@ def show_rating():
         return redirect(f'/profile/{form.search.data}')
     db_sess = db_session.create_session()
     user_list = []
-    for user in db_sess.query(User).all():
+    for user in db_sess.query(User).filter(User.banned != True):
         user_list.append(user)
     user_list = sorted(user_list, key=lambda user: user.wins + user.loses)
     user_list = sorted(user_list, key=lambda user: user.elo, reverse=True)
@@ -205,9 +204,6 @@ def show_rating():
     data['users'] = []
 
     for i, user in enumerate(user_list):
-        if user.banned:
-            i -= 1
-            continue
         if i == 100:
             break
         rank = check_rating(user.elo, i)
