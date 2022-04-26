@@ -44,11 +44,12 @@ class DataCollector:
         rank_1 = Rating.check_rating(int(requests.post(const.ELO_CHECK_ADRESS, json={'name': const.player1_name}).text))
         rank_2 = Rating.check_rating(int(requests.post(const.ELO_CHECK_ADRESS, json={'name': const.player2_name}).text))
         if const.match_result.count('V') == 3:
-            difference = Rating.ranked_emblems.keys().index(rank_2) - Rating.ranked_emblems.keys().index(rank_1)
+            key_list = list(Rating.ranked_emblems.keys())
+            difference = key_list.index(rank_2) - key_list.index(rank_1)
             elo_1 = 30 + 2 * difference
             if 'VVV' in const.match_result:
                 elo_1 *= 1.5
-            print(elo_1)
+
         if self.player.id == 0:
             req = requests.post(const.STATISTIC_MATCH_ADRESS,
                                 json={'player_name': const.player1_name, 'kills': const.match_kills, 'deaths': const.match_deaths,
