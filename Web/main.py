@@ -203,7 +203,6 @@ def show_rating():
     user_list = sorted(user_list, key=lambda user: user.elo, reverse=True)
     data = dict()
     data['users'] = []
-
     for i, user in enumerate(user_list):
         if i == 100:
             break
@@ -227,7 +226,23 @@ def show_history():
     form = SearchForm()
     if form.validate_on_submit():
         return redirect(f'/profile/{form.search.data}')
+    db_sess = db_session.create_session()
+    match_list = []
+    for match in db_sess.query(Match).filter(Match.player_name == current_user.login):
+        match_list.append(match)
+    match_list = reversed(match_list)
+    data = dict()
+    data['matchs'] = []
+    for i, match in enumerate(match_list):
+        if i == 100:
+            break
+        rank = check_rating(match.elo, i)
+        data['matchs'].append({'world_ranking': i + 1, 'nickname': match.login,
+                              'matches_played': match.wins + match.loses, 'rank': f'{rank}({match.elo})',
+                              'path': url_for('static', filename=f'img/Emblems/Ranked/{ranked_emblems[rank]}'),
+                              'me': match.login == current_match.login})
     return render_template('history.html', form=form)
+#ToDo finish match history
 
 
 @app.route('/help')

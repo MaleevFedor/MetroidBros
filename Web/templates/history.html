@@ -3,17 +3,14 @@
 {% block script %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
 <style>
-    .my_table{width:50%;margin-bottom:1rem;color:#212529}
-      h1{font-size: 150px;}
-th, td{font-size: 30px;}
-h2{font-size: 35px; color: 	#708090;}
+  .my_table{width:80%;margin-bottom:1rem;color:#212529}
 </style>
 {% endblock %}
 
 
 {% block navbar %}
-  <a class="active" href="/rating">rating</a>
-  <a href="/history">matches</a>
+  <a href="/rating">rating</a>
+  <a class="active" href="/history">matches</a>
   <a href="/achievements">achievements</a>
   <a href="/download">download</a>
   <a href="/help">help</a>
@@ -27,7 +24,7 @@ h2{font-size: 35px; color: 	#708090;}
     <h2>Here we gather for you a list of the best players in the world</h2>
 </div>
 <div class="flex-parent jc-center">
-<table class="my_table table-bordered table-sm" width="50%">
+<table class="my_table table-striped table-bordered table-sm" width="50%">
     <thead>
        <tr>
          <th style="width:1%">#</th>
@@ -40,8 +37,6 @@ h2{font-size: 35px; color: 	#708090;}
     {% for user in data.users %}
         {% if user.me %}
     <tr class="alert alert-danger">
-    {% elif user.world_ranking % 2 == 1 %}
-        <tr style="background-color: rgba(0,0,0,.05);">
     {% else %}
     <tr>
     {% endif %}
