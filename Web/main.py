@@ -150,12 +150,12 @@ def register():
     if form.validate_on_submit():
         if form.password.data != form.password_again.data:
             return render_template('registration.html',
-                                   form=form, message="Passwords are not the same", )
+                                   form=form, message="Passwords are not the same")
         db_sess = db_session.create_session()
         if db_sess.query(User).filter(User.email == form.email.data).first() or \
                 db_sess.query(User).filter(User.login == form.login.data).first():
             return render_template('registration.html',
-                                   form=form, message="User already exists", )
+                                   form=form, message="User already exists")
         if form.about.data == '':
             form.about.data = 'No information'
         user = User(
