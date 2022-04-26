@@ -217,8 +217,10 @@ def show_rating():
         if i == 100:
             break
         rank = check_rating(user.elo, i)
-        data['users'].append({'world_ranking': i + 1, 'nickname': user.login,
-                              'matches_played': user.wins + user.loses, 'rank': f'{rank}({user.elo})',
+        data['users'].append({'world_ranking': i + 1,
+                              'nickname': user.login,
+                              'matches_played': user.wins + user.loses,
+                              'rank': f'{rank}({user.elo})',
                               'path': url_for('static', filename=f'img/Emblems/Ranked/{ranked_emblems[rank]}'),
                               'me': user.login == current_user.login})
     return render_template('rating.html', data=data, form=form)
@@ -242,16 +244,24 @@ def show_history():
         match_list.append(match)
     match_list = reversed(match_list)
     data = dict()
-    data['matchs'] = []
-    for i, match in enumerate(match_list):
-        if i == 100:
-            break
-        rank = check_rating(match.elo, i)
-        data['matchs'].append({'world_ranking': i + 1, 'nickname': match.login,
-                              'matches_played': match.wins + match.loses, 'rank': f'{rank}({match.elo})',
-                              'path': url_for('static', filename=f'img/Emblems/Ranked/{ranked_emblems[rank]}'),
-                              'me': match.login == current_match.login})
-    return render_template('history.html', form=form)
+    data['matches'] = []
+    for match in match_list:
+        if match.shots <= 0:
+            accuracy = '-'
+        else:
+            accuracy = str(round(match.hits / match.shots, 2)) + '%'
+        if match.deaths <= 0:
+            match.deaths = 1
+        kd = round(match.kills / match.deaths, 2)
+        data['matches'].append({
+            'id': match.id,
+            'date': str(match.match_date).split('.')[0],
+            'enemy': match.enemy_name,
+            'result': match.results,
+            'kd': kd,
+            'accuracy': accuracy,
+            'elo': match.elo})
+    return render_template('history.html', data=data, form=form)
 #ToDo finish match history
 
 

@@ -24,27 +24,34 @@
     <h2>Here we gather for you a list of the best players in the world</h2>
 </div>
 <div class="flex-parent jc-center">
-<table class="my_table table-striped table-bordered table-sm" width="50%">
+<table class="my_table table-bordered table-sm" width="50%">
     <thead>
        <tr>
-         <th style="width:1%">#</th>
-         <th style="width:22%">Nickname</th>
-         <th style="width:17%">Matches played</th>
-         <th style="width:22%">Rank(elo)</th>
+         <th style="width:5%">id</th>
+         <th style="width:12%">Date</th>
+         <th style="width:22%">Enemy</th>
+         <th style="width:15%">Result</th>
+         <th style="width:5%">K/D</th>
+         <th style="width:5%">Accuracy</th>
+         <th style="width:5%">ElO</th>
       </tr>
     </thead>
     <tbody>
-    {% for user in data.users %}
-        {% if user.me %}
+    {% for match in data.matches %}
+        {% if match.elo > 0 %}
+    <tr class="alert-success">
+    {% elif match.elo < 0 %}
     <tr class="alert alert-danger">
     {% else %}
-    <tr>
+    <tr style="background-color: rgba(0,0,0,.05);">
     {% endif %}
-        <td>{{ user.world_ranking }}</td>
-        <td>{{ user.nickname }}</td>
-        <td>{{ user.matches_played }}</td>
-        <td><img src="{{user.path}}" width="100"
-    height="100">{{ user.rank }}</td>
+        <td>{{ match.id }}</td>
+        <td>{{ match.date }}</td>
+        <td>{{ match.enemy }}</td>
+        <td>{{ match.result }}</td>
+        <td>{{ match.kd }}</td>
+        <td>{{ match.accuracy }}</td>
+        <td>{{ match.elo }}</td>
     </tr>
     {% endfor %}
 </tbody>
