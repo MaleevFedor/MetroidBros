@@ -69,11 +69,11 @@
             </p>
         {% endfor %}
     </p>
-    <p>{{ form.recaptcha }}</p>
-    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
-    {% if message %}
+        {% if message %}
         <div class="alert alert-danger" role="alert">{{message}}</div>
         {% endif %}
+    <p>{{ form.recaptcha }}</p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
 </form>
 </main>
 </body>
