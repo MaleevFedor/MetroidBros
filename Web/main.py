@@ -42,6 +42,16 @@ def update_stats():
     return 'ok'
 
 
+@app.route('/change_elo', methods=['POST'])
+def update_elo():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(
+        (User.email == request.json['user']) | (User.login == request.json['user'])).first()
+    user.elo += request.json['elo']
+    db_sess.commit()
+    return 'ok'
+
+
 @app.route('/stats_match', methods=['POST'])
 def update_match_stats():
     db_sess = db_session.create_session()
@@ -53,7 +63,7 @@ def update_match_stats():
             saws_deaths=request.json['saws_deaths'],
             shots=request.json['shots'],
             hits=request.json['hits'],
-            elo=0,
+            elo=request.json['elo'],
             results=request.json['result'],
             enemy_name=request.json['enemy_name']
         )
