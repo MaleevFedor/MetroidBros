@@ -54,7 +54,8 @@ def update_match_stats():
             shots=request.json['shots'],
             hits=request.json['hits'],
             elo=0,
-            results=request.json['result']
+            results=request.json['result'],
+            enemy_name=request.json['enemy_name']
         )
     db_sess.add(match)
     db_sess.commit()
