@@ -7,7 +7,6 @@ ELO_CHANGE_ADRESS = 'http://127.0.0.1:80/change_elo'
 
 STATISTIC_CHECK_ADRESS = 'http://127.0.0.1:80/stats'
 STATISTIC_MATCH_ADRESS = 'http://127.0.0.1:80/stats_match'
-STATISTIC_MATCH_ADRESS = 'http://127.0.0.1:80/stats_match'
 
 OPTIONS_LOAD = pygame.USEREVENT + 1
 tile_particle_path = 'Particles/Particle.png'

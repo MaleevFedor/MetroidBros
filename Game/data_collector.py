@@ -48,7 +48,7 @@ class DataCollector:
         difference = key_list.index(rank_2) - key_list.index(rank_1)
         if self.player.id == 0:
             if const.match_result.count('V') == 3:
-                self.elo = 30 + 2 * difference
+                self.elo = 30 - 2 * difference
                 if 'VVV' in const.match_result:
                     self.elo *= 1.5
             else:
@@ -71,7 +71,7 @@ class DataCollector:
             const.match_result = ''
         else:
             if const.match_result_2.count('V') == 3:
-                self.elo = 30 + 2 * difference
+                self.elo = 30 - 2 * difference
                 if 'VVV' in const.match_result_2:
                     self.elo *= 1.5
             else:
