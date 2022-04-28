@@ -249,7 +249,7 @@ def show_history():
         if match.shots <= 0:
             accuracy = '-'
         else:
-            accuracy = str(round(match.hits / match.shots, 2)) + '%'
+            accuracy = str(round(match.hits / match.shots * 100)) + '%'
         if match.deaths <= 0:
             match.deaths = 1
         kd = round(match.kills / match.deaths, 2)
