@@ -6,7 +6,6 @@
   justify-content: center;
 }
 
-
-.table-striped>tbody>tr:nth-child(odd)>th {
-   background-color: red; // Choose your own color here
- }
+h1{font-size: 150px;}
+th, td{font-size: 30px;}
+h2{font-size: 35px; color: 	#708090;}

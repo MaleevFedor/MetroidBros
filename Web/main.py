@@ -262,7 +262,6 @@ def show_history():
             'accuracy': accuracy,
             'elo': match.elo})
     return render_template('history.html', data=data, form=form)
-#ToDo finish match history
 
 
 @app.route('/help')
