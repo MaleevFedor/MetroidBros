@@ -38,6 +38,8 @@ def update_stats():
     user.shots += request.json['shots']
     user.hits += request.json['hits']
     user.saws_deaths += request.json['saws_deaths']
+    if user.wins == 100:
+        user.win_100 = True
     db_sess.commit()
     return 'ok'
 
@@ -52,6 +54,7 @@ def update_elo():
     user.comeback = request.json['comeback']
     user.heal_500 = request.json['heal_500']
     user.perfect = request.json['perfect']
+
     db_sess.commit()
     return 'ok'
 
