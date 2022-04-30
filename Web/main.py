@@ -117,7 +117,7 @@ def main_page():
     form = SearchForm()
     if form.validate_on_submit():
         return redirect(f'/profile/{form.search.data}')
-    return render_template('mainpage.html', form=form)
+    return render_template('mainpage.html', form=form, Title='DinoStats')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -226,7 +226,7 @@ def show_rating():
                               'rank': f'{rank}({user.elo})',
                               'path': url_for('static', filename=f'img/Emblems/Ranked/{ranked_emblems[rank]}'),
                               'me': user.login == current_user.login})
-    return render_template('rating.html', data=data, form=form)
+    return render_template('rating.html', Title='rating', data=data, form=form)
 
 
 @app.route('/achievements')
@@ -235,7 +235,7 @@ def show_achiv():
     return 'here will be achievements'
 
 
-@app.route('/history')
+@app.route('/history', methods=['GET', 'POST'])
 @login_required
 def show_history():
     form = SearchForm()
@@ -264,7 +264,7 @@ def show_history():
             'kd': kd,
             'accuracy': accuracy,
             'elo': match.elo})
-    return render_template('history.html', data=data, form=form)
+    return render_template('history.html', Title='history', data=data, form=form)
 
 
 @app.route('/help')
