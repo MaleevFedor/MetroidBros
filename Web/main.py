@@ -48,6 +48,9 @@ def update_elo():
     user = db_sess.query(User).filter(
         (User.email == request.json['user']) | (User.login == request.json['user'])).first()
     user.elo += request.json['elo']
+    user.marksman = request.json['marksman']
+    user.comeback = request.json['comeback']
+    user.heal_500 = request.json['heal_500']
     db_sess.commit()
     return 'ok'
 

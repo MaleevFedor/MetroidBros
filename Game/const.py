@@ -58,12 +58,16 @@ player2_name = ''
 player1_password = ''
 player2_password = ''
 
+
 match_kills = 0
 match_deaths = 0
 match_hp_healed = 0
 match_saws_deaths = 0
 match_shot = 0
 match_hits = 0
+marksman = False
+heal_500 = False
+comeback = False
 match_result = ''
 
 
@@ -73,4 +77,7 @@ match_hp_healed_2 = 0
 match_saws_deaths_2 = 0
 match_shot_2 = 0
 match_hits_2 = 0
+marksman_2 = False
+heal_500_2 = False
+comeback_2 = False
 match_result_2 = ''

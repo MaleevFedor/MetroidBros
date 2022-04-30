@@ -29,6 +29,10 @@ class User(SqlAlchemyBase, UserMixin):
     blood_spilled = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     shots = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     hits = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    marksman = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
+    comeback = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
+    heal_500 = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
+
     
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

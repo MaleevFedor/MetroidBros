@@ -16,7 +16,6 @@ class DataCollector:
         self.saws_deaths = 0
         self.elo = 0
 
-
     def post(self):
         if self.player.id == 0:
             const.match_kills += self.kills
@@ -55,8 +54,14 @@ class DataCollector:
                 self.elo = -30 + 2 * difference
                 if 'LLL' in const.match_result:
                     self.elo *= 1.5
-            print(self.elo)
-            req = requests.post(const.ELO_CHANGE_ADRESS, json={'user': const.player1_name, 'elo': self.elo})
+            if const.match_hp_healed >= 500:
+                const.heal_500 = True
+            if const.match_shot == const.match_hits and const.match_result.count('V') == 3:
+                const.marksman = True
+            if const.match_result == 'LLVVV':
+                const.comeback = True
+            req = requests.post(const.ELO_CHANGE_ADRESS, json={'user': const.player1_name, 'elo': self.elo,
+                                                               'marksman': const.marksman, 'heal_500': const.heal_500, 'comeback': const.comeback})
             req = requests.post(const.STATISTIC_MATCH_ADRESS,
                                 json={'player_name': const.player1_name, 'kills': const.match_kills, 'deaths': const.match_deaths,
                                       'hp':   const.match_hp_healed, 'shots': const.match_shot,
@@ -78,8 +83,14 @@ class DataCollector:
                 self.elo = -30 + 2 * difference
                 if 'LLL' in const.match_result_2:
                     self.elo *= 1.5
-            print(self.elo)
-            req = requests.post(const.ELO_CHANGE_ADRESS, json={'user': const.player2_name, 'elo': self.elo})
+            if const.match_hp_healed_2 >= 500:
+                const.heal_500_2 = True
+            if const.match_shot_2 == const.match_hits_2 and const.match_result_2.count('V') == 3:
+                const.marksman_2 = True
+            if const.match_result_2 == 'LLVVV':
+                const.comeback_2 = True
+            req = requests.post(const.ELO_CHANGE_ADRESS, json={'user': const.player2_name, 'elo': self.elo,
+                                                               'marksman': const.marksman_2, 'heal_500': const.heal_500_2, 'comeback': const.comeback_2})
             req = requests.post(const.STATISTIC_MATCH_ADRESS,
                                 json={'player_name': const.player2_name, 'kills': const.match_kills_2, 'deaths': const.match_deaths_2,
                                       'hp': const.match_hp_healed_2, 'shots': const.match_shot_2,
