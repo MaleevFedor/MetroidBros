@@ -68,6 +68,7 @@ match_hits = 0
 marksman = False
 heal_500 = False
 comeback = False
+perfect = False
 match_result = ''
 
 
@@ -80,4 +81,5 @@ match_hits_2 = 0
 marksman_2 = False
 heal_500_2 = False
 comeback_2 = False
+perfect_2 = False
 match_result_2 = ''

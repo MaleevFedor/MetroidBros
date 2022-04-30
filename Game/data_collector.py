@@ -60,20 +60,17 @@ class DataCollector:
                 const.marksman = True
             if const.match_result == 'LLVVV':
                 const.comeback = True
+            if const.match_hits_2 == 0:
+                const.perfect = True
             req = requests.post(const.ELO_CHANGE_ADRESS, json={'user': const.player1_name, 'elo': self.elo,
-                                                               'marksman': const.marksman, 'heal_500': const.heal_500, 'comeback': const.comeback})
+                                                               'marksman': const.marksman, 'heal_500': const.heal_500,
+                                                               'comeback': const.comeback, 'perfect': const.perfect})
             req = requests.post(const.STATISTIC_MATCH_ADRESS,
                                 json={'player_name': const.player1_name, 'kills': const.match_kills, 'deaths': const.match_deaths,
                                       'hp':   const.match_hp_healed, 'shots': const.match_shot,
                                       'hits':  const.match_hits, 'saws_deaths': const.match_saws_deaths,
                                       'result': const.match_result, 'enemy_name': const.player2_name, 'elo': self.elo})
-            const.match_kills = 0
-            const.match_deaths = 0
-            const.match_hp_healed = 0
-            const.match_saws_deaths = 0
-            const.match_shot = 0
-            const.match_hits = 0
-            const.match_result = ''
+
         else:
             if const.match_result_2.count('V') == 3:
                 self.elo = 30 - 2 * difference
@@ -89,13 +86,23 @@ class DataCollector:
                 const.marksman_2 = True
             if const.match_result_2 == 'LLVVV':
                 const.comeback_2 = True
+            if const.match_hits == 0:
+                const.perfect_2 = True
             req = requests.post(const.ELO_CHANGE_ADRESS, json={'user': const.player2_name, 'elo': self.elo,
-                                                               'marksman': const.marksman_2, 'heal_500': const.heal_500_2, 'comeback': const.comeback_2})
+                                                               'marksman': const.marksman_2, 'heal_500': const.heal_500_2,
+                                                               'comeback': const.comeback_2, 'perfect': const.perfect_2})
             req = requests.post(const.STATISTIC_MATCH_ADRESS,
                                 json={'player_name': const.player2_name, 'kills': const.match_kills_2, 'deaths': const.match_deaths_2,
                                       'hp': const.match_hp_healed_2, 'shots': const.match_shot_2,
                                       'hits':  const.match_hits_2, 'saws_deaths':  const.match_saws_deaths_2,
                                       'result': const.match_result_2, 'enemy_name': const.player1_name, 'elo': self.elo})
+            const.match_kills = 0
+            const.match_deaths = 0
+            const.match_hp_healed = 0
+            const.match_saws_deaths = 0
+            const.match_shot = 0
+            const.match_hits = 0
+            const.match_result = ''
             const.match_kills_2 = 0
             const.match_deaths_2 = 0
             const.match_hp_healed_2 = 0

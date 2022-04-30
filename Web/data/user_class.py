@@ -32,6 +32,7 @@ class User(SqlAlchemyBase, UserMixin):
     marksman = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
     comeback = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
     heal_500 = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
+    perfect = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
 
     
     def set_password(self, password):

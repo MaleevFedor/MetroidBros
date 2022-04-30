@@ -51,6 +51,7 @@ def update_elo():
     user.marksman = request.json['marksman']
     user.comeback = request.json['comeback']
     user.heal_500 = request.json['heal_500']
+    user.perfect = request.json['perfect']
     db_sess.commit()
     return 'ok'
 
