@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ Title }}</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block script %}
+<style>
+  h1{font-size: 150px;}
+  h2{font-size: 75px;}
+  h3{font-size:35px; color:#708090;}
+</style>
+{% endblock %}
+
+
+{% block navbar %}
+  <a href="/rating">rating</a>
+  <a href="/history">matches</a>
+  <a href="/achievements">achievements</a>
+  <a href="/download">download</a>
+  <a href="/help">help</a>
+{% endblock %}
+
+{% block content %}
+<div style="background-color: rgba(0,0,0,.05);">
+  <h1>{{ username }}</h1>
+<a href="/rating"><h3>{{ rank }}</h3></a></div>
+<div>
+  <h2>Achievements</h2>
+</div>
+{% endblock %}

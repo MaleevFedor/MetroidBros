@@ -38,18 +38,22 @@ def update_stats():
     user.shots += request.json['shots']
     user.hits += request.json['hits']
     user.saws_deaths += request.json['saws_deaths']
-
-    user.tokyo_wins += request.json['tokyo']
-    user.forest_wins += request.json['forest']
-    user.apocalypse_wins += request.json['apocalypse']
-    user.plains_wins += request.json['plains']
-    user.industrial_wins += request.json['industrial']
-    if user.wins == 100:
-        user.win_100 = True
     db_sess.commit()
     return 'ok'
 
 
+@app.route('/change_elo', methods=['POST'])
+def update_elo():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(
+        (User.email == request.json['user']) | (User.login == request.json['user'])).first()
+    user.elo += request.json['elo']
+    user.marksman = request.json['marksman']
+    user.comeback = request.json['comeback']
+    user.heal_500 = request.json['heal_500']
+    user.perfect = request.json['perfect']
+    db_sess.commit()
+    return 'ok'
 
 
 
@@ -195,15 +199,34 @@ def register():
     return render_template('registration.html', form=form)
 
 
-@app.route('/profile/<username>')
+@app.route('/profile/<username>', methods=['GET', 'POST'])
 @login_required
 def search_profile(username):
+    your_profile = False
+    form = SearchForm()
+    if form.validate_on_submit():
+        return redirect(f'/profile/{form.search.data}')
     db_sess = db_session.create_session()
     if current_user.login == username or current_user.email == username:
-        return redirect('/my_profile')
+        your_profile = True
     found_user = db_sess.query(User).filter((User.email == username) | (User.login == username)).first()
     if found_user:
-        return found_user.login
+        db_sess = db_session.create_session()
+        user_list = []
+        for user in db_sess.query(User).filter(User.banned != True):
+            user_list.append(user)
+        user_list = sorted(user_list, key=lambda user: user.wins + user.loses)
+        user_list = sorted(user_list, key=lambda user: user.elo, reverse=True)
+        if_pred = number_of_predators + 100
+        for user in user_list[0:number_of_predators + 1]:
+            if found_user.login == user.login:
+                if_pred = 1
+        rank = check_rating(found_user.elo, if_pred)
+        username = found_user.login
+        achiv = dict()
+        return render_template('profile.html', form=form, current_user=your_profile,
+                               username=username, rank=rank, achiv=achiv,
+                               )
     else:
         return 'No such user'
 
@@ -211,7 +234,16 @@ def search_profile(username):
 @app.route('/my_profile')
 @login_required
 def my_profile():
-    return 'here is your profile'
+    return redirect(f'/profile/{current_user.login}')
+
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = SearchForm()
+    if form.validate_on_submit():
+        return redirect(f'/profile/{form.search.data}')
+    return render_template('profile.html', form=form)
 
 
 @app.route('/rating', methods=['GET', 'POST'])
@@ -244,7 +276,10 @@ def show_rating():
 @app.route('/achievements')
 @login_required
 def show_achiv():
-    return 'here will be achievements'
+    form = SearchForm()
+    if form.validate_on_submit():
+        return redirect(f'/profile/{form.search.data}')
+    return render_template('achivments.html', form=form, Title='achievements')
 
 
 @app.route('/history', methods=['GET', 'POST'])
