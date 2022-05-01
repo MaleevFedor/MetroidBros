@@ -38,22 +38,18 @@ def update_stats():
     user.shots += request.json['shots']
     user.hits += request.json['hits']
     user.saws_deaths += request.json['saws_deaths']
+
+    user.tokyo_wins += request.json['tokyo']
+    user.forest_wins += request.json['forest']
+    user.apocalypse_wins += request.json['apocalypse']
+    user.plains_wins += request.json['plains']
+    user.industrial_wins += request.json['industrial']
+    if user.wins == 100:
+        user.win_100 = True
     db_sess.commit()
     return 'ok'
 
 
-@app.route('/change_elo', methods=['POST'])
-def update_elo():
-    db_sess = db_session.create_session()
-    user = db_sess.query(User).filter(
-        (User.email == request.json['user']) | (User.login == request.json['user'])).first()
-    user.elo += request.json['elo']
-    user.marksman = request.json['marksman']
-    user.comeback = request.json['comeback']
-    user.heal_500 = request.json['heal_500']
-    user.perfect = request.json['perfect']
-    db_sess.commit()
-    return 'ok'
 
 
 
