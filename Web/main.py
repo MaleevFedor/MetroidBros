@@ -50,19 +50,7 @@ def update_stats():
     return 'ok'
 
 
-@app.route('/change_elo', methods=['POST'])
-def update_elo():
-    db_sess = db_session.create_session()
-    user = db_sess.query(User).filter(
-        (User.email == request.json['user']) | (User.login == request.json['user'])).first()
-    user.elo += request.json['elo']
-    user.marksman = request.json['marksman']
-    user.comeback = request.json['comeback']
-    user.heal_500 = request.json['heal_500']
-    user.perfect = request.json['perfect']
 
-    db_sess.commit()
-    return 'ok'
 
 
 @app.route('/stats_match', methods=['POST'])
@@ -80,6 +68,20 @@ def update_match_stats():
             results=request.json['result'],
             enemy_name=request.json['enemy_name']
         )
+
+    user = db_sess.query(User).filter(
+        (User.email == request.json['player_name']) | (User.login == request.json['player_name'])).first()
+    user.elo += request.json['elo']
+    if match.hits == match.shots and match.elo > 0:
+        user.marksman = True
+    if match.hp_healed >= 500:
+        user.heal_500 = True
+    if match.results == 'LLVVV':
+        user.comeback = True
+    if match.shots > 0:
+        if match.hits / match.shots * 100 < 25:
+            user.bullseye = True
+    user.perfect = request.json['perfect']
     db_sess.add(match)
     db_sess.commit()
     return 'ok'

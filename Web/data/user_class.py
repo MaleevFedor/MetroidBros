@@ -34,6 +34,7 @@ class User(SqlAlchemyBase, UserMixin):
     heal_500 = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
     perfect = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
     win_100 = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
+    bullseye = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
     tokyo_wins = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     forest_wins = sqlalchemy.Column(sqlalchemy.Integer, default=0)
     industrial_wins = sqlalchemy.Column(sqlalchemy.Integer, default=0)
