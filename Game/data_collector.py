@@ -14,7 +14,12 @@ class DataCollector:
         self.loses = 0
         self.hp_healed = 0
         self.saws_deaths = 0
-        self.elo = 0
+        self.tokyo = 0
+        self.plains = 0
+        self.industrial = 0
+        self.apocalypse = 0
+        self.forest = 0
+
 
     def post(self):
         if self.player.id == 0:
@@ -27,7 +32,9 @@ class DataCollector:
             req = requests.post(const.STATISTIC_CHECK_ADRESS,
                                 json={'user': const.player1_name, 'kills': self.kills, 'deaths': self.deaths,
                                       'wins': self.wins, 'hp': self.hp_healed, 'loses': self.loses, 'shots': self.shots,
-                                      'hits': self.hits, 'saws_deaths': self.saws_deaths})
+                                      'hits': self.hits, 'saws_deaths': self.saws_deaths, 'tokyo': self.tokyo,
+                                      'forest': self.forest, 'plains': self.plains,
+                                      'industrial': self.industrial, 'apocalypse': self.apocalypse})
         else:
             const.match_kills_2 += self.kills
             const.match_deaths_2 += self.deaths
@@ -38,7 +45,9 @@ class DataCollector:
             req = requests.post(const.STATISTIC_CHECK_ADRESS,
                                 json={'user': const.player2_name, 'kills': self.kills, 'deaths': self.deaths,
                                       'wins': self.wins, 'hp': self.hp_healed, 'loses': self.loses, 'shots': self.shots,
-                                      'hits': self.hits, 'saws_deaths': self.saws_deaths})
+                                      'hits': self.hits, 'saws_deaths': self.saws_deaths,
+                                      'tokyo': self.tokyo, 'forest': self.forest, 'plains': self.plains,
+                                      'industrial': self.industrial, 'apocalypse': self.apocalypse})
 
     def match_post(self):
         rank_1 = Rating.check_rating(int(requests.post(const.ELO_CHECK_ADRESS, json={'name': const.player1_name}).text))

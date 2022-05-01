@@ -99,6 +99,17 @@ class Level:
                 else:
                     self.dc_1.hits += 1
 
+    def check_map_win(self, dc):
+        if self.level_map == Tokyo_level:
+            dc.tokyo += 1
+        elif self.level_map == Forest_level:
+            dc.forest += 1
+        elif self.level_map == Plain:
+            dc.plains += 1
+        elif self.level_map == Industrial_level:
+            dc.industrial += 1
+        elif self.level_map == Apocalypsis:
+            dc.apocalypse += 1
 
     def render(self, screen):
         screen.blit(self.bg, (0, 0))
@@ -166,12 +177,14 @@ class Level:
                 pygame.time.set_timer(level_ended, 3000, 1)
                 self.ended = True
                 if self.player.killed:
+                    self.check_map_win(self.dc_2)
                     const.score[1] += 1
                     self.dc_2.kills += 1
                     const.match_result += 'L'
                     const.match_result_2 += 'V'
                     self.dc_1.deaths += 1
                 elif self.player2.killed:
+                    self.check_map_win(self.dc_1)
                     const.score[0] += 1
                     const.match_result += 'V'
                     const.match_result_2 += 'L'

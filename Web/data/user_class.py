@@ -34,6 +34,11 @@ class User(SqlAlchemyBase, UserMixin):
     heal_500 = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
     perfect = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
     win_100 = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
+    tokyo_wins = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    forest_wins = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    industrial_wins = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    plains_wins = sqlalchemy.Column(sqlalchemy.Integer, default=0)
+    apocalypse_wins = sqlalchemy.Column(sqlalchemy.Integer, default=0)
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)

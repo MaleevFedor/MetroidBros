@@ -38,6 +38,12 @@ def update_stats():
     user.shots += request.json['shots']
     user.hits += request.json['hits']
     user.saws_deaths += request.json['saws_deaths']
+
+    user.tokyo_wins += request.json['tokyo']
+    user.forest_wins += request.json['forest']
+    user.apocalypse_wins += request.json['apocalypse']
+    user.plains_wins += request.json['plains']
+    user.industrial_wins += request.json['industrial']
     if user.wins == 100:
         user.win_100 = True
     db_sess.commit()
