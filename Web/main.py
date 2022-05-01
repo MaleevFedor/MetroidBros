@@ -50,9 +50,6 @@ def update_stats():
     return 'ok'
 
 
-
-
-
 @app.route('/stats_match', methods=['POST'])
 def update_match_stats():
     db_sess = db_session.create_session()

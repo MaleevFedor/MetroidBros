@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% block script %}
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/achiv.css') }}">
+ <style>
+h1{font-size: 150px;}
+h2{font-size: 35px; color: 	#708090;}
+</style>
 {% endblock %}
 
 
@@ -13,11 +18,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="wrapper">
-   <div>One</div>
-   <div>Two</div>
-   <div>Three</div>
-   <div>Four</div>
-   <div>Five</div>
+<h1 class="flex-parent jc-center">Achievements</h1>
+<h2 class="flex-parent jc-center">Here is your achievements</h2>
+<div class="flex-parent jc-center">
+    <div class="wrapper" style="width: 80%">
+       <div>One</div>
+       <div>Two</div>
+       <div>Three</div>
+       <div>Four</div>
+       <div>Five</div>
+    </div>
 </div>
 {% endblock %}

@@ -45,14 +45,6 @@
   }
 }
 
-/*center divs*/
-.flex-parent {
-  display: flex;
-}
-
-.jc-center {
-  justify-content: center;
-}
 
 h1{font-size: 150px;}
 h2{font-size: 48px;
