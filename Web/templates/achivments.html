@@ -2,10 +2,6 @@
 
 {% block script %}
  <link rel="stylesheet" href="{{ url_for('static', filename='css/achiv.css') }}">
- <style>
-h1{font-size: 150px;}
-h2{font-size: 35px; color: 	#708090;}
-</style>
 {% endblock %}
 
 
@@ -22,11 +18,17 @@ h2{font-size: 35px; color: 	#708090;}
 <h2 class="flex-parent jc-center">Here is your achievements</h2>
 <div class="flex-parent jc-center">
     <div class="wrapper" style="width: 80%">
-       <div>One</div>
-       <div>Two</div>
-       <div>Three</div>
-       <div>Four</div>
-       <div>Five</div>
+       {% for achiv in data %}
+        {% if achiv.status %}
+            <div><img src="{{achiv.activ_src}}" style="width: 300px; height: 300px; align: center;">
+        {% else %}
+                <div><img src="{{achiv.inactiv_src}}" style="width: 300px; height: 300px; align: center;">
+        {% endif %}
+           <h4>{{achiv.name}}</h4>
+           <h5>{{achiv.info}}</h5>
+         </div>
+       </div>
+       {% endfor %}
     </div>
 </div>
 {% endblock %}

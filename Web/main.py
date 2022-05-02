@@ -4,7 +4,7 @@ from datetime import timedelta
 from flask import Flask, render_template, make_response, redirect, session, \
     send_file, request, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-
+from Achievments import *
 from data import db_session
 from data.user_class import User
 from Rating import ranked_emblems, check_rating, number_of_predators
@@ -272,7 +272,56 @@ def show_achiv():
     form = SearchForm()
     if form.validate_on_submit():
         return redirect(f'/profile/{form.search.data}')
-    return render_template('achivments.html', form=form, Title='achievements')
+    achievements = [
+        {'name': 'Phoenix', 'info': 'Win a game after  loosing first two rounds',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Phoenix.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Phoenix.png'),
+         'status': check_Phoenix(current_user)},
+        {'name': 'Marksman', 'info': 'Win a game with  a 100% accuracy',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Flawless.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Flawless.png'),
+         'status': check_Marksman(current_user)},
+        {'name': 'Medic', 'info': 'Heal 500 hp  in one game',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Medic.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Medic.png'),
+         'status': check_Medic(current_user)},
+        {'name': 'Flawless', 'info': 'Win a game without  getting any damage',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/NoDamage.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/NoDamage.png'),
+         'status': check_Flawless(current_user)},
+        {'name': 'Popular', 'info': 'Get 100 views on  your profile',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Popular.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Popular.png'),
+         'status': check_Popular(current_user)},
+        {'name': 'Hero of Industrial', 'info': 'Win 25 rounds  on industrial',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/IndustrialHero.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/IndustrialHero.png'),
+         'status': check_Hero_of_Industrial(current_user)},
+        {'name': 'Tokyo Ghoul', 'info': 'Win 25 rounds in Tokyo',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/TokyoHero.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/TokyoHero.png'),
+         'status': check_Tokyo_Ghoul(current_user)},
+        {'name': 'Robin Hood', 'info': 'Win 25 rounds  in forest',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/ForestHero.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/ForestHero.png'),
+         'status': check_Robin_Hood(current_user)},
+        {'name': 'Survivalist', 'info': 'Win 25 rounds  in apocalypses',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/ApocalypsisHero.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/ApocalypsisHero.png'),
+         'status': check_Survivalist(current_user)},
+        {'name': 'Plains hero', 'info': 'Win 25 rounds  on plains',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/PlainsHero.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/PlainsHero.png'),
+         'status': check_Plains_hero(current_user)},
+        {'name': 'Not your day', 'info': 'Play match with  accuracy < 25%',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Cringe.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Cringe.png'),
+         'status': check_Not_your_day(current_user)},
+        {'name': 'Legion', 'info': 'Win 100 games',
+         'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Master.png'),
+         'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Master.png'),
+         'status': check_Legion(current_user)}]
+    return render_template('achivments.html', form=form, Title='achievements', data=achievements)
 
 
 @app.route('/history', methods=['GET', 'POST'])
