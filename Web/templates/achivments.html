@@ -22,13 +22,13 @@
         <div>
         {% if achiv.status %}
             <img src="{{achiv.activ_src}}"
-                 style="width: 300px; height: 300px;">
+                 style="width: 300px; height: 300px; transform: translateX(188px)">
         {% else %}
-                <img src="{{achiv.inactiv_src}}"
-                     style="width: 300px; height: 300px;">
+            <img src="{{achiv.inactiv_src}}"
+                 style="width: 300px; height: 300px; transform: translateX(188px)">
         {% endif %}
-           <h4 class="flex-parent jc-center">{{achiv.name}}</h4>
-           <h5 class="flex-parent jc-center">{{achiv.info}}</h5>
+           <h4>{{achiv.name}}</h4>
+           <h5>{{achiv.info}}</h5>
          </div>
        {% endfor %}
     </div>

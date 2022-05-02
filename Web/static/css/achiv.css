@@ -1,7 +1,6 @@
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(4, 3fr);
-  grid-auto-rows: 600px;
+  grid-template-columns: repeat(3, 4fr);
 }
 h1{font-size: 150px;}
 h2{font-size: 35px; color: 	#708090;}
