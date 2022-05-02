@@ -19,15 +19,17 @@
 <div class="flex-parent jc-center">
     <div class="wrapper" style="width: 80%">
        {% for achiv in data %}
+        <div>
         {% if achiv.status %}
-            <div><img src="{{achiv.activ_src}}" style="width: 300px; height: 300px; align: center;">
+            <img src="{{achiv.activ_src}}"
+                 style="width: 300px; height: 300px;">
         {% else %}
-                <div><img src="{{achiv.inactiv_src}}" style="width: 300px; height: 300px; align: center;">
+                <img src="{{achiv.inactiv_src}}"
+                     style="width: 300px; height: 300px;">
         {% endif %}
-           <h4>{{achiv.name}}</h4>
-           <h5>{{achiv.info}}</h5>
+           <h4 class="flex-parent jc-center">{{achiv.name}}</h4>
+           <h5 class="flex-parent jc-center">{{achiv.info}}</h5>
          </div>
-       </div>
        {% endfor %}
     </div>
 </div>
