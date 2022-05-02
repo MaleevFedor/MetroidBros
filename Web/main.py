@@ -216,10 +216,47 @@ def search_profile(username):
                 if_pred = 1
         rank = check_rating(found_user.elo, if_pred)
         username = found_user.login
-        achiv = dict()
+        data = dict()
+        check_user = found_user
+        data['achievements'] = [
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Phoenix.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Phoenix.png'),
+             'status': check_Phoenix(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Flawless.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Flawless.png'),
+             'status': check_Marksman(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Medic.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Medic.png'),
+             'status': check_Medic(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/NoDamage.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/NoDamage.png'),
+             'status': check_Flawless(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Popular.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Popular.png'),
+             'status': check_Popular(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/IndustrialHero.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/IndustrialHero.png'),
+             'status': check_Hero_of_Industrial(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/TokyoHero.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/TokyoHero.png'),
+             'status': check_Tokyo_Ghoul(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/ForestHero.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/ForestHero.png'),
+             'status': check_Robin_Hood(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/ApocalypsisHero.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/ApocalypsisHero.png'),
+             'status': check_Survivalist(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/PlainsHero.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/PlainsHero.png'),
+             'status': check_Plains_hero(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Cringe.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Cringe.png'),
+             'status': check_Not_your_day(check_user)},
+            {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Master.png'),
+             'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Master.png'),
+             'status': check_Legion(check_user)}]
         return render_template('profile.html', form=form, current_user=your_profile,
-                               username=username, rank=rank, achiv=achiv,
-                               )
+                               username=username, rank=rank, data=data)
     else:
         return 'No such user'
 
