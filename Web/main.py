@@ -331,7 +331,7 @@ def show_rating():
     return render_template('rating.html', Title='rating', data=data, form=form)
 
 
-@app.route('/achievements')
+@app.route('/achievements', methods=['GET', 'POST'])
 @login_required
 def show_achiv():
     form = SearchForm()
