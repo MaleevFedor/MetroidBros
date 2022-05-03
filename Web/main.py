@@ -5,7 +5,6 @@ from flask import Flask, render_template, make_response, redirect, session, \
     send_file, request, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
-
 from Achievments import *
 from data import db_session
 from data.user_class import User
@@ -24,6 +23,7 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = '6LfJ75IeAAAAANTfinH4snDS7flzeoAmP963clPI'
 login_manager = LoginManager()
 login_manager.init_app(app)
 db_session.global_init("db/login_users")
+
 
 # Game-stats functions
 @app.route('/stats', methods=['POST'])
@@ -55,17 +55,17 @@ def update_stats():
 def update_match_stats():
     db_sess = db_session.create_session()
     match = Match(
-            player_name=request.json['player_name'],
-            kills=request.json['kills'],
-            deaths=request.json['deaths'],
-            hp_healed=request.json['hp'],
-            saws_deaths=request.json['saws_deaths'],
-            shots=request.json['shots'],
-            hits=request.json['hits'],
-            elo=request.json['elo'],
-            results=request.json['result'],
-            enemy_name=request.json['enemy_name']
-        )
+        player_name=request.json['player_name'],
+        kills=request.json['kills'],
+        deaths=request.json['deaths'],
+        hp_healed=request.json['hp'],
+        saws_deaths=request.json['saws_deaths'],
+        shots=request.json['shots'],
+        hits=request.json['hits'],
+        elo=request.json['elo'],
+        results=request.json['result'],
+        enemy_name=request.json['enemy_name']
+    )
 
     user = db_sess.query(User).filter(
         (User.email == request.json['player_name']) | (User.login == request.json['player_name'])).first()
@@ -212,7 +212,7 @@ def search_profile(username):
             kd = 100
             accuracy = 100
         else:
-            winrate = round(found_user.wins/(found_user.wins + found_user.loses) * 100)
+            winrate = round(found_user.wins / (found_user.wins + found_user.loses) * 100)
             kd = round(found_user.kills / (found_user.deaths + found_user.kills) * 100)
             accuracy = round(found_user.hits / found_user.shots * 100)
         healed = found_user.hp_healed
@@ -273,15 +273,15 @@ def search_profile(username):
              'status': check_Legion(found_user)}]
         print(overwiew)
         stats = {
-        'overview': overwiew,
-        'elo': elo,
-        'winrate': str(winrate) + '%',
-        'kd': str(kd) + '%',
-        'played': found_user.wins + found_user.loses,
-        'accuracy': str(accuracy) + '%',
-        'hp_healed': healed,
-        'saws_deaths': saws,
-        'blood_spilled': blood}
+            'overview': overwiew,
+            'elo': elo,
+            'winrate': str(winrate) + '%',
+            'kd': str(kd) + '%',
+            'played': found_user.wins + found_user.loses,
+            'accuracy': str(accuracy) + '%',
+            'hp_healed': healed,
+            'saws_deaths': saws,
+            'blood_spilled': blood}
         db_sess.commit()
         return render_template('profile.html', form=form, banned=False, about=found_user.about, stats=stats,
                                username=username, rank=rank, data=data, date=date, views=views)
