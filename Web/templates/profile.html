@@ -5,6 +5,7 @@
   h1{font-size: 150px;}
   h2{font-size: 75px;}
   h3{font-size:35px; color:#708090;}
+  th, td{font-size: 30px;}
 </style>
 {% endblock %}
 
@@ -19,18 +20,65 @@
 
 {% block content %}
 <div style="background-color: rgba(0,0,0,.05);">
-  <h1>{{ username }}</h1>
-<a href="/rating"><h3>{{ rank }}</h3></a></div>
-<div>
-  <h2>Achievements</h2>
-  {% for achiv in data.achievements %}
-        {% if achiv.status %}
-            <img src="{{achiv.activ_src}}"
-                 style="width: 50px; height: 50px;">
-        {% else %}
-            <img src="{{achiv.inactiv_src}}"
-                 style="width: 50px; height: 50px;">
-        {% endif %}
-       {% endfor %}
+<h1>{{ username }}</h1>
+{% if banned %}
 </div>
+<h3>playing since: {{ date }}</h3>
+<h3>views: {{ views }}</h3>
+<div class="alert alert-danger"><h2 style="text-align: center;">BANNED</h2></div>
+{% else %}
+<a href="/rating"><h3>{{ rank }}</h3></a></div>
+    <h3>playing since: {{ date }}</h3>
+    <h3>views: {{ views }}</h3>
+    <h2>About:</h2>
+    <h3>{{ about }}</h3>
+    <div>
+      <h2>Achievements:</h2>
+      {% for achiv in data.achievements %}
+            {% if achiv.status %}
+                <img src="{{achiv.activ_src}}"
+                     style="width: 50px; height: 50px;">
+            {% else %}
+                <img src="{{achiv.inactiv_src}}"
+                     style="width: 50px; height: 50px;">
+            {% endif %}
+           {% endfor %}
+      <h2>Stats:</h2>
+          <table class="my_table table-bordered table-sm" width="90%">
+              <thead>
+           <tr>
+             <th>Overview</th>
+             <th>Elo</th>
+             <th>Matches Played</th>
+             <th>Winrate</th>
+             <th>K/D</th>
+             <th>Accuracy</th>
+             <th>Hp healed</th>
+             <th>Saws deaths</th>
+             <th>Blood spilled(l)</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% if stats.overview == 'Excellent' %}
+        <td style="color:#2EFF2E">
+        {% elif stats.overview == 'Good' %}
+        <td style="color:#8AFF8A">
+        {% elif stats.overview == 'Poor' %}
+        <td style="color:#FFFF00">
+        {% elif stats.overview == 'Awful' %}
+        <td style="color:#FF0000">
+        {% endif %}
+        {{ stats.overview }}</td>
+        <td>{{ stats.elo }}</td>
+        <td>{{ stats.played }}</td>
+        <td>{{ stats.winrate }}</td>
+        <td>{{ stats.kd }}</td>
+        <td>{{ stats.accuracy }}</td>
+        <td>{{ stats.hp_healed }}</td>
+        <td>{{ stats.saws_deaths }}</td>
+        <td>{{ stats.blood_spilled}}</td>
+    </tbody>
+    </table>
+    </div>
+{% endif %}
 {% endblock %}

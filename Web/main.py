@@ -1,6 +1,6 @@
 import os
 from datetime import timedelta
-
+import overwiew as over
 from flask import Flask, render_template, make_response, redirect, session, \
     send_file, request, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -195,16 +195,32 @@ def register():
 @app.route('/profile/<username>', methods=['GET', 'POST'])
 @login_required
 def search_profile(username):
-    your_profile = False
     form = SearchForm()
     if form.validate_on_submit():
         return redirect(f'/profile/{form.search.data}')
     db_sess = db_session.create_session()
-    if current_user.login == username or current_user.email == username:
-        your_profile = True
     found_user = db_sess.query(User).filter((User.email == username) | (User.login == username)).first()
     if found_user:
-        db_sess = db_session.create_session()
+        found_user.views += 1
+        date = str(found_user.created_date).split()[0]
+        views = found_user.views
+        elo = found_user.elo
+        if found_user.wins + found_user.loses == 0 or found_user.deaths + found_user.kills == 0 \
+                or found_user.shots == 0:
+            winrate = 100
+            kd = 100
+            accuracy = 100
+        else:
+            winrate = round(found_user.wins/(found_user.wins + found_user.loses) * 100)
+            kd = round(found_user.kills / (found_user.deaths + found_user.kills) * 100)
+            accuracy = round(found_user.hits / found_user.shots * 100)
+        healed = found_user.hp_healed
+        saws = found_user.saws_deaths
+        blood = found_user.hits * 0.5
+        overwiew = over.generate(winrate, elo, kd, accuracy, healed, saws)
+        if found_user.banned:
+            db_sess.commit()
+            return render_template('profile.html', username=username, form=form, banned=True, date=date, views=views)
         user_list = []
         for user in db_sess.query(User).filter(User.banned != True):
             user_list.append(user)
@@ -217,46 +233,57 @@ def search_profile(username):
         rank = check_rating(found_user.elo, if_pred)
         username = found_user.login
         data = dict()
-        check_user = found_user
         data['achievements'] = [
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Phoenix.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Phoenix.png'),
-             'status': check_Phoenix(check_user)},
+             'status': check_Phoenix(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Flawless.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Flawless.png'),
-             'status': check_Marksman(check_user)},
+             'status': check_Marksman(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Medic.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Medic.png'),
-             'status': check_Medic(check_user)},
+             'status': check_Medic(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/NoDamage.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/NoDamage.png'),
-             'status': check_Flawless(check_user)},
+             'status': check_Flawless(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Popular.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Popular.png'),
-             'status': check_Popular(check_user)},
+             'status': check_Popular(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/IndustrialHero.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/IndustrialHero.png'),
-             'status': check_Hero_of_Industrial(check_user)},
+             'status': check_Hero_of_Industrial(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/TokyoHero.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/TokyoHero.png'),
-             'status': check_Tokyo_Ghoul(check_user)},
+             'status': check_Tokyo_Ghoul(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/ForestHero.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/ForestHero.png'),
-             'status': check_Robin_Hood(check_user)},
+             'status': check_Robin_Hood(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/ApocalypsisHero.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/ApocalypsisHero.png'),
-             'status': check_Survivalist(check_user)},
+             'status': check_Survivalist(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/PlainsHero.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/PlainsHero.png'),
-             'status': check_Plains_hero(check_user)},
+             'status': check_Plains_hero(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Cringe.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Cringe.png'),
-             'status': check_Not_your_day(check_user)},
+             'status': check_Not_your_day(found_user)},
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Master.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Master.png'),
-             'status': check_Legion(check_user)}]
-        return render_template('profile.html', form=form, current_user=your_profile,
-                               username=username, rank=rank, data=data)
+             'status': check_Legion(found_user)}]
+        print(overwiew)
+        stats = {
+        'overview': overwiew,
+        'elo': elo,
+        'winrate': str(winrate) + '%',
+        'kd': str(kd) + '%',
+        'played': found_user.wins + found_user.loses,
+        'accuracy': str(accuracy) + '%',
+        'hp_healed': healed,
+        'saws_deaths': saws,
+        'blood_spilled': blood}
+        db_sess.commit()
+        return render_template('profile.html', form=form, banned=False, about=found_user.about, stats=stats,
+                               username=username, rank=rank, data=data, date=date, views=views)
     else:
         return 'No such user'
 
