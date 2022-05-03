@@ -280,7 +280,7 @@ def login():
     req = requests.post(const.PASSWORD_CHECK_ADRESS, json={'login': const.player1_name, 'password': const.player1_password})
     req_2 = requests.post(const.PASSWORD_CHECK_ADRESS,
                         json={'login': const.player2_name, 'password': const.player2_password})
-    if req.text == 'ok' and req_2.text == 'ok':
+    if req.text == 'ok' and req_2.text == 'ok' and const.player1_name != const.player2_name:
         load_menu()
 
     else:

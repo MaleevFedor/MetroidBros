@@ -4,6 +4,8 @@ import overwiew as over
 from flask import Flask, render_template, make_response, redirect, session, \
     send_file, request, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+
+
 from Achievments import *
 from data import db_session
 from data.user_class import User
@@ -22,7 +24,6 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = '6LfJ75IeAAAAANTfinH4snDS7flzeoAmP963clPI'
 login_manager = LoginManager()
 login_manager.init_app(app)
 db_session.global_init("db/login_users")
-
 
 # Game-stats functions
 @app.route('/stats', methods=['POST'])
