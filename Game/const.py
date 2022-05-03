@@ -1,12 +1,12 @@
 import pygame
 
 
-PASSWORD_CHECK_ADRESS = 'http://127.0.0.1:80/game_login'
-ELO_CHECK_ADRESS = 'http://127.0.0.1:80/player_elo'
+PASSWORD_CHECK_ADRESS = 'http://wooster70.pythonanywhere.com/game_login'
+ELO_CHECK_ADRESS = 'http://wooster70.pythonanywhere.com/player_elo'
 
 
-STATISTIC_CHECK_ADRESS = 'http://127.0.0.1:80/stats'
-STATISTIC_MATCH_ADRESS = 'http://127.0.0.1:80/stats_match'
+STATISTIC_CHECK_ADRESS = 'http://wooster70.pythonanywhere.com/stats'
+STATISTIC_MATCH_ADRESS = 'http://wooster70.pythonanywhere.com/stats_match'
 
 OPTIONS_LOAD = pygame.USEREVENT + 1
 tile_particle_path = 'Particles/Particle.png'

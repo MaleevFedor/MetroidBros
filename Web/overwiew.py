@@ -1,5 +1,4 @@
 from Rating import check_rating
-
 elo_to_points = {'Master': 5,
                   'Red Raptor': 4,
                   'Green Raptor': 3,
