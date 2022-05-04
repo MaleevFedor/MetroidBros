@@ -23,10 +23,8 @@
 </head>
 <body>
 <div class="topnav">
-  <a class="navbar-brand" href="/">
-      <div class="logo-image">
-            <img src="{{url_for('static', filename='img/logo.csv')}}" width="179" height="40">
-      </div>
+  <a class="navbar-brand" href="/" style="padding: 0px 0px;">
+      <img src="{{ url_for('static', filename='img/SIteLogo.png') }}" height="70">
   </a>
   {% block navbar %}{% endblock %}
   <a class="profile" href="/logout"><img src="{{ url_for('static', filename='img/logout.svg') }}"></a>

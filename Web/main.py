@@ -16,7 +16,6 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(
     days=31
 )
-app.config['DOWNLOAD_GAME_PATH'] = f'{os.getcwd()}\Download\Game\DinoMight.zip'
 app.config['RECAPTCHA_PUBLIC_KEY'] = '6LfJ75IeAAAAADHld1mi9lW-uCMBkZT0PTNnsLx9'
 app.config['RECAPTCHA_PRIVATE_KEY'] = '6LfJ75IeAAAAANTfinH4snDS7flzeoAmP963clPI'
 login_manager = LoginManager()
@@ -163,13 +162,6 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
-
-
-@app.route('/download')
-@login_required
-def download_game():
-    send_file(app.config['DOWNLOAD_GAME_PATH'])
-    return redirect('/mainpage')
 
 
 @app.route("/session_test")
@@ -435,12 +427,6 @@ def show_history():
             'accuracy': accuracy,
             'elo': match.elo})
     return render_template('history.html', Title='history', data=data, form=form)
-
-
-@app.route('/help')
-@login_required
-def give_help():
-    return 'i also need it'
 
 
 @app.errorhandler(401)
