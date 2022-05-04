@@ -205,14 +205,17 @@ def search_profile(username):
         date = str(found_user.created_date).split()[0]
         views = found_user.views
         elo = found_user.elo
-        if found_user.wins + found_user.loses == 0 or found_user.deaths + found_user.kills == 0 \
-                or found_user.shots == 0:
+        if found_user.wins + found_user.loses == 0:
             winrate = 100
-            kd = 100
-            accuracy = 100
         else:
             winrate = round(found_user.wins / (found_user.wins + found_user.loses) * 100)
+        if found_user.deaths + found_user.kills == 0:
+            kd = 100
+        else:
             kd = round(found_user.kills / (found_user.deaths + found_user.kills) * 100)
+        if found_user.shots == 0:
+            accuracy = 100
+        else:
             accuracy = round(found_user.hits / found_user.shots * 100)
         healed = found_user.hp_healed
         saws = found_user.saws_deaths
@@ -232,8 +235,7 @@ def search_profile(username):
                 if_pred = 1
         rank = check_rating(found_user.elo, if_pred)
         username = found_user.login
-        data = dict()
-        data['achievements'] = [
+        data = [
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Phoenix.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Phoenix.png'),
              'status': check_Phoenix(found_user)},
@@ -270,7 +272,6 @@ def search_profile(username):
             {'activ_src': url_for('static', filename='img/Emblems/Achievments/True/Master.png'),
              'inactiv_src': url_for('static', filename='img/Emblems/Achievments/False/Master.png'),
              'status': check_Legion(found_user)}]
-        print(overwiew)
         stats = {
             'overview': overwiew,
             'elo': elo,

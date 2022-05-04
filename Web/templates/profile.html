@@ -34,12 +34,12 @@
     <h3>{{ about }}</h3>
     <div>
       <h2>Achievements:</h2>
-      {% for achiv in data.achievements %}
+      {% for achiv in data %}
             {% if achiv.status %}
                 <img src="{{achiv.activ_src}}"
                      style="width: 50px; height: 50px;">
             {% else %}
-                <img src="{{achiv.inactiv_src}}"
+                <img src="{{achiv.inactiv_src}}" alt="{{achiv.name}}"
                      style="width: 50px; height: 50px;">
             {% endif %}
            {% endfor %}
