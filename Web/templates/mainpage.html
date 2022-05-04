@@ -1,30 +1,41 @@
 {% extends "base.html" %}
 
 {% block script %}
+      <style>
+        html, body{
+          width: 100%; height: 100%;
+        }
+      </style>
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+      google.charts.load('current', {'packages':['line']});
+google.charts.setOnLoadCallback(drawBasic);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Match id', 'K/D'],
-          ['2004',  1],
-          ['2005',  0.3],
-          ['2006',  2],
-          ['2007',  1.2]
-        ]);
+function drawBasic() {
 
-        var options = {
-          title: 'Company Performance',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
+       var data = new google.visualization.DataTable();
+      data.addColumn('number', 'ID');
+      data.addColumn('number', "K/D");
+      data.addColumn('number', "Accuracy(%)");
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+      data.addRows({{ data }});
 
-        chart.draw(data, options);
-      }
+      var options = {
+         series: {
+          0: {targetAxisIndex: 0},
+          1: {targetAxisIndex: 1}
+        },
+        vAxes: {
+          // Adds titles to each axis.
+          0: {title: 'K/D'},
+          1: {title: 'Accuracy(%)'}
+        },
+      };
+
+      var chart = new google.charts.Line(document.getElementById('chart_div'));
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
     </script>
 {% endblock %}
 
@@ -37,5 +48,6 @@
 {% endblock %}
 
 {% block content %}
-<div id="curve_chart" style="width: 900px; height: 500px"></div>
+<h1>Your 5 recent matches statistics:</h1>
+<div id="chart_div" style="width: 80%; height: 80%;"></div>
 {% endblock %}

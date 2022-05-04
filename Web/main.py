@@ -126,7 +126,22 @@ def main_page():
     form = SearchForm()
     if form.validate_on_submit():
         return redirect(f'/profile/{form.search.data}')
-    return render_template('mainpage.html', form=form, Title='DinoStats')
+    db_sess = db_session.create_session()
+    match_list = []
+    for match in db_sess.query(Match).filter(Match.player_name == current_user.login):
+        match_list.append(match)
+    match_list = match_list[:-1]
+    match_list = match_list[0:5]
+    data = []
+    for i, match in enumerate(match_list):
+        deaths = match.deaths
+        shots = match.shots
+        if shots == 0:
+            shots = 1
+        if deaths == 0:
+            deaths = 1
+        data.append([match.id, match.kills/deaths, round(match.hits/shots * 100)])
+    return render_template('mainpage.html', form=form, Title='DinoStats', data=data)
 
 
 @app.route('/login', methods=['GET', 'POST'])
