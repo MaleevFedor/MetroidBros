@@ -7,7 +7,6 @@ elo_to_points = {'Master': 5,
 
 
 def generate(winrate, elo, kd, accuracy, healed, saws):
-    print(winrate, elo, kd, accuracy, healed, saws)
     points = 0
     if winrate >= 75:
         points += 3
