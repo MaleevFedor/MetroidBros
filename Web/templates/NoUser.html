@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block script %}
+{% endblock %}
+
+{% block navbar %}
+  <a href="/rating">rating</a>
+  <a href="/history">matches</a>
+  <a href="/achievements">achievements</a>
+{% endblock %}
+
+{% block content %}
+<div class="flex-parent jc-center">
+<img src="{{url_for('static', filename='img/NoUser.png')}}">
+</div>
+<div class="flex-parent jc-center">
+<h2 style="font-size: 80px; color:#708090;">Oops... There is no such user</h2>
+</div>
+{% endblock %}

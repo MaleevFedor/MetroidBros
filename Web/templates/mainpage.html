@@ -46,6 +46,19 @@ function drawBasic() {
 {% endblock %}
 
 {% block content %}
-<h1>Your 5 recent matches statistics:</h1>
-<div id="chart_div" style="width: 80%; height: 80%;"></div>
+{% if progress == 5 %}
+    <h1 class="flex-parent jc-center">Your 5 recent matches statistics:</h1>
+    <div id="chart_div" style="width: 80%; height: 80%;" class="flex-parent jc-center"></div>
+{% else %}
+<div class="flex-parent jc-center">
+    <h1>Play your first 5 matches to see your statistics</h1>
+</div>
+<div class="flex-parent jc-center">
+    <h2>Your progress:</h2>
+</div>
+<div class="progress"  style="width: 100%" >
+      <div class="progress-bar progress-bar-striped progress-bar-animated"
+           role="progressbar" style="width: {{ (progress * 19) + 5}}%"></div>
+</div>
+{% endif %}
 {% endblock %}

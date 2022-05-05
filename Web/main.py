@@ -127,10 +127,10 @@ def main_page():
     match_list = []
     for match in db_sess.query(Match).filter(Match.player_name == current_user.login):
         match_list.append(match)
-    match_list = match_list[:-1]
+    match_list = match_list[::-1]
     match_list = match_list[0:5]
     data = []
-    for i, match in enumerate(match_list):
+    for match in match_list:
         deaths = match.deaths
         shots = match.shots
         if shots == 0:
@@ -138,7 +138,7 @@ def main_page():
         if deaths == 0:
             deaths = 1
         data.append([match.id, match.kills/deaths, round(match.hits/shots * 100)])
-    return render_template('mainpage.html', form=form, Title='DinoStats', data=data)
+    return render_template('mainpage.html', form=form, Title='DinoStats', progress=len(data), data=data)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -291,7 +291,7 @@ def search_profile(username):
         return render_template('profile.html', form=form, banned=False, about=found_user.about, stats=stats,
                                username=username, rank=rank, data=data, date=date, views=views)
     else:
-        return 'No such user'
+        return render_template('NoUser.html', form=form)
 
 
 @app.route('/my_profile')
